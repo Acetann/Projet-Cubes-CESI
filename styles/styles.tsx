@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const titleStyle = StyleSheet.create({
+export const mainStyle = StyleSheet.create({
     center:{
         justifyContent:"center",
         alignItems:"center",

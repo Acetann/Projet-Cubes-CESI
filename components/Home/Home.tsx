@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import {View } from 'react-native';
 import { RouteParams } from '../../navigation/RouteNavigator';
-import { titleStyle } from '../../styles/styles';
+import { mainStyle } from '../../styles/styles';
 import { Icon } from 'react-native-elements';
 
 
@@ -18,7 +18,7 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
     }
 
     return (
-    <View style={titleStyle.container}>
+    <View style={mainStyle.container}>
         <Icon onPress={onProfilePress} name='person-outline' />
     </View>
     )

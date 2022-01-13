@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Text, View } from 'react-native';
-import { titleStyle } from '../../styles/styles';
+import { mainStyle } from '../../styles/styles';
 import { Icon } from 'react-native-elements';
 
 interface CountProps {}
@@ -8,7 +8,7 @@ interface CountProps {}
 export const Count: React.FunctionComponent<CountProps> = () => {
 
     const [count, setCount] = useState<number>();
-    const [loading, setLoading] = useState(false);
+    const [, setLoading] = useState(false);
     const onCountMore = () => {
         setCount((count || 0) + 1)
     }
@@ -33,7 +33,7 @@ export const Count: React.FunctionComponent<CountProps> = () => {
     }, [count]);
 
     return (
-    <View style={titleStyle.container}>
+    <View style={mainStyle.container}>
         <Icon onPress={onCountMore} name='add-circle-outline' />
         <Text>{count}</Text>
         <Icon onPress={onCountLess} name='remove-circle-outline' />

@@ -1,55 +1,67 @@
 import React from 'react';
-import {ScrollView, Text, View } from 'react-native';
-import { titleStyle } from '../../styles/styles';
+import {ScrollView, Text } from 'react-native';
 import { Button } from '../Button/Button';
 import { Input } from "./Input";
-
+import * as Yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
+import { text } from "../../words/words";
+import { Controller, useForm } from 'react-hook-form';
 
 interface CreateProps {}
+
+type FormValue = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
     const signup = () => {
         console.log("Create account here...");
       };
-  
-      const [firstName, setFirstName] = React.useState("");
-    return (
+      
+
+      const validationSchema = Yup.object({
+          email: Yup.string().email(text.email.validate).required(text.email.required),
+          firstName: Yup.string().required(text.firstName),
+          lastName: Yup.string().required(text.lastName),
+          password: Yup.string().min(8, text.password.validate).required(text.password.required),
+        }).required();
+
+        const {control, handleSubmit, formState: {errors}} = useForm<FormValue>({
+            resolver: yupResolver(validationSchema)
+        })
+      return (
         <ScrollView >
         <Text >
           Création de compte
         </Text>
-        <Input
-          label="Préom"
-          value={firstName}
+        <Controller control={control} name="firstName" render={({field: {onChange, value}}) => (<Input
+          label="Prénom"
+          value={value}
           placeholder="Marie"
-          onChangeText={setFirstName}
-        />
-        <Input
+          onChangeText={onChange}
+        />)}/>
+        <Controller control={control} name="lastName" render={({field: {onChange, value}}) => (<Input
           label="Nom"
-          value={firstName}
-          placeholder="Berry"
-          onChangeText={setFirstName}
-        />
-        <Input
+          value={value}
+          placeholder="Marie"
+          onChangeText={onChange}
+        />)}/> 
+        <Controller control={control} name="email" render={({field: {onChange, value}}) => (<Input
           label="Email"
-          value={firstName}
-          placeholder="marie.berry@mail.com"
-          onChangeText={setFirstName}
-          type="email-address"
-        />
-        <Input
-          label="Mot de passe"
-          value={firstName}
-          onChangeText={setFirstName}
-          password
-        />
-        <Input
-          label="Confirmation de mot de passe"
-          value={firstName}
-          onChangeText={setFirstName}
-          password
-        />
-        <Button onPress={signup}>Créer mon compte</Button>
+          value={value}
+          placeholder="Marie"
+          onChangeText={onChange}
+        />)}/> 
+        <Controller control={control} name="password" render={({field: {onChange, value}}) => (<Input
+          label="Password"
+          value={value}
+          placeholder="Marie"
+          onChangeText={onChange}
+        />)}/>
+        <Button onPress={handleSubmit(signup)}>Créer mon compte</Button>
       </ScrollView>
     )
 }

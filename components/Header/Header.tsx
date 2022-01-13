@@ -10,7 +10,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({color}) => {
     return (
         <View style={headerStyle.separator} >
             <Text style={{color: color}}>
-                Welcome in the Jungle !
+                Page Header
             </Text>
         </View>
     )

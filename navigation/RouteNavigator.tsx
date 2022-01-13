@@ -1,11 +1,11 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Header } from "../components";
-import { Home } from "../components/Home/Home";
+import { Count, Header, Home } from "../components";
 
 export type RouteParams = {
     Home: undefined
     Header: undefined
+    Count: undefined
 }
 
 const Stack = createNativeStackNavigator<RouteParams>();
@@ -16,12 +16,20 @@ export const RouteNavigator = () => {
             <Stack.Group>
                 <Stack.Screen 
                     name="Home" 
-                    component={Home}/>
+                    component={Home}
+                    />
                 <Stack.Screen 
                     name="Header"
-                    component={Header} options={{
+                    component={Header} 
+                    options={{
                     animation:"slide_from_right"
                 }}/>
+                <Stack.Screen 
+                    name="Count" 
+                    component={Count}
+                    options={{
+                        animation:"slide_from_right"
+                    }}/>
             </Stack.Group>
         </Stack.Navigator>
     )

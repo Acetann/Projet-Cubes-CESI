@@ -1,11 +1,13 @@
 import React from 'react';
-import {ScrollView, Text } from 'react-native';
-import { Button } from '../Button/Button';
-import { Input } from "./Input";
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import { text } from "../../words/words";
+import {ScrollView, Text, View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
+
+import { Button } from '../Button/Button';
+import { Input } from "./Input";
+import { text } from "../../words/words";
+
 
 interface CreateProps {}
 
@@ -14,54 +16,102 @@ type FormValue = {
     lastName: string;
     email: string;
     password: string;
+    confirmPassword: string;
 }
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
-    const signup = () => {
-        console.log("Create account here...");
-      };
+    
       
 
-      const validationSchema = Yup.object({
+    const validationSchema = Yup.object
+        ({
           email: Yup.string().email(text.email.validate).required(text.email.required),
           firstName: Yup.string().required(text.firstName),
           lastName: Yup.string().required(text.lastName),
           password: Yup.string().min(8, text.password.validate).required(text.password.required),
+          confirmPassword: Yup.string().required(text.password.confirm).oneOf([Yup.ref("password")], "Les mots de passe ne correspondent pas"),
         }).required();
 
-        const {control, handleSubmit, formState: {errors}} = useForm<FormValue>({
-            resolver: yupResolver(validationSchema)
-        })
-      return (
-        <ScrollView >
-        <Text >
-          Création de compte
-        </Text>
-        <Controller control={control} name="firstName" render={({field: {onChange, value}}) => (<Input
-          label="Prénom"
-          value={value}
-          placeholder="Marie"
-          onChangeText={onChange}
-        />)}/>
-        <Controller control={control} name="lastName" render={({field: {onChange, value}}) => (<Input
-          label="Nom"
-          value={value}
-          placeholder="Marie"
-          onChangeText={onChange}
-        />)}/> 
-        <Controller control={control} name="email" render={({field: {onChange, value}}) => (<Input
-          label="Email"
-          value={value}
-          placeholder="Marie"
-          onChangeText={onChange}
-        />)}/> 
-        <Controller control={control} name="password" render={({field: {onChange, value}}) => (<Input
-          label="Password"
-          value={value}
-          placeholder="Marie"
-          onChangeText={onChange}
-        />)}/>
-        <Button onPress={handleSubmit(signup)}>Créer mon compte</Button>
+    const {
+      control, handleSubmit, clearErrors, formState: {errors},
+    } = useForm<FormValue>({resolver: yupResolver(validationSchema)})
+
+    const signup = () => {
+      clearErrors();
+      console.log("Create account here...");
+    };
+
+    return (
+      <ScrollView>
+          <View style={{flexDirection:"row"}}>
+            <View style={{width:"50%"}}>
+              <Controller control={control} name="lastName" render={({field: {onChange, value}, fieldState: {error}}) => 
+                (
+                  <Input
+                    label="Nom"
+                    value={value}
+                    onChangeText={onChange}
+                    error={Boolean(error)}
+                    errorDetails={error?.message}
+                  />
+                )}
+              /> 
+            </View>
+            <View style={{width:"50%"}}>
+              <Controller control={control} name="firstName" render={({field: {onChange, value}, fieldState: {error}}) => 
+                (
+                  <Input
+                    label="Prénom"
+                    value={value}
+                    onChangeText={onChange}
+                    error={Boolean(error)}
+                    errorDetails={error?.message}
+                  />
+                )}
+              />
+            </View>
+          </View>
+          <Controller control={control} name="email" render={({field: {onChange, value}, fieldState: {error}}) => 
+            (
+              <Input
+                label="Email"
+                value={value}
+                onChangeText={onChange}
+                error={Boolean(error)}
+                errorDetails={error?.message}
+              />
+            )}
+          /> 
+          <Controller control={control} name="password" render={({field: {onChange, value}, fieldState: {error}}) => 
+            (
+              <Input
+                label="Mot de passe"
+                value={value}
+                password
+                onChangeText={onChange}
+                error={Boolean(error)}
+                errorDetails={error?.message}
+              />
+            )}
+          />
+          <Controller control={control} name="confirmPassword" render={({field: {onChange, value}, fieldState: {error}}) => 
+            (
+              <Input
+                label="Confirmer le mot de passe"
+                value={value}
+                password
+                onChangeText={onChange}
+                error={Boolean(error)}
+                errorDetails={error?.message}
+              />
+            )}
+          />
+            {errors && Object.keys(errors).length > 0 && 
+              <Text style={{color:"red", marginLeft: 16, marginVertical:8}}>
+                Veuillez remplir tous les champs obligatoires
+              </Text>
+            }
+          <Button onPress={handleSubmit(signup)}>Créer mon compte</Button>
       </ScrollView>
     )
 }

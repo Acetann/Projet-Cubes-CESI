@@ -9,6 +9,8 @@ interface InputProps {
   type?: KeyboardTypeOptions;
   onChangeText: (value: string) => void;
   onBlur?: () => void;
+  error?: boolean;
+  errorDetails?: string;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -19,13 +21,22 @@ export const Input: React.FunctionComponent<InputProps> = ({
   type = "default",
   onChangeText,
   onBlur,
+  error = false,
+  errorDetails,
 }) => {
   return (
-    <View>
-      {!!label && (
-        <Text>{label}</Text>
-      )}
+    <View style={{marginHorizontal:16, marginVertical:8}}>
+      {!!label && (<View style={{flexDirection:"row"}}>
+        <Text style={{color: "red",marginBottom:8, marginRight:4}}>*</Text>
+        <Text style={{color: "black",marginBottom:8}}>{label}</Text>
+     </View> )}
       <TextInput
+      style={{
+        height: 40,
+        borderWidth: 1,
+        padding: 8,
+        borderColor: error ? "red" : "black",
+            }}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
@@ -33,6 +44,10 @@ export const Input: React.FunctionComponent<InputProps> = ({
         secureTextEntry={password}
         keyboardType={type}
       />
+      {Boolean(errorDetails) && (
+        <Text style={{color:"red",marginTop:8}}>
+        {errorDetails}
+      </Text>)}
     </View>
   );
 };

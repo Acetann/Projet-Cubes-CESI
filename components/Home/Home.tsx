@@ -1,12 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import {View } from 'react-native';
 import { RouteParams } from '../../navigation/RouteNavigator';
-import { mainStyle } from '../../styles/styles';
-import { Icon } from 'react-native-elements';
-
-
+import { Header } from '..';
 
 interface HomeProps {}
 
@@ -18,8 +14,8 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
     }
 
     return (
-    <View style={mainStyle.container}>
-        <Icon onPress={onProfilePress} name='person-outline' />
-    </View>
+    <>
+        <Header onPress={onProfilePress} />
+    </>
     )
 }

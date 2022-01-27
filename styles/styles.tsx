@@ -12,8 +12,7 @@ export const mainStyle = StyleSheet.create({
         },
     container: {
             flex: 1,
-            marginTop: 16,
             backgroundColor: '#fff',
-            alignItems: 'center',
+            paddingHorizontal: 8,
         }
 })

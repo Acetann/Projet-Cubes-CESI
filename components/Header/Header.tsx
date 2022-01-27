@@ -1,9 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react"
 import { Icon } from 'react-native-elements';
-import { RouteParams } from "../../navigation/RouteNavigator";
-import {TouchableOpacity, View, Text, } from 'react-native';
+import {TouchableOpacity, View,Image, Text, } from 'react-native';
 import { headerStyle } from "./HeaderStyle";
 
 interface HeaderProps {
@@ -16,10 +13,12 @@ export const Header: React.FunctionComponent<HeaderProps> = ({onPress}) => {
       style={{
         zIndex: 1,
       }}>
-        <View style={headerStyle.header}>          
+        <View style={headerStyle.header}>
+            {onPress && (
             <TouchableOpacity onPress={onPress}>
                 <Icon name="arrow-back"/>
             </TouchableOpacity>
+            )}      
         </View>
     </View>
     );

@@ -14,22 +14,14 @@ export const RouteNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Group>
-                <Stack.Screen 
-                    name="Home" 
-                    component={Home}
-                    />
+                
                 <Stack.Screen 
                     name="Header"
                     component={Header} 
                     options={{
                     animation:"slide_from_right"
                 }}/>
-                <Stack.Screen 
-                    name="Count" 
-                    component={Count}
-                    options={{
-                        animation:"slide_from_right"
-                    }}/>
+                
             </Stack.Group>
         </Stack.Navigator>
     )

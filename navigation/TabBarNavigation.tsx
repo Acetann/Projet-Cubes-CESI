@@ -34,7 +34,6 @@ export default function TabBarNavigation(){
                 },
             })}>
                 <Tab.Screen name={home} component={Home} />
-                <Tab.Screen name={header} component={Header} />
                 <Tab.Screen name={count} component={Count} />
                 <Tab.Screen name={create} component={Create} />
             </Tab.Navigator>

@@ -10,5 +10,5 @@ export const text = {
     },
     lastName: "Veuillez saisir votre nom",
     firstName: "Veuillez saisir votre prénom",
-    
+
 }

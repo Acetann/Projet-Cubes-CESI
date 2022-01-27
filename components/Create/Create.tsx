@@ -7,6 +7,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button } from '../Button/Button';
 import { Input } from "./Input";
 import { text } from "../../words/words";
+import { mainStyle } from '../../styles/styles';
 
 
 interface CreateProps {}
@@ -20,9 +21,7 @@ type FormValue = {
 }
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
-    
-      
-
+  
     const validationSchema = Yup.object
         ({
           email: Yup.string().email(text.email.validate).required(text.email.required),
@@ -42,7 +41,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
     };
 
     return (
-      <ScrollView>
+      <ScrollView style={mainStyle.container}>
           <View style={{flexDirection:"row"}}>
             <View style={{width:"50%"}}>
               <Controller control={control} name="lastName" render={({field: {onChange, value}, fieldState: {error}}) => 

@@ -35,7 +35,7 @@ export const Count: React.FunctionComponent<CountProps> = () => {
     return (
     <View style={mainStyle.container}>
         <Icon onPress={onCountMore} name='add-circle-outline' />
-        <Text>{count}</Text>
+        <Text style={{textAlign:'center'}}>{count}</Text>
         <Icon onPress={onCountLess} name='remove-circle-outline' />
     </View>
     )

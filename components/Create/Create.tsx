@@ -8,6 +8,9 @@ import { Button } from '../Button/Button';
 import { Input } from "./Input";
 import { text } from "../../words/words";
 import { mainStyle } from '../../styles/styles';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteParams } from '../../navigation/RouteNavigator';
 
 
 interface CreateProps {}
@@ -35,9 +38,10 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
       control, handleSubmit, clearErrors, formState: {errors},
     } = useForm<FormValue>({resolver: yupResolver(validationSchema)})
 
+    const navigation = useNavigation();
     const signup = () => {
       clearErrors();
-      console.log("Create account here...");
+      navigation.navigate("Login" as never)
     };
 
     return (
@@ -48,6 +52,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                 (
                   <Input
                     label="Nom"
+                    placeholder="Nom"
                     value={value}
                     onChangeText={onChange}
                     error={Boolean(error)}
@@ -61,6 +66,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                 (
                   <Input
                     label="Prénom"
+                    placeholder="Prénom"
                     value={value}
                     onChangeText={onChange}
                     error={Boolean(error)}
@@ -74,6 +80,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
             (
               <Input
                 label="Email"
+                placeholder="Email"
                 value={value}
                 onChangeText={onChange}
                 error={Boolean(error)}
@@ -85,6 +92,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
             (
               <Input
                 label="Mot de passe"
+                placeholder="Mot de passe"
                 value={value}
                 password
                 onChangeText={onChange}
@@ -97,6 +105,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
             (
               <Input
                 label="Confirmer le mot de passe"
+                placeholder="Mot de passe"
                 value={value}
                 password
                 onChangeText={onChange}

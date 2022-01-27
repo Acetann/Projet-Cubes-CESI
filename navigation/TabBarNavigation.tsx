@@ -2,13 +2,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Count, Create, Header, Home } from "../components";
 import { Icon } from 'react-native-elements';
+import { Login } from "../components/Login/Login";
 
 
 const Tab = createBottomTabNavigator();
 const home = "Home";
 const header = "Header";
 const count = "Count";
-const create = "Create"
+const create = "Create";
+const login = "Login";
 
 
 export default function TabBarNavigation(){
@@ -27,6 +29,8 @@ export default function TabBarNavigation(){
                         iconName = 'person';
                     }else if (rn === count) {
                         iconName = 'shop';
+                    } else if (rn === login) {
+                        iconName = 'create';
                     }else if(rn === create){
                         iconName = 'create'
                     }
@@ -35,6 +39,7 @@ export default function TabBarNavigation(){
             })}>
                 <Tab.Screen name={home} component={Home} />
                 <Tab.Screen name={count} component={Count} />
+                <Tab.Screen name={login} component={Login} />
                 <Tab.Screen name={create} component={Create} />
             </Tab.Navigator>
         </NavigationContainer>

@@ -39,13 +39,13 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
     };
 
     return (
-      <ScrollView style={mainStyle.container}>
+      <View style={mainStyle.container}>
           <Controller control={control} name="email" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
               <Input
-                label="Email"
+                label={text.email.email}
+                placeholder={text.email.email}
                 value={value}
-                placeholder="Email"
                 onChangeText={onChange}
                 error={Boolean(error)}
                 errorDetails={error?.message}
@@ -55,8 +55,8 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
           <Controller control={control} name="password" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
               <Input
-                label="Mot de passe"
-                placeholder="Mot de passe"
+                label={text.password.password}
+                placeholder={text.password.password}
                 value={value}
                 password
                 onChangeText={onChange}
@@ -67,10 +67,10 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
           />
             {errors && Object.keys(errors).length > 0 && 
               <Text style={{color:"red", marginLeft: 16, marginVertical:8}}>
-                Veuillez remplir tous les champs obligatoires
+                {text.error.allError}
               </Text>
             }
           <Button onPress={handleSubmit(connection)} children={text.login.signUp}/>
-      </ScrollView>
+      </View>
     )
 }

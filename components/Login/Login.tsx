@@ -8,6 +8,9 @@ import { Button } from '../Button/Button';
 import { Input } from "../Create/Input";
 import { text } from "../../words/words";
 import { mainStyle } from '../../styles/styles';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteParams } from '../../navigation/RouteNavigator';
 
 
 interface LoginProps {}
@@ -29,9 +32,10 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
       control, handleSubmit, clearErrors, formState: {errors},
     } = useForm<FormValue>({resolver: yupResolver(validationSchema)})
 
-    const signup = () => {
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+    const connection = () => {
       clearErrors();
-      console.log("Create account here...");
+      navigation.navigate("Home")
     };
 
     return (
@@ -66,7 +70,7 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                 Veuillez remplir tous les champs obligatoires
               </Text>
             }
-          <Button onPress={handleSubmit(signup)}>Se connecter</Button>
+          <Button onPress={handleSubmit(connection)} children={text.login.signUp}/>
       </ScrollView>
     )
 }

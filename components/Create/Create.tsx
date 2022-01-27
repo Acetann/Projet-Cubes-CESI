@@ -28,8 +28,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
     const validationSchema = Yup.object
         ({
           email: Yup.string().email(text.email.validate).required(text.email.required),
-          firstName: Yup.string().required(text.firstName),
-          lastName: Yup.string().required(text.lastName),
+          firstName: Yup.string().required(text.firstName.validate),
+          lastName: Yup.string().required(text.lastName.validate),
           password: Yup.string().min(8, text.password.validate).required(text.password.required),
           confirmPassword: Yup.string().required(text.password.confirm).oneOf([Yup.ref("password")], "Les mots de passe ne correspondent pas"),
         }).required();
@@ -38,10 +38,10 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
       control, handleSubmit, clearErrors, formState: {errors},
     } = useForm<FormValue>({resolver: yupResolver(validationSchema)})
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     const signup = () => {
       clearErrors();
-      navigation.navigate("Login" as never)
+      navigation.navigate("Login")
     };
 
     return (
@@ -51,8 +51,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
               <Controller control={control} name="lastName" render={({field: {onChange, value}, fieldState: {error}}) => 
                 (
                   <Input
-                    label="Nom"
-                    placeholder="Nom"
+                    label={text.lastName.lastName}
+                    placeholder={text.lastName.lastName}
                     value={value}
                     onChangeText={onChange}
                     error={Boolean(error)}
@@ -65,8 +65,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
               <Controller control={control} name="firstName" render={({field: {onChange, value}, fieldState: {error}}) => 
                 (
                   <Input
-                    label="Prénom"
-                    placeholder="Prénom"
+                    label={text.firstName.firstName}
+                    placeholder={text.firstName.firstName}
                     value={value}
                     onChangeText={onChange}
                     error={Boolean(error)}
@@ -79,8 +79,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           <Controller control={control} name="email" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
               <Input
-                label="Email"
-                placeholder="Email"
+                label={text.email.email}
+                placeholder={text.email.email}
                 value={value}
                 onChangeText={onChange}
                 error={Boolean(error)}
@@ -91,8 +91,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           <Controller control={control} name="password" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
               <Input
-                label="Mot de passe"
-                placeholder="Mot de passe"
+                label={text.password.password}
+                placeholder={text.password.password}
                 value={value}
                 password
                 onChangeText={onChange}
@@ -104,8 +104,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           <Controller control={control} name="confirmPassword" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
               <Input
-                label="Confirmer le mot de passe"
-                placeholder="Mot de passe"
+                label={text.password.confirmPassword}
+                placeholder={text.password.password}
                 value={value}
                 password
                 onChangeText={onChange}
@@ -116,10 +116,10 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           />
             {errors && Object.keys(errors).length > 0 && 
               <Text style={{color:"red", marginLeft: 16, marginVertical:8}}>
-                Veuillez remplir tous les champs obligatoires
+                {text.error.allError}
               </Text>
             }
-          <Button onPress={handleSubmit(signup)}>Créer mon compte</Button>
+          <Button onPress={handleSubmit(signup)} children={text.create.create} />
       </ScrollView>
     )
 }

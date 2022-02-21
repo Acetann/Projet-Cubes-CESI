@@ -34,7 +34,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
         keyboardType={type}
       />
       {Boolean(errorDetails) && (
-        <Text style={{color:"red",marginTop:8}}>
+        <Text style={{color:"red", marginRight: 8}}>
         {errorDetails}
       </Text>)}
     </>

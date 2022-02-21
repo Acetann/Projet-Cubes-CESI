@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Button } from '../Button/Button';
@@ -11,6 +11,7 @@ import { mainStyle } from '../../styles/styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
+import { Icon } from 'react-native-elements';
 
 interface CreateProps {}
 
@@ -24,6 +25,9 @@ type FormValue = {
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
   
+    const [visiblePassword, setVisiblePassword] = useState(Boolean(false))
+    const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(false))
+
     const validationSchema = Yup.object
         ({
           email: Yup.string().email(text.email.validate).required(text.email.required),
@@ -57,7 +61,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                     <View style={mainStyle.containerCreate}>
                       <View style={mainStyle.sectionStyle}>
                         <Input
-                          placeholder={text.lastName.lastName}
                           value={value}
                           onChangeText={onChange}
                           error={Boolean(error)}
@@ -80,7 +83,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                     <View style={mainStyle.containerCreate}>
                       <View style={mainStyle.sectionStyle}>
                         <Input
-                          placeholder={text.firstName.firstName}
                           value={value}
                           onChangeText={onChange}
                           error={Boolean(error)}
@@ -103,7 +105,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                   <View style={mainStyle.containerCreate}>
                     <View style={mainStyle.sectionStyle}>
                       <Input
-                        placeholder={text.email.email}
                         value={value}
                         onChangeText={onChange}
                         error={Boolean(error)}
@@ -124,20 +125,19 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                 <View style={mainStyle.containerCreate}>
                   <View style={mainStyle.sectionStyle}>
                     <Input
-                      placeholder={text.password.password}
                       value={value}
-                      password
+                      password={visiblePassword}
                       onChangeText={onChange}
                       error={Boolean(error)}
                       errorDetails={error?.message}
                     />
-                    <Image
-                        source={{
-                          uri:
-                            'https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png',
-                        }}
-                        style={mainStyle.imageStyle}
-                      />
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => {
+                      console.log(visiblePassword, 'premier')
+                      !visiblePassword && setVisiblePassword(true),
+                      visiblePassword && setVisiblePassword(false)
+                    }}>
+                      <Icon name={visiblePassword ? "visibility" : "visibility-off"} />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -155,18 +155,18 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                     <Input
                       placeholder={text.password.password}
                       value={value}
-                      password
+                      password={visibleConfirmPassword}
                       onChangeText={onChange}
                       error={Boolean(error)}
                       errorDetails={error?.message}
                     />
-                    <Image
-                        source={{
-                          uri:
-                            'https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png',
-                        }}
-                        style={mainStyle.imageStyle}
-                      />
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => {
+                      console.log(visibleConfirmPassword)
+                      !visibleConfirmPassword && setVisibleConfirmPassword(true),
+                      visibleConfirmPassword && setVisibleConfirmPassword(false)
+                    }}>
+                      <Icon name={visibleConfirmPassword ? "visibility" : "visibility-off"} />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>

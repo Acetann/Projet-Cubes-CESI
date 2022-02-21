@@ -13,12 +13,12 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   onPress,
 }) => {
   return (
-    <TouchableOpacity style={mainStyle.center} onPress={onPress}>
-      <View style={buttonStyle.Container}>
+    <View style={mainStyle.center}>
+      <TouchableOpacity onPress={onPress} style={buttonStyle.Container} activeOpacity={0.5}>
         <Text style={buttonStyle.Title}>
           {children}
         </Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };

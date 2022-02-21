@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {ScrollView, Text, View } from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Button } from '../Button/Button';
@@ -11,7 +11,6 @@ import { mainStyle } from '../../styles/styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
-
 
 interface CreateProps {}
 
@@ -50,68 +49,127 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
             <View style={{width:"50%"}}>
               <Controller control={control} name="lastName" render={({field: {onChange, value}, fieldState: {error}}) => 
                 (
-                  <Input
-                    label={text.lastName.lastName}
-                    placeholder={text.lastName.lastName}
-                    value={value}
-                    onChangeText={onChange}
-                    error={Boolean(error)}
-                    errorDetails={error?.message}
-                  />
+                  <View style={{marginHorizontal:16, marginVertical:8}}>
+                    <View style={{flexDirection:"row"}}>
+                      <Text style={{color: "red",marginBottom:8, marginRight:4}}>*</Text>
+                      <Text style={{color: "black",marginBottom:8}}>{text.lastName.lastName}</Text>
+                    </View>
+                    <View style={mainStyle.containerCreate}>
+                      <View style={mainStyle.sectionStyle}>
+                        <Input
+                          placeholder={text.lastName.lastName}
+                          value={value}
+                          onChangeText={onChange}
+                          error={Boolean(error)}
+                          errorDetails={error?.message}
+                        />
+                      </View>
+                    </View>
+                  </View>
                 )}
               /> 
             </View>
             <View style={{width:"50%"}}>
               <Controller control={control} name="firstName" render={({field: {onChange, value}, fieldState: {error}}) => 
                 (
-                  <Input
-                    label={text.firstName.firstName}
-                    placeholder={text.firstName.firstName}
-                    value={value}
-                    onChangeText={onChange}
-                    error={Boolean(error)}
-                    errorDetails={error?.message}
-                  />
+                  <View style={{marginHorizontal:16, marginVertical:8}}>
+                    <View style={{flexDirection:"row"}}>
+                      <Text style={{color: "red",marginBottom:8, marginRight:4}}>*</Text>
+                      <Text style={{color: "black",marginBottom:8}}>{text.firstName.firstName}</Text>
+                    </View>
+                    <View style={mainStyle.containerCreate}>
+                      <View style={mainStyle.sectionStyle}>
+                        <Input
+                          placeholder={text.firstName.firstName}
+                          value={value}
+                          onChangeText={onChange}
+                          error={Boolean(error)}
+                          errorDetails={error?.message}
+                        />
+                      </View>
+                    </View>
+                  </View>
                 )}
               />
             </View>
           </View>
           <Controller control={control} name="email" render={({field: {onChange, value}, fieldState: {error}}) => 
-            (
-              <Input
-                label={text.email.email}
-                placeholder={text.email.email}
-                value={value}
-                onChangeText={onChange}
-                error={Boolean(error)}
-                errorDetails={error?.message}
-              />
+            ( 
+              <View style={{marginHorizontal:16, marginVertical:8}}>
+                  <View style={{flexDirection:"row"}}>
+                    <Text style={{color: "red",marginBottom:8, marginRight:4}}>*</Text>
+                    <Text style={{color: "black",marginBottom:8}}>{text.email.email}</Text>
+                  </View>
+                  <View style={mainStyle.containerCreate}>
+                    <View style={mainStyle.sectionStyle}>
+                      <Input
+                        placeholder={text.email.email}
+                        value={value}
+                        onChangeText={onChange}
+                        error={Boolean(error)}
+                        errorDetails={error?.message}
+                      />
+                    </View>
+                  </View>
+              </View>
             )}
           /> 
           <Controller control={control} name="password" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
-              <Input
-                label={text.password.password}
-                placeholder={text.password.password}
-                value={value}
-                password
-                onChangeText={onChange}
-                error={Boolean(error)}
-                errorDetails={error?.message}
-              />
+              <View style={{marginHorizontal:16, marginVertical:8}}>
+                <View style={{flexDirection:"row"}}>
+                  <Text style={{color: "red",marginBottom:8, marginRight:4}}>*</Text>
+                  <Text style={{color: "black",marginBottom:8}}>{text.password.password}</Text>
+                </View>
+                <View style={mainStyle.containerCreate}>
+                  <View style={mainStyle.sectionStyle}>
+                    <Input
+                      placeholder={text.password.password}
+                      value={value}
+                      password
+                      onChangeText={onChange}
+                      error={Boolean(error)}
+                      errorDetails={error?.message}
+                    />
+                    <Image
+                        source={{
+                          uri:
+                            'https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png',
+                        }}
+                        style={mainStyle.imageStyle}
+                      />
+                  </View>
+                </View>
+              </View>
             )}
           />
           <Controller control={control} name="confirmPassword" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
-              <Input
-                label={text.password.confirmPassword}
-                placeholder={text.password.password}
-                value={value}
-                password
-                onChangeText={onChange}
-                error={Boolean(error)}
-                errorDetails={error?.message}
-              />
+              <View style={{marginHorizontal:16, marginVertical:8}}>
+                <View style={{flexDirection:"row"}}>
+                  <Text style={{color: "red",marginBottom:8, marginRight:4}}>*</Text>
+                  <Text style={{color: "black",marginBottom:8}}>{text.password.confirmPassword}</Text>
+                </View>
+                <View style={mainStyle.containerCreate}>
+                  <View style={mainStyle.sectionStyle}>
+                    <Input
+                      placeholder={text.password.password}
+                      value={value}
+                      password
+                      onChangeText={onChange}
+                      error={Boolean(error)}
+                      errorDetails={error?.message}
+                    />
+                    <Image
+                        source={{
+                          uri:
+                            'https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png',
+                        }}
+                        style={mainStyle.imageStyle}
+                      />
+                  </View>
+                </View>
+              </View>
             )}
           />
             {errors && Object.keys(errors).length > 0 && 

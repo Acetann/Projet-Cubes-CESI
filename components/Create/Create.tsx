@@ -132,7 +132,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                       errorDetails={error?.message}
                     />
                     <TouchableOpacity activeOpacity={0.5} onPress={() => {
-                      console.log(visiblePassword, 'premier')
                       !visiblePassword && setVisiblePassword(true),
                       visiblePassword && setVisiblePassword(false)
                     }}>
@@ -153,7 +152,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                 <View style={mainStyle.containerCreate}>
                   <View style={mainStyle.sectionStyle}>
                     <Input
-                      placeholder={text.password.password}
                       value={value}
                       password={visibleConfirmPassword}
                       onChangeText={onChange}
@@ -161,7 +159,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                       errorDetails={error?.message}
                     />
                     <TouchableOpacity activeOpacity={0.5} onPress={() => {
-                      console.log(visibleConfirmPassword)
                       !visibleConfirmPassword && setVisibleConfirmPassword(true),
                       visibleConfirmPassword && setVisibleConfirmPassword(false)
                     }}>

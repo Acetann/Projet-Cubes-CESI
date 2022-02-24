@@ -1,10 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 export const mainStyle = StyleSheet.create({
-    containerCreate: {
+  containerTabButton: {
+    flex: 1,
+    backgroundColor: '#5359D1',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  containerCreate: {
         justifyContent: 'center',
         alignItems: 'center',
-      },
+  },
       sectionStyle: {
         flexDirection: 'row',
         justifyContent: 'space-around',

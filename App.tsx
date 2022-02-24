@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { RouteNavigator } from './navigation/RouteNavigator';
 
-function App() {
+export default function App() {
   return (
     <RouteNavigator />
   );
 }
-
-export default App;

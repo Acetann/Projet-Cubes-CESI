@@ -29,27 +29,16 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
           width: 60,
           height: 60,
           borderRadius: 10,
-          marginTop: 8
-        }}></Image>
-
-        <Text style={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          color: 'white',
-          marginTop: 20
-        }}>Paul Fremont</Text>
-
-        <TouchableOpacity>
-          <Text style={{
-            marginVertical: 6,
-            color: 'white'
-          }}>Voir le profil</Text>
-        </TouchableOpacity>
-
+          marginVertical: 8
+        }}/>
         <View style={{ flexGrow: 1 }}>
           {TabButton(currentTab, setCurrentTab, "Accueil")}
-          {TabButton(currentTab, setCurrentTab, "Inscription")}
-          {TabButton(currentTab, setCurrentTab, "Connexion")}
+          {TabButton(currentTab, setCurrentTab, "Profil")}
+          {TabButton(currentTab, setCurrentTab, "Mes Publications")}
+          {TabButton(currentTab, setCurrentTab, "Mes amis")}
+          {TabButton(currentTab, setCurrentTab, "Utilisateurs")}
+          {TabButton(currentTab, setCurrentTab, "Publications")}
+          {TabButton(currentTab, setCurrentTab, "Commentaires")}
           {TabButton(currentTab, setCurrentTab, "Paramètres")}
         </View>
         <View>
@@ -122,7 +111,7 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
             height: 300,
             borderRadius: 15,
             marginTop: 25
-          }}></Image>
+          }}/>
         </Animated.View>
       </Animated.View>
     </SafeAreaView>

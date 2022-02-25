@@ -9,25 +9,62 @@ export const TabButton = (currentTab: string, setCurrentTab: Function, title: st
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     let iconName;
-                  
-    if(title === "Accueil"){
-       iconName = 'home';
-      } else if (title === "Paramètres") {
-      iconName = 'settings';
-      } else if (title === "Connexion") {
-        iconName = 'login';
-      } else if (title === "Inscription") 
-      { iconName = 'create';
-    } else { iconName = 'logout' }
 
-    if(currentTab === "Inscription"){
-      navigation.navigate('Create')
-    }else if (currentTab === "Connexion"){
-      navigation.navigate('Login')
-    }else if (currentTab === "Paramètres"){
-      navigation.navigate('Paramètres')
+    switch (title) {
+      case "Accueil":
+        iconName = 'home'
+        break;
+      case "Profil":
+        iconName = 'person'
+        break;
+      case "Mes Publications":
+        iconName = 'book'
+        break;
+      case "Paramètres":
+        iconName = 'settings'
+        break;
+      case "Mes amis":
+        iconName = 'people'
+        break;
+      case "Utilisateurs":
+        iconName = 'people'
+        break;
+      case "Publications":
+        iconName = 'book'
+        break;
+      case "Commentaires":
+        iconName = 'chat'
+        break;
+      default: 
+      iconName = 'logout'
+        break;
     }
-    console.log(currentTab)
+    switch (currentTab) {
+      case "Profil":
+        navigation.navigate('Profile')
+        break;
+      case "Mes Publications":
+        navigation.navigate('MyPublication')
+        break;
+      case "Paramètres":
+        navigation.navigate('Paramètres')
+        break;
+      case "Mes amis":
+        navigation.navigate('MyFriend')
+        break;
+      case "Utilisateurs":
+        navigation.navigate('Users')
+        break;
+      case "Publications":
+        navigation.navigate('Publication')
+        break;
+      case "Commentaires":
+        navigation.navigate('Comments')
+        break;
+      default: 
+        break;
+    }
+    
     return (
       <TouchableOpacity onPress={() => {
         if (title == "Déconnexion") {

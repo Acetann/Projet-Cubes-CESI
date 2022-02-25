@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Login } from "../components/Login/Login";
 import { Settings } from "../components/Settings/Settings";
 import { LandingScreen } from "./LandingScreen";
+import { Profile } from "../components/Profile/Profile";
 
 export type RouteParams = {
     Home: undefined
@@ -15,6 +16,7 @@ export type RouteParams = {
     Login: undefined
     Paramètres: undefined
     LandingScreen: undefined
+    Profile: undefined
 }
 
 const Stack = createNativeStackNavigator<RouteParams>();
@@ -30,6 +32,7 @@ export const RouteNavigator = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Paramètres" component={Settings} />
         <Stack.Screen name="LandingScreen" component={LandingScreen} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
     )

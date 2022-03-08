@@ -35,7 +35,7 @@ export const RouteNavigator = () => {
     return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={LandingScreen} />
         <Stack.Screen name="Details" component={Header} />
         <Stack.Screen name="Count" component={Count} />
         <Stack.Screen name="Create" component={Create} />

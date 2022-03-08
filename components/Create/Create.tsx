@@ -25,8 +25,8 @@ type FormValue = {
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
   
-    const [visiblePassword, setVisiblePassword] = useState(Boolean(false))
-    const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(false))
+    const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
+    const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(true))
 
     const validationSchema = Yup.object
         ({
@@ -44,7 +44,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     const signup = () => {
       clearErrors();
-      navigation.navigate("Login")
+      navigation.navigate("Home")
     };
 
     return (

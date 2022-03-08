@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { image } from '../../assets';
 import { mainStyle } from '../../styles/styles';
@@ -22,6 +22,10 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
     iconName = 'menu';
     }
 
+    useEffect(() => {
+      setCurrentTab
+    })
+    
     return (
     <SafeAreaView style={mainStyle.containerTabButton} >
       <View style={{padding: 8, marginTop: 16, marginLeft:8}}>

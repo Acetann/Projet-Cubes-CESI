@@ -35,12 +35,12 @@ export const RouteNavigator = () => {
     return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={LandingScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="LandingScreen" component={LandingScreen} />
         <Stack.Screen name="Details" component={Header} />
         <Stack.Screen name="Count" component={Count} />
         <Stack.Screen name="Create" component={Create} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="LandingScreen" component={LandingScreen} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="MyPublication" component={MyPublication} />
         <Stack.Screen name="MyFriend" component={MyFriend} />

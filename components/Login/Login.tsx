@@ -23,7 +23,7 @@ type FormValue = {
 
 export const Login: React.FunctionComponent<LoginProps> = () => {
   
-    const [visiblePassword, setVisiblePassword] = useState(Boolean(false))
+    const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
     const validationSchema = Yup.object
         ({
           email: Yup.string().email(text.email.validate).required(text.email.required),

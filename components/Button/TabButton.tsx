@@ -68,6 +68,7 @@ export const TabButton = (currentTab: string, setCurrentTab: Function, title: st
     return (
       <TouchableOpacity onPress={() => {
         if (title == "Déconnexion") {
+          navigation.navigate('LandingScreen')
         } else {
           setCurrentTab(title)
         }

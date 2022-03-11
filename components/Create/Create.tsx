@@ -174,7 +174,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                 {text.error.allError}
               </Text>
             }
-          <Button onPress={handleSubmit(signup)} children={text.create.create} />
+            {/* <Button onPress={handleSubmit(signup)} children={text.create.create} /> */}
+          <Button onPress={() => navigation.navigate("Home")} children={text.create.create} />
       </ScrollView>
     )
 }

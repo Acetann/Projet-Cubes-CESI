@@ -20,6 +20,7 @@ type FormValue = {
     lastName: string;
     email: string;
     password: string;
+    pseudo: string;
     confirmPassword: string;
 }
 
@@ -33,6 +34,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           email: Yup.string().email(text.email.validate).required(text.email.required),
           firstName: Yup.string().required(text.firstName.validate),
           lastName: Yup.string().required(text.lastName.validate),
+          pseudo: Yup.string().required(text.pseudo.validate),
           password: Yup.string().min(8, text.password.validate).required(text.password.required),
           confirmPassword: Yup.string().required(text.password.confirm).oneOf([Yup.ref("password")], "Les mots de passe ne correspondent pas"),
         }).required();
@@ -95,6 +97,26 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
               />
             </View>
           </View>
+          <Controller control={control} name="pseudo" render={({field: {onChange, value}, fieldState: {error}}) => 
+            ( 
+              <View style={{marginHorizontal:16, marginVertical:8}}>
+                  <View style={{flexDirection:"row"}}>
+                    <Text style={{color: "red",marginBottom:8, marginRight:4}}>*</Text>
+                    <Text style={{color: "black",marginBottom:8}}>{text.pseudo.pseudo}</Text>
+                  </View>
+                  <View style={mainStyle.containerCreate}>
+                    <View style={mainStyle.sectionStyle}>
+                      <Input
+                        value={value}
+                        onChangeText={onChange}
+                        error={Boolean(error)}
+                        errorDetails={error?.message}
+                      />
+                    </View>
+                  </View>
+              </View>
+            )}
+          /> 
           <Controller control={control} name="email" render={({field: {onChange, value}, fieldState: {error}}) => 
             ( 
               <View style={{marginHorizontal:16, marginVertical:8}}>
@@ -114,7 +136,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                   </View>
               </View>
             )}
-          /> 
+          />
           <Controller control={control} name="password" render={({field: {onChange, value}, fieldState: {error}}) => 
             (
               <View style={{marginHorizontal:16, marginVertical:8}}>

@@ -15,6 +15,10 @@ export const text = {
         validate: "Veuillez saisir votre nom",
         lastName: "Nom",
     },
+    pseudo: {
+        validate: "Veuillez saisir votre pseudo",
+        pseudo: "Pseudo",
+    },
     firstName: {
         validate: "Veuillez saisir votre prénom",
         firstName: "Prénom",

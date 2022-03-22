@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, ListRenderItemInfo, View } from "react-native";
+import { Cesi } from "../../api/Users";
 import { FriendContainer } from "../Friends/FriendContainer";
 
 interface MyPublicationProps{}
 
 export const MyPublication: React.FunctionComponent<MyPublicationProps> = () => {
-    const data = [
-        {name: "Olivier", pseudo: "Copao", id:"1", source:'https://reactnative.dev/img/tiny_logo.png'},
-        {name: "Alexandre", pseudo: "Kinae", id:"2"},
-        {name: "Patrick", pseudo: "Ricardo", id:"3"},
-        {name: "Thomas", pseudo: "Rafallgar", id:"4"},
-        {name: "Paul", pseudo: "Acetannhauser", id:"5"},
-    ]
-    const [fruit, setFruit] = useState(data)
-    useEffect(() => setFruit(data),[])
+    const [data, setData] = useState([]);
+    const getPublications = async () => {
+        try {
+          const response = await fetch(
+            `http://${Cesi}:3001/api/ressource`
+          );
+          const json = await response.json();
+          return setData(json);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+     
+       useEffect(() => {
+        getPublications();
+       }, []);
     return (
         <View>
-            <FlatList data={fruit} renderItem={({item}) => (
-                <FriendContainer name={item.name} pseudo={item.pseudo} source={item.source} />
-            )} />
+            <FlatList data={data} renderItem={({ item }: ListRenderItemInfo<ItemType>) => (
+                    <FriendContainer name={item.nom} pseudo={item.description} />
+                )} />
         </View>
     )
 }

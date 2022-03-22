@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
+import { Cesi } from "../../api/Users";
 import { FriendContainer } from "../Friends/FriendContainer";
 
 interface UsersProps{}
@@ -7,10 +8,10 @@ interface UsersProps{}
 export const Users: React.FunctionComponent<UsersProps> = () => {
 
     const [data, setData] = useState([]);
-    const getMoviesFromApiAsync = async () => {
+    const getUsers = async () => {
         try {
           const response = await fetch(
-            'http://192.168.1.12:3001/api/utilisateur'
+            `http://${Cesi}:3001/api/utilisateur`
           );
           const json = await response.json();
           return setData(json);
@@ -20,7 +21,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
       };
      
        useEffect(() => {
-        getMoviesFromApiAsync();
+        getUsers();
        }, []);
     return (
         <View>

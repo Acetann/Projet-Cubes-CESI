@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {Text, TouchableOpacity, View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Button } from '../Button/Button';
@@ -12,13 +12,14 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
+import { Cesi } from '../../api/Users';
 
 
 interface LoginProps {}
 
 type FormValue = {
-    email: string;
-    password: string;
+    mail: string;
+    mot_de_passe: string;
 }
 
 export const Login: React.FunctionComponent<LoginProps> = () => {
@@ -35,14 +36,35 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
     } = useForm<FormValue>({resolver: yupResolver(validationSchema)})
 
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+    
+    
+    const [data, setData] = useState([]);
+    const [mail, setMail] = useState('')
+    const [mot_de_passe, setMot_de_passe] = useState('')
+
+    const onConnect = async (userEmail: string, userPassword: string) => {
+      await fetch(`http://${Cesi}:3000/api/connexion`,{
+          method: 'POST',
+          headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body:JSON.stringify({
+              email: userEmail,
+              password: userPassword
+          })
+      })
+      .then(function (response){return response})
+      .catch(err => console.error(err));
+  };
+
     const connection = () => {
-      clearErrors();
+      onConnect(mail, mot_de_passe);
       navigation.navigate("Home")
     };
-
     return (
       <View style={mainStyle.container}>
-          <Controller control={control} name="email" render={({field: {onChange, value}, fieldState: {error}}) => 
+          <Controller control={control} name="mail" render={({fieldState: {error}}) => 
             (
               <View style={{marginHorizontal:16, marginVertical:8}}>
                   <View style={{flexDirection:"row"}}>
@@ -52,17 +74,17 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                   <View style={mainStyle.containerCreate}>
                     <View style={mainStyle.sectionStyle}>
                       <Input
-                        value={value}
-                        onChangeText={onChange}
+                        value={mail}
+                        onChangeText={text => setMail(text)}
                         error={Boolean(error)}
                         errorDetails={error?.message}
                       />
                     </View>
                   </View>
               </View>
-            )}
-          /> 
-          <Controller control={control} name="password" render={({field: {onChange, value}, fieldState: {error}}) => 
+              )}
+            />
+          <Controller control={control} name="mot_de_passe" render={({fieldState: {error}}) => 
             (
               <View style={{marginHorizontal:16, marginVertical:8}}>
                 <View style={{flexDirection:"row"}}>
@@ -72,9 +94,9 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                 <View style={mainStyle.containerCreate}>
                   <View style={mainStyle.sectionStyle}>
                     <Input
-                      value={value}
+                      value={mot_de_passe}
                       password={visiblePassword}
-                      onChangeText={onChange}
+                      onChangeText={text => setMot_de_passe(text)}
                       error={Boolean(error)}
                       errorDetails={error?.message}
                     />
@@ -94,7 +116,7 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                 {text.error.allError}
               </Text>
             }
-          <Button onPress={handleSubmit(connection)} children={text.login.signUp}/>
+          <Button onPress={() => connection()} children={text.login.signUp}/>
       </View>
     )
 }

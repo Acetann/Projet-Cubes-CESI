@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { lightColors } from '../config/colors/colors';
 
 export const mainStyle = StyleSheet.create({
   containerTabButton: {
     flex: 1,
-    backgroundColor: '#5359D1',
+    backgroundColor: lightColors.blue,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },

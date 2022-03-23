@@ -16,7 +16,7 @@ export const lightColors = {
   green: '#54D58B',
   red: '#F46B5D',
   mainPink: '#D20073',
-  blue: '#1BBDFF',
+  blue: '#108ee9',
   mainBlue: '#151635',
   orangeGold: '#F6B911',
   orange: '#FFA41B',

@@ -4,7 +4,6 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 
-import { Button } from '../Button/Button';
 import { Input } from "./Input";
 import { text } from "../../words/words";
 import { mainStyle } from '../../styles/styles';
@@ -12,6 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
+import { buttonStyle } from '../Button/ButtonStyle';
+import { Button } from '@ant-design/react-native';
 
 interface CreateProps {}
 
@@ -196,8 +197,9 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                 {text.error.allError}
               </Text>
             }
-            {/* <Button onPress={handleSubmit(signup)} children={text.create.create} /> */}
-          <Button onPress={() => navigation.navigate("Home")} children={text.create.create} />
+          <View style={mainStyle.center}>
+              <Button type="primary" onPress={() => navigation.navigate("Home")} style={buttonStyle.Container}>{text.login.signUp}</Button>
+          </View>
       </ScrollView>
     )
 }

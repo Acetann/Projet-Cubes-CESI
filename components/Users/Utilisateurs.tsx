@@ -1,11 +1,17 @@
+import { Card } from "@ant-design/react-native";
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import { Icon } from "react-native-elements";
 import { Cesi } from "../../api/Users";
-import { FriendContainer } from "../Friends/FriendContainer";
+import { lightColors } from "../../config/colors/colors";
 
 interface UsersProps{
-  pseudo: string;
   nom: string;
+  prenom: string;
+  id: number;
+  mail: string;
+  compte_actif: Boolean;
+  image: string;
 }
 
 export const Users: React.FunctionComponent<UsersProps> = () => {
@@ -26,13 +32,30 @@ useEffect(() => {
   getUsers();
 }, []);
     return (
-        <View>
-            <FlatList
-                data={data}
-                renderItem={({ item, index }: ListRenderItemInfo<UsersProps>) => (
-                    <FriendContainer key={index} name={item.pseudo} pseudo={item.nom} />
-                )}
-                />
-        </View>
+      <ScrollView>
+        {data.map(((item: UsersProps, index: number) => {
+          return (
+                <Card key={index} style={{margin:8}}>
+                    <Card.Header
+                        key={item.id}
+                        title={item.prenom}
+                        thumbStyle={{ width: 30, height: 30 }}
+                        thumb={item.image}
+                        extra={item.nom}
+                    />
+                    <Card.Body key={item.id}>
+                        <View style={{ height: 42 }}>
+                            <Text style={{ marginLeft: 16 }}>{item.mail}</Text>
+                        </View>
+                    </Card.Body>
+                    <Card.Footer
+                      key={item.id}
+                      content={item.compte_actif === false ? <Icon name="close" color={lightColors.red} /> : <Icon name="check" color={lightColors.green} />}
+                      extra=""
+                    />
+          </Card>
+        )
+      }))}
+      </ScrollView>
     )
 }

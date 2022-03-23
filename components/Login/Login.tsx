@@ -4,7 +4,6 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {Text, TouchableOpacity, View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 
-import { Button } from '../Button/Button';
 import { Input } from "../Create/Input";
 import { text } from "../../words/words";
 import { mainStyle } from '../../styles/styles';
@@ -13,6 +12,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
 import { Cesi } from '../../api/Users';
+import { buttonStyle } from '../Button/ButtonStyle';
+import { Button } from '@ant-design/react-native';
 
 
 interface LoginProps {}
@@ -116,7 +117,9 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                 {text.error.allError}
               </Text>
             }
-          <Button onPress={() => connection()} children={text.login.signUp}/>
+            <View style={mainStyle.center}>
+              <Button type="primary" onPress={() => connection()} style={buttonStyle.Container}>{text.login.signUp}</Button>
+            </View>
       </View>
     )
 }

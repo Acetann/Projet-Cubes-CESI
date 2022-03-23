@@ -14,7 +14,7 @@ export const FriendContainer: React.FunctionComponent<FriendContainerProps> = ({
 
     return (
         <View style={{padding: responsiveWidth(3)}}>
-            <View style={{flexDirection:'row', alignItems:'center', paddingVertical: responsiveWidth(5), paddingHorizontal: responsiveWidth(3), backgroundColor:lightColors.blue, }}>
+            <View style={{flexDirection:'row', alignItems:'center', paddingVertical: responsiveWidth(5), paddingHorizontal: responsiveWidth(3), backgroundColor:lightColors.blue}}>
                 <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
                     {source && <View style={{marginRight: responsiveWidth(3)}}>
                         <Image

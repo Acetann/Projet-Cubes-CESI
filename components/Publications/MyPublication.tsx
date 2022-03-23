@@ -3,14 +3,21 @@ import { FlatList, ListRenderItemInfo, View } from "react-native";
 import { Cesi } from "../../api/Users";
 import { FriendContainer } from "../Friends/FriendContainer";
 
-interface MyPublicationProps{}
+interface MyPublicationProps{
+  nom: string;
+  description: string;
+}
 
 export const MyPublication: React.FunctionComponent<MyPublicationProps> = () => {
     const [data, setData] = useState([]);
     const getPublications = async () => {
         try {
-          const response = await fetch(
-            `http://${Cesi}:3001/api/ressource`
+          let response = await fetch(
+            `http://${Cesi}:3000/api/ressource`, {
+              headers: {
+                "Content-Type": 'application/json'
+              },
+            }
           );
           const json = await response.json();
           return setData(json);
@@ -24,8 +31,8 @@ export const MyPublication: React.FunctionComponent<MyPublicationProps> = () => 
        }, []);
     return (
         <View>
-            <FlatList data={data} renderItem={({ item }: ListRenderItemInfo<ItemType>) => (
-                    <FriendContainer name={item.nom} pseudo={item.description} />
+            <FlatList data={data} renderItem={({ item,index }: ListRenderItemInfo<MyPublicationProps>) => (
+                    <FriendContainer key={index} name={item.nom} pseudo={item.description} />
                 )} />
         </View>
     )

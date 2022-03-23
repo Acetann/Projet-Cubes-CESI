@@ -3,14 +3,17 @@ import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
 import { Cesi } from "../../api/Users";
 import { FriendContainer } from "../Friends/FriendContainer";
 
-interface CommentsProps{}
+interface CommentsProps{
+  nom: string;
+  description: string;
+}
 
 export const Comments: React.FunctionComponent<CommentsProps> = () => {
     const [data, setData] = useState([]);
     const getComments = async () => {
         try {
           const response = await fetch(
-            `http://${Cesi}:3001/api/commentaire`
+            `http://${Cesi}:3000/api/commentaire`
           );
           const json = await response.json();
           return setData(json);
@@ -24,7 +27,7 @@ export const Comments: React.FunctionComponent<CommentsProps> = () => {
        }, []);
     return (
         <View>
-            <FlatList data={data} renderItem={({ item }: ListRenderItemInfo<ItemType>) => (
+            <FlatList data={data} renderItem={({ item }: ListRenderItemInfo<CommentsProps>) => (
                     <FriendContainer name={item.nom} pseudo={item.description} />
                 )} />
         </View>

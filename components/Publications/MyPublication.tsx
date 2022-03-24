@@ -1,39 +1,49 @@
+import { Card } from "@ant-design/react-native";
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItemInfo, View } from "react-native";
-import { Cesi } from "../../api/Users";
+import { FlatList, ListRenderItemInfo, ScrollView, Text, View } from "react-native";
+import { Maison } from "../../api";
+import { getPublication } from "../../api/Publications";
+import { image } from "../../assets";
 import { FriendContainer } from "../Friends/FriendContainer";
 
 interface MyPublicationProps{
-  nom: string;
-  description: string;
+    texte: string;
+    id:number;
+    image: string;
 }
 
 export const MyPublication: React.FunctionComponent<MyPublicationProps> = () => {
-    const [data, setData] = useState([]);
-    const getPublications = async () => {
-        try {
-          let response = await fetch(
-            `http://${Cesi}:3000/api/ressource`, {
-              headers: {
-                "Content-Type": 'application/json'
-              },
-            }
-          );
-          const json = await response.json();
-          return setData(json);
-        } catch (error) {
-          console.error(error);
-        }
-      };
+    const [publication, setPublication] = useState([]);
+    
      
        useEffect(() => {
-        getPublications();
+        getPublication(setPublication);
        }, []);
     return (
-        <View>
-            <FlatList data={data} renderItem={({ item,index }: ListRenderItemInfo<MyPublicationProps>) => (
-                    <FriendContainer key={index} name={item.nom} pseudo={item.description} />
-                )} />
-        </View>
+      <ScrollView>
+      {publication.map(((item: MyPublicationProps, index: number) => {
+        return (
+              <Card key={index} style={{margin:8}}>
+                  <Card.Header
+                      key={item.id}
+                      title=""
+                      thumbStyle={{ width: 30, height: 30 }}
+                      thumb={item.image || image.imageHome}
+                      extra={item.texte}
+                  />
+                  <Card.Body key={item.id}>
+                      <View style={{ height: 42 }}>
+                          <Text style={{ marginLeft: 16 }}>""</Text>
+                      </View>
+                  </Card.Body>
+                  <Card.Footer
+                    key={item.id}
+                    content=""
+                    extra=""
+                  />
+        </Card>
+      )
+    }))}
+    </ScrollView>
     )
 }

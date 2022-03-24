@@ -2,7 +2,7 @@ import { Card } from "@ant-design/react-native";
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
-import { Cesi } from "../../api/Users";
+import { getUsers } from "../../api/Users";
 import { lightColors } from "../../config/colors/colors";
 
 interface UsersProps{
@@ -16,24 +16,15 @@ interface UsersProps{
 
 export const Users: React.FunctionComponent<UsersProps> = () => {
 
-    const [data, setData] = useState([]);
-    const getUsers = async () => {
-        try {
-          let response = await fetch(
-            `http://${Cesi}:3000/api/utilisateur`
-          );
-          const json = await response.json();
-          return setData(json);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-useEffect(() => {
-  getUsers();
-}, []);
+    const [users, setUsers] = useState([]);
+  
+    useEffect(() => {
+      getUsers(setUsers);
+    }, []);
+
     return (
       <ScrollView>
-        {data.map(((item: UsersProps, index: number) => {
+        {users.map(((item: UsersProps, index: number) => {
           return (
                 <Card key={index} style={{margin:8}}>
                     <Card.Header

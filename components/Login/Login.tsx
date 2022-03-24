@@ -11,9 +11,9 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
-import { Cesi } from '../../api/Users';
 import { buttonStyle } from '../Button/ButtonStyle';
 import { Button } from '@ant-design/react-native';
+import { Maison } from '../../api';
 
 
 interface LoginProps {}
@@ -44,7 +44,7 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
     const [mot_de_passe, setMot_de_passe] = useState('')
 
     const onConnect = async (userEmail: string, userPassword: string) => {
-      await fetch(`http://${Cesi}:3000/api/connexion`,{
+      await fetch(`http://${Maison}:3000/api/connexion`,{
           method: 'POST',
           headers: {
               Accept: 'application/json',

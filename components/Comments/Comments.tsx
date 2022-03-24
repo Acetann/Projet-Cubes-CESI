@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
-import { Cesi } from "../../api/Users";
+import { Cesi } from "../../api";
 import { FriendContainer } from "../Friends/FriendContainer";
 
 interface CommentsProps{

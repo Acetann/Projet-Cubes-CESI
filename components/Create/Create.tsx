@@ -13,6 +13,7 @@ import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
 import { buttonStyle } from '../Button/ButtonStyle';
 import { Button } from '@ant-design/react-native';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 interface CreateProps {}
 
@@ -197,8 +198,8 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                 {text.error.allError}
               </Text>
             }
-          <View style={mainStyle.center}>
-              <Button type="primary" onPress={() => navigation.navigate("Home")} style={buttonStyle.Container}>{text.login.signUp}</Button>
+          <View style={[mainStyle.center,{padding: responsiveWidth(5)}]}>
+              <Button type="primary" onPress={() => navigation.navigate("Home")} style={buttonStyle.Container}>{text.create.create}</Button>
           </View>
       </ScrollView>
     )

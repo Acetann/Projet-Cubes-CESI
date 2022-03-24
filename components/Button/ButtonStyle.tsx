@@ -4,9 +4,9 @@ export const buttonStyle = StyleSheet.create ({
 
     Container:{
         height:48,
-        width:150,
+        width:'100%',
         justifyContent:"center",
-        margin: 16,
+        paddingHorizontal: 16,
         borderRadius: 16,
         alignItems:"center",
     },

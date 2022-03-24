@@ -3,6 +3,7 @@ export const text = {
         validate:"Veuillez saisir une adresse mail valide",
         required:"Veuillez saisir une adresse mail",
         email: "Email",
+        updateEmail: 'Modifier mon mail',
     },
     password: {
         validate:"Veuillez saisir au moins 8 caractères",
@@ -14,14 +15,17 @@ export const text = {
     lastName: {
         validate: "Veuillez saisir votre nom",
         lastName: "Nom",
+        updateLastName: 'Modifier mon nom',
     },
     pseudo: {
         validate: "Veuillez saisir votre pseudo",
         pseudo: "Pseudo",
+        updatePseudo: 'Modifier mon pseudo',
     },
     firstName: {
         validate: "Veuillez saisir votre prénom",
         firstName: "Prénom",
+        updateFirstName: 'Modifier mon prénom',
     },
     create: {
         title: "Inscription",
@@ -33,5 +37,14 @@ export const text = {
     },
     error: {
         allError: "Veuillez remplir tous les champs obligatoires"
-    }
+    },
+    friend: {
+        allFriend: "Voir la liste de mes amis"
+    },
+    publication: {
+        allPublication: "Voir la liste de mes publications"
+    },
+    picture: {
+        imageProfile: 'Importer une image'
+    },
 }

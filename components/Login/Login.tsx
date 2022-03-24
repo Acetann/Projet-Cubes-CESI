@@ -14,6 +14,7 @@ import { Icon } from 'react-native-elements';
 import { buttonStyle } from '../Button/ButtonStyle';
 import { Button } from '@ant-design/react-native';
 import { Maison } from '../../api';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 
 interface LoginProps {}
@@ -117,7 +118,7 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                 {text.error.allError}
               </Text>
             }
-            <View style={mainStyle.center}>
+            <View style={[mainStyle.center,{padding: responsiveWidth(5)}]}>
               <Button type="primary" onPress={() => connection()} style={buttonStyle.Container}>{text.login.signUp}</Button>
             </View>
       </View>

@@ -11,10 +11,10 @@ const LandingHeader = () => {
       style={{
         height: 220,
         backgroundColor: lightColors.white,
-        marginTop: responsiveWidth(4),
       }}>
       <Image
         style={{
+          marginTop: responsiveWidth(4),
           width: '100%',
           height: '105%',
           position: 'absolute',

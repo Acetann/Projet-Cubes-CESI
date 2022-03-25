@@ -5,14 +5,12 @@ import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { getUsers } from "../../api/Users";
-import { image } from "../../assets";
 import { RouteParams } from "../../navigation/RouteNavigator";
 import { mainStyle } from "../../styles/styles";
 import { text } from "../../words/words";
 import { buttonStyle } from "../Button/ButtonStyle";
 import * as ImagePicker from 'expo-image-picker';
 import { imageUploaderStyles } from "./stylesProfile";
-import { AntDesign } from '@expo/vector-icons';
 
 interface ProfileProps{
 nom: string;
@@ -65,25 +63,25 @@ export const Profile: React.FunctionComponent<ProfileProps> = () => {
                         <View style={{flexDirection: 'row', alignItems:'center',justifyContent:'space-between', marginVertical: responsiveWidth(5)}}>
                             <Text style={{ marginHorizontal: 8 }}>{item.mail}</Text>
                             <View style={[mainStyle.center,{marginRight: 8}]}>
-                                <Button type="primary" onPress={() => {}} style={buttonStyle.Container}>{text.email.updateEmail}</Button>
+                                <Button type="primary" onPress={() => navigation.navigate("Mail", {mail: item.mail})} style={buttonStyle.Container}>{text.email.updateEmail}</Button>
                             </View>
                         </View>
                         <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', marginVertical: responsiveWidth(5)}}>
                             <Text style={{ marginHorizontal: 8 }}>{item.prenom}</Text>
                             <View style={[mainStyle.center,{marginRight: 8}]}>
-                                <Button type="primary" onPress={() => {}} style={buttonStyle.Container}>{text.firstName.updateFirstName}</Button>
+                                <Button type="primary" onPress={() => navigation.navigate("Prenom", {prenom: item.prenom})} style={buttonStyle.Container}>{text.firstName.updateFirstName}</Button>
                             </View>
                         </View>
                         <View style={{flexDirection: 'row', alignItems:'center',justifyContent:'space-between', marginVertical: responsiveWidth(5)}}>
                                 <Text style={{ justifyContent:'center',marginHorizontal: 8 }}>{item.nom}</Text>
                             <View style={[mainStyle.center,{marginRight: 8}]}>
-                                <Button type="primary" onPress={() => {}} style={buttonStyle.Container}>{text.lastName.updateLastName}</Button>
+                                <Button type="primary" onPress={() => navigation.navigate("Nom", {nom: item.nom})} style={buttonStyle.Container}>{text.lastName.updateLastName}</Button>
                             </View>
                         </View>
                         <View style={{flexDirection: 'row', alignItems:'center',justifyContent:'space-between', marginVertical: responsiveWidth(5)}}>
                                 <Text style={{ justifyContent:'center',marginHorizontal: 8 }}>{item.pseudo}</Text>
                             <View style={{marginRight: 8}}>
-                                <Button type="primary" onPress={() => {}} style={buttonStyle.Container}>{text.pseudo.updatePseudo}</Button>
+                                <Button type="primary" onPress={() => navigation.navigate("Pseudo", {pseudo: item.pseudo})} style={buttonStyle.Container}>{text.pseudo.updatePseudo}</Button>
                             </View>
                         </View>
                     </Card.Body>

@@ -11,6 +11,8 @@ import { MyFriend } from "../components/Friends/MyFriend";
 import { Users } from "../components/Users/Utilisateurs";
 import { Publication } from "../components/Publications/Publication";
 import { Comments } from "../components/Comments/Comments";
+import { MailProfile } from "../components/Profile/MailProfile";
+import { PrenomProfile } from "../components/Profile/PrenomProfile";
 
 export type RouteParams = {
     Home: undefined
@@ -27,6 +29,10 @@ export type RouteParams = {
     Users: undefined
     Publication: undefined
     Comments: undefined
+    Mail: {mail: string}
+    Prenom: {prenom: string}
+    Nom: {nom: string}
+    Pseudo: {pseudo: string}
 }
 
 const Stack = createNativeStackNavigator<RouteParams>();
@@ -48,6 +54,10 @@ export const RouteNavigator = () => {
         <Stack.Screen name="Publication" component={Publication} />
         <Stack.Screen name="Comments" component={Comments} />
         <Stack.Screen name="Paramètres" component={Settings} />
+        <Stack.Screen name="Mail" component={MailProfile} />
+        <Stack.Screen name="Prenom" component={PrenomProfile} />
+        <Stack.Screen name="Nom" component={MailProfile} />
+        <Stack.Screen name="Pseudo" component={MailProfile} />
       </Stack.Navigator>
     </NavigationContainer>
     )

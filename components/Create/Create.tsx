@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Input } from "./Input";
@@ -38,7 +38,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           lastName: Yup.string().required(text.lastName.validate),
           pseudo: Yup.string().required(text.pseudo.validate),
           password: Yup.string().min(8, text.password.validate).required(text.password.required),
-          confirmPassword: Yup.string().required(text.password.confirm).oneOf([Yup.ref("password")], "Les mots de passe ne correspondent pas"),
+          confirmPassword: Yup.string().required(text.password.confirm).oneOf([Yup.ref("password")], "Mot de passe différent"),
         }).required();
 
     const {
@@ -174,6 +174,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                       password={visibleConfirmPassword}
                       onChangeText={onChange}
                       error={Boolean(error)}
+                      errorDetails={error?.message}
                     />
                     <TouchableOpacity activeOpacity={0.5} onPress={() => {
                       !visibleConfirmPassword && setVisibleConfirmPassword(true),

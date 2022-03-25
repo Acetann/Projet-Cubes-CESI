@@ -1,5 +1,5 @@
 import React from "react";
-import { KeyboardTypeOptions, Text, TextInput, View } from "react-native";
+import { KeyboardTypeOptions, TextInput } from "react-native";
 
 interface InputProps {
   placeholder?: string;
@@ -9,7 +9,6 @@ interface InputProps {
   onChangeText: (value: string) => void;
   onBlur?: () => void;
   error?: boolean;
-  errorDetails?: string;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -20,10 +19,8 @@ export const Input: React.FunctionComponent<InputProps> = ({
   onChangeText,
   onBlur,
   error = false,
-  errorDetails,
 }) => {
   return (
-    <>
       <TextInput
         style={{flex:1,borderColor: error ? "red" : "black"}}
         placeholder={placeholder}
@@ -33,10 +30,5 @@ export const Input: React.FunctionComponent<InputProps> = ({
         secureTextEntry={password}
         keyboardType={type}
       />
-      {Boolean(errorDetails) && (
-        <Text style={{color:"red", marginRight: 8}}>
-        {errorDetails}
-      </Text>)}
-    </>
   );
 };

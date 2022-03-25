@@ -48,7 +48,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     const signup = () => {
       clearErrors();
-      navigation.navigate("Home")
     };
 
     return (
@@ -68,7 +67,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                           value={value}
                           onChangeText={onChange}
                           error={Boolean(error)}
-                          errorDetails={error?.message}
                         />
                       </View>
                     </View>
@@ -90,7 +88,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                           value={value}
                           onChangeText={onChange}
                           error={Boolean(error)}
-                          errorDetails={error?.message}
                         />
                       </View>
                     </View>
@@ -112,7 +109,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                         value={value}
                         onChangeText={onChange}
                         error={Boolean(error)}
-                        errorDetails={error?.message}
                       />
                     </View>
                   </View>
@@ -132,7 +128,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                         value={value}
                         onChangeText={onChange}
                         error={Boolean(error)}
-                        errorDetails={error?.message}
                       />
                     </View>
                   </View>
@@ -153,7 +148,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                       password={visiblePassword}
                       onChangeText={onChange}
                       error={Boolean(error)}
-                      errorDetails={error?.message}
                     />
                     <TouchableOpacity activeOpacity={0.5} onPress={() => {
                       !visiblePassword && setVisiblePassword(true),
@@ -180,7 +174,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
                       password={visibleConfirmPassword}
                       onChangeText={onChange}
                       error={Boolean(error)}
-                      errorDetails={error?.message}
                     />
                     <TouchableOpacity activeOpacity={0.5} onPress={() => {
                       !visibleConfirmPassword && setVisibleConfirmPassword(true),
@@ -199,7 +192,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
               </Text>
             }
           <View style={[mainStyle.center,{padding: responsiveWidth(5)}]}>
-              <Button type="primary" onPress={() => navigation.navigate("Home")} style={buttonStyle.Container}>{text.create.create}</Button>
+              <Button type="primary" onPress={handleSubmit(signup)} style={buttonStyle.Container}>{text.create.create}</Button>
           </View>
       </ScrollView>
     )

@@ -13,7 +13,7 @@ import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
 import { buttonStyle } from '../Button/ButtonStyle';
 import { Button } from '@ant-design/react-native';
-import { Maison } from '../../api';
+import { Cesi, Maison } from '../../api';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 
@@ -45,7 +45,7 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
     const [mot_de_passe, setMot_de_passe] = useState('')
 
     const onConnect = async (userEmail: string, userPassword: string) => {
-      await fetch(`http://${Maison}:3000/api/connexion`,{
+      await fetch(`http://${Cesi}:3000/api/connexion`,{
           method: 'POST',
           headers: {
               Accept: 'application/json',
@@ -79,7 +79,6 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                         value={mail}
                         onChangeText={text => setMail(text)}
                         error={Boolean(error)}
-                        errorDetails={error?.message}
                       />
                     </View>
                   </View>
@@ -100,7 +99,6 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
                       password={visiblePassword}
                       onChangeText={text => setMot_de_passe(text)}
                       error={Boolean(error)}
-                      errorDetails={error?.message}
                     />
                     <TouchableOpacity activeOpacity={0.5} onPress={() => {
                       !visiblePassword && setVisiblePassword(true),

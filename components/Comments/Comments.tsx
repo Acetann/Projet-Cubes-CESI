@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
-import { Cesi } from "../../api";
+import { Cesi, Maison } from "../../api";
 import { FriendContainer } from "../Friends/FriendContainer";
 
 interface CommentsProps{
@@ -13,7 +13,7 @@ export const Comments: React.FunctionComponent<CommentsProps> = () => {
     const getComments = async () => {
         try {
           const response = await fetch(
-            `http://${Cesi}:3000/api/commentaire`
+            `http://${Maison}:3000/api/commentaire`
           );
           const json = await response.json();
           return setData(json);

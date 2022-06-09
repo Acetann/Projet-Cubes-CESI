@@ -37,7 +37,6 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
         }}/>
         <View style={{ flexGrow: 1 }}>
           {TabButton(currentTab, setCurrentTab, "Accueil")}
-          {TabButton(currentTab, setCurrentTab, "Profil")}
           {TabButton(currentTab, setCurrentTab, "Mes Publications")}
           {TabButton(currentTab, setCurrentTab, "Mes amis")}
           {TabButton(currentTab, setCurrentTab, "Utilisateurs")}

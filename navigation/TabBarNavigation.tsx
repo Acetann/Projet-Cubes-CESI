@@ -1,10 +1,11 @@
 import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Count,  Home } from "../components";
 import { Icon } from 'react-native-elements';
+import { Profile } from "../components/Profile/Profile";
 
 const Tab = createBottomTabNavigator();
 const home = "Home";
-const count = "Count";
+const profile = "Profile";
 
 
 export default function TabBarNavigation(){
@@ -17,14 +18,14 @@ export default function TabBarNavigation(){
                 
                 if(rn === home){
                     iconName = 'home';
-                } else if (rn === count) {
+                } else if (rn === profile) {
                     iconName = 'person';
                 }
                 return <Icon name={String(iconName)} size={size} color={color}/>
             },
         })}>
             <Tab.Screen   name="Home" component={Home} />
-            <Tab.Screen   name="Count" component={Count} />
+            <Tab.Screen   name="Profile" component={Profile} />
           </Tab.Navigator>
     )
 }

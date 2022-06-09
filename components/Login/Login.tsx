@@ -62,7 +62,7 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
 
     const connection = () => {
       onConnect(mail, mot_de_passe);
-      navigation.navigate("Home")
+      navigation.navigate("Tabs")
     };
     return (
       <View style={mainStyle.container}>

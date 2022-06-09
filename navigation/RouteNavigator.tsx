@@ -13,6 +13,7 @@ import { Publication } from "../components/Publications/Publication";
 import { Comments } from "../components/Comments/Comments";
 import { MailProfile } from "../components/Profile/MailProfile";
 import { PrenomProfile } from "../components/Profile/PrenomProfile";
+import TabBarNavigation from "./TabBarNavigation";
 
 export type RouteParams = {
     Home: undefined
@@ -33,32 +34,34 @@ export type RouteParams = {
     Prenom: {prenom: string}
     Nom: {nom: string}
     Pseudo: {pseudo: string}
+    Tabs: undefined
 }
 
 const Stack = createNativeStackNavigator<RouteParams>();
 
 export const RouteNavigator = () => {
     return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="LandingScreen" component={LandingScreen} />
-        <Stack.Screen name="Details" component={Header} />
-        <Stack.Screen name="Count" component={Count} />
-        <Stack.Screen name="Create" component={Create} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="MyPublication" component={MyPublication} />
-        <Stack.Screen name="MyFriend" component={MyFriend} />
-        <Stack.Screen name="Users" component={Users} />
-        <Stack.Screen name="Publication" component={Publication} />
-        <Stack.Screen name="Comments" component={Comments} />
-        <Stack.Screen name="Paramètres" component={Settings} />
-        <Stack.Screen name="Mail" component={MailProfile} />
-        <Stack.Screen name="Prenom" component={PrenomProfile} />
-        <Stack.Screen name="Nom" component={MailProfile} />
-        <Stack.Screen name="Pseudo" component={MailProfile} />
-      </Stack.Navigator>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="LandingScreen">
+          <Stack.Screen options={{headerShown: false}} name="LandingScreen" component={LandingScreen} />
+          <Stack.Screen options={{headerShown: false}} name="Tabs" component={TabBarNavigation} />
+          <Stack.Screen name="Details" component={Header} />
+          <Stack.Screen name="Count" component={Count} />
+          <Stack.Screen name="Create" component={Create} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="MyPublication" component={MyPublication} />
+          <Stack.Screen name="MyFriend" component={MyFriend} />
+          <Stack.Screen name="Users" component={Users} />
+          <Stack.Screen name="Publication" component={Publication} />
+          <Stack.Screen name="Comments" component={Comments} />
+          <Stack.Screen name="Paramètres" component={Settings} />
+          <Stack.Screen name="Mail" component={MailProfile} />
+          <Stack.Screen name="Prenom" component={PrenomProfile} />
+          <Stack.Screen name="Nom" component={MailProfile} />
+          <Stack.Screen name="Pseudo" component={MailProfile} />
+        </Stack.Navigator>
     </NavigationContainer>
     )
 }

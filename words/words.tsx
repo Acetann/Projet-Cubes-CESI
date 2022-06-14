@@ -47,4 +47,7 @@ export const text = {
     picture: {
         imageProfile: 'Importer une image'
     },
+    actifAccount: {
+        title: 'Compte actif :'
+    }
 }

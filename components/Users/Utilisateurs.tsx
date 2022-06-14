@@ -5,6 +5,7 @@ import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimen
 import { getUsers } from "../../api/Users";
 import { lightColors } from "../../config/colors/colors";
 import { mainStyle } from "../../styles/styles";
+import { text } from "../../words/words";
 
 interface UsersProps{
   nom: string;
@@ -47,7 +48,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
               <View style={{flexDirection:'row',alignItems:'center', justifyContent:'center', marginTop: responsiveWidth(5)}}>
                 <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
                   <View style={{flexDirection:'row',alignItems:'center'}}>
-                    <Text style={{marginRight: responsiveWidth(2), color: lightColors.mainBlue}}>{'Compte actif :'}</Text>
+                    <Text style={{marginRight: responsiveWidth(2), color: lightColors.mainBlue}}>{text.actifAccount.title}</Text>
                     {item.compte_actif === false ? <Icon name="close" color={lightColors.red} /> : <Icon name="check" color={lightColors.green} />}
                   </View>
                 </View>

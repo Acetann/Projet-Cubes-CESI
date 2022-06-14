@@ -1,16 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
+import { Cesi } from "../../api";
 import { getUsers } from "../../api/Users";
 import { lightColors } from "../../config/colors/colors";
+import { RouteParams } from "../../navigation/RouteNavigator";
 import { mainStyle } from "../../styles/styles";
 import { text } from "../../words/words";
 
 interface UsersProps{
   nom: string;
   prenom: string;
-  id: number;
+  _id: number;
   mail: string;
   compte_actif: Boolean;
   image: string;
@@ -19,7 +23,30 @@ interface UsersProps{
 export const Users: React.FunctionComponent<UsersProps> = () => {
 
     const [users, setUsers] = useState([]);
-  
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
+    const onDelete = async (id: number) => {
+      await fetch(`http://${Cesi}:3000/api/utilisateur/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(async res => {
+          try {
+            if (res.status === 200) {
+              navigation.navigate("Users");
+              getUsers(setUsers);
+            }
+          } catch (err) {
+            console.log(err,'erreur');
+          };
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+
     useEffect(() => {
       getUsers(setUsers);
     }, []);
@@ -43,7 +70,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
                     <Text style={{color: lightColors.mainBlue}}>{item.nom}</Text>
                   </View>
                 </View>
-                <Text style={{color: lightColors.mainBlue}}>{item.mail}</Text>
+                <Text style={{color: lightColors.mainBlue}}>{item._id}</Text>
               </View>
               <View style={{flexDirection:'row',alignItems:'center', justifyContent:'center', marginTop: responsiveWidth(5)}}>
                 <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
@@ -63,7 +90,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
                   }]}>
                     <Icon name="edit" color={lightColors.white} />
                   </TouchableOpacity>
-                  <TouchableOpacity style={[mainStyle.shadow,
+                  <TouchableOpacity onPress={() => {onDelete(item._id)}} style={[mainStyle.shadow,
                   {
                     padding: responsiveWidth(2),
                     borderRadius: 14,

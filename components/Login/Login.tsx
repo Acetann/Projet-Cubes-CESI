@@ -38,31 +38,40 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
     } = useForm<FormValue>({resolver: yupResolver(validationSchema)})
 
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-    
-    
-    const [data, setData] = useState([]);
     const [mail, setMail] = useState('')
     const [mot_de_passe, setMot_de_passe] = useState('')
 
-    const onConnect = async (userEmail: string, userPassword: string) => {
-      await fetch(`http://${Cesi}:3000/api/connexion`,{
-          method: 'POST',
-          headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-          },
-          body:JSON.stringify({
-              email: userEmail,
-              password: userPassword
-          })
+    const onConnect = async (mail: string, mot_de_passe: string) => {
+      if (mail === '' || mot_de_passe === '') {
+        alert("All fields are required");
+        return;
+      }
+      await fetch(`http://${Cesi}:3000/api/connexion`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          mail: mail,
+          mot_de_passe : mot_de_passe
+        })
       })
-      .then(function (response){return response})
-      .catch(err => console.error(err));
-  };
+        .then(async res => {
+          try {
+            if (res.status === 200) {
+              navigation.navigate("Tabs")
+            }
+          } catch (err) {
+            console.log(err,'erreur');
+          };
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
 
     const connection = () => {
       onConnect(mail, mot_de_passe);
-      navigation.navigate("Tabs")
     };
     return (
       <View style={mainStyle.container}>

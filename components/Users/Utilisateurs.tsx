@@ -70,7 +70,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
                     <Text style={{color: lightColors.mainBlue}}>{item.nom}</Text>
                   </View>
                 </View>
-                <Text style={{color: lightColors.mainBlue}}>{item._id}</Text>
+                <Text style={{color: lightColors.mainBlue}}>{item.mail}</Text>
               </View>
               <View style={{flexDirection:'row',alignItems:'center', justifyContent:'center', marginTop: responsiveWidth(5)}}>
                 <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>

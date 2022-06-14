@@ -43,5 +43,15 @@ export const mainStyle = StyleSheet.create({
             flex: 1,
             backgroundColor: '#fff',
             paddingHorizontal: 8,
-        }
+        },
+        shadow: {
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.1,
+          shadowRadius: 6,
+          elevation: 5,
+        },
+      
 })

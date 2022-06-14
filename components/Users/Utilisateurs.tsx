@@ -1,9 +1,10 @@
-import { Card } from "@ant-design/react-native";
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
+import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 import { getUsers } from "../../api/Users";
 import { lightColors } from "../../config/colors/colors";
+import { mainStyle } from "../../styles/styles";
 
 interface UsersProps{
   nom: string;
@@ -23,28 +24,28 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
     }, []);
 
     return (
-      <ScrollView>
+      <ScrollView style={{padding: responsiveWidth(5)}}>
         {users.map(((item: UsersProps, index: number) => {
           return (
-                <Card key={index} style={{margin:8}}>
-                    <Card.Header
-                        key={item.id}
-                        title={item.prenom}
-                        thumbStyle={{ width: 30, height: 30 }}
-                        thumb={item.image}
-                        extra={item.nom}
-                    />
-                    <Card.Body key={item.id}>
-                        <View style={{ height: 42 }}>
-                            <Text style={{ marginLeft: 16 }}>{item.mail}</Text>
-                        </View>
-                    </Card.Body>
-                    <Card.Footer
-                      key={item.id}
-                      content={item.compte_actif === false ? <Icon name="close" color={lightColors.red} /> : <Icon name="check" color={lightColors.green} />}
-                      extra=""
-                    />
-          </Card>
+            <View key={item.id} style={[mainStyle.shadow,{
+              padding: responsiveWidth(3),
+              marginBottom: responsiveHeight(2),
+              borderRadius: 14,
+              justifyContent: 'space-between',
+              backgroundColor: lightColors.white,
+            }]}>
+              <View style={{flexDirection:'row',alignItems:'center'}}>
+                <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
+                  <Image source={{uri: item.image}} style={{width: 30,height: 30, marginRight: responsiveWidth(2)}}/>
+                  <View style={{ alignItems:'center'}}>
+                    <Text style={{color: lightColors.mainBlue}}>{item.prenom}</Text>
+                    <Text style={{color: lightColors.mainBlue}}>{item.nom}</Text>
+                  </View>
+                </View>
+                <Text style={{color: lightColors.mainBlue}}>{item.mail}</Text>
+              </View>
+              {item.compte_actif === false ? <Icon name="close" color={lightColors.red} /> : <Icon name="check" color={lightColors.green} />}
+          </View>
         )
       }))}
       </ScrollView>

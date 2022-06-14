@@ -13,7 +13,7 @@ export const Comments: React.FunctionComponent<CommentsProps> = () => {
     const getComments = async () => {
         try {
           const response = await fetch(
-            `http://${Maison}:3000/api/commentaire`
+            `http://${Cesi}:3000/api/commentaire`
           );
           const json = await response.json();
           return setData(json);

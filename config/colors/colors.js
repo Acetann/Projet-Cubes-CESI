@@ -22,9 +22,8 @@ export const lightColors = {
   orange: '#FFA41B',
 };
 
-export const darkColors = {
+export const Colors = {
   yellow: '#F6B911',
-
   darkerMainGrey: 'white',
   darkMainGrey: '#fdfdfd',
   mainGrey: '#F9F9F9',
@@ -39,9 +38,9 @@ export const darkColors = {
   white: '#232E40',
 
   green: '#54D58B',
-  red: '#F46B5D',
+  red: '#E1000F',
   mainPink: '#D20073',
-  blue: '#1BBDFF',
+  blue: '#000091',
   mainBlue: '#151635',
   orangeGold: '#F6B911',
   orange: '#FFA41B',

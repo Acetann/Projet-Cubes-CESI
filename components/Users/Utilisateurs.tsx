@@ -6,7 +6,8 @@ import { Icon } from "react-native-elements";
 import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 import { Cesi } from "../../api";
 import { getUsers } from "../../api/Users";
-import { lightColors } from "../../config/colors/colors";
+import { image } from "../../assets";
+import { Colors, lightColors } from "../../config/colors/colors";
 import { RouteParams } from "../../navigation/RouteNavigator";
 import { mainStyle } from "../../styles/styles";
 import { text } from "../../words/words";
@@ -20,7 +21,7 @@ interface UsersProps{
   image: string;
 }
 
-export const Users: React.FunctionComponent<UsersProps> = () => {
+export const Utilisateurs: React.FunctionComponent<UsersProps> = () => {
 
     const [users, setUsers] = useState([]);
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
@@ -35,7 +36,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
         .then(async res => {
           try {
             if (res.status === 200) {
-              navigation.navigate("Users");
+              navigation.navigate("Utilisateurs");
               getUsers(setUsers);
             }
           } catch (err) {
@@ -64,7 +65,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
             }]}>
               <View style={{flexDirection:'row',alignItems:'center'}}>
                 <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
-                  <Image source={{uri: item.image}} style={{width: 30,height: 30, marginRight: responsiveWidth(2)}}/>
+                  <Image source={{uri: item.image || image.imageHome}} style={{width: 30,height: 30, marginRight: responsiveWidth(2)}}/>
                   <View style={{ alignItems:'center'}}>
                     <Text style={{color: lightColors.mainBlue}}>{item.prenom}</Text>
                     <Text style={{color: lightColors.mainBlue}}>{item.nom}</Text>
@@ -76,7 +77,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
                 <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
                   <View style={{flexDirection:'row',alignItems:'center'}}>
                     <Text style={{marginRight: responsiveWidth(2), color: lightColors.mainBlue}}>{text.actifAccount.title}</Text>
-                    {item.compte_actif === false ? <Icon name="close" color={lightColors.red} /> : <Icon name="check" color={lightColors.green} />}
+                    {item.compte_actif === false ? <Icon name="close" color={Colors.red} /> : <Icon name="check" color={Colors.blue} />}
                   </View>
                 </View>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
@@ -86,7 +87,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
                     marginHorizontal: responsiveWidth(2),
                     borderRadius: 14,
                     justifyContent: 'space-between',
-                    backgroundColor: lightColors.mainBlue,
+                    backgroundColor: Colors.blue,
                   }]}>
                     <Icon name="edit" color={lightColors.white} />
                   </TouchableOpacity>
@@ -95,7 +96,7 @@ export const Users: React.FunctionComponent<UsersProps> = () => {
                     padding: responsiveWidth(2),
                     borderRadius: 14,
                     justifyContent: 'space-between',
-                    backgroundColor: lightColors.red,
+                    backgroundColor: Colors.red,
                   }]}>
                     <Icon name="delete" color={lightColors.white} />
                   </TouchableOpacity>

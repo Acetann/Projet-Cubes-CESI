@@ -7,10 +7,10 @@ import { MyFriend } from "../components/Friends/MyFriend";
 import { Settings } from "../components/Settings/Settings";
 
 const Tab = createBottomTabNavigator();
-const home = "Home";
-const profile = "Profile";
+const home = "Accueil";
+const profile = "Profil";
 const publication = "Publication";
-const ami = "Friends";
+const ami = "Ami";
 const menu = "Paramètres";
 
 export default function TabBarNavigation(){
@@ -35,10 +35,10 @@ export default function TabBarNavigation(){
                 return <Icon name={String(iconName)} size={size} color={color}/>
             },
         })}>
-            <Tab.Screen  name="Home" component={Home} />
-            <Tab.Screen  name="Profile" component={Profile} />
+            <Tab.Screen  name="Accueil" component={Home} />
+            <Tab.Screen  name="Profil" component={Profile} />
             <Tab.Screen  name="Publication" component={Publication} />
-            <Tab.Screen  name="Friends" component={MyFriend} />
+            <Tab.Screen  name="Ami" component={MyFriend} />
             <Tab.Screen  name="Paramètres" component={Settings} />
           </Tab.Navigator>
     )

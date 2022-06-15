@@ -35,7 +35,7 @@ export const Colors = {
   fourthGrey: '#585F6F',
   lightWhite: '#0A121E',
   lightWhite2: '#0A121E',
-  white: '#232E40',
+  white: '#FFF',
 
   green: '#54D58B',
   red: '#E1000F',

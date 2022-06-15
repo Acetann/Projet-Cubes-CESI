@@ -1,4 +1,4 @@
-import { Cesi, Maison } from ".";
+import { Cesi, Maison, Alex } from ".";
 
 export const getPublication = async (setPublication: (json: any) => void) => {
     try {

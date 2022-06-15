@@ -13,7 +13,7 @@ import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
 import { buttonStyle } from '../Button/ButtonStyle';
 import { Button } from '@ant-design/react-native';
-import { Cesi, Maison } from '../../api';
+import { Cesi, Maison, Alex} from '../../api';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 
@@ -26,11 +26,12 @@ type FormValue = {
 
 export const Login: React.FunctionComponent<LoginProps> = () => {
   
+  
     const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
     const validationSchema = Yup.object
         ({
-          email: Yup.string().email(text.email.validate).required(text.email.required),
-          password: Yup.string().min(8, text.password.validate).required(text.password.required),
+          mail: Yup.string().email(text.email.validate).required(text.email.required),
+          mot_de_passe: Yup.string().min(8, text.password.validate).required(text.password.required),
         }).required();
 
     const {

@@ -34,10 +34,6 @@ export const Input: React.FunctionComponent<InputProps> = ({
         secureTextEntry={password}
         keyboardType={type}
       />
-      {Boolean(errorDetails) && (
-        <Text style={{color:"red", marginRight: 8}}>
-        {errorDetails}
-      </Text>)}
     </>
   );
 };

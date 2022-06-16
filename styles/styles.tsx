@@ -11,16 +11,15 @@ export const mainStyle = StyleSheet.create({
   containerCreate: {
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 10 
   },
       sectionStyle: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         borderColor: '#000',
-        height: 40,
-        borderWidth: 1,
-        padding: 8,
+        padding: 10,
       },
       imageStyle: {
         padding: 10,
@@ -53,5 +52,11 @@ export const mainStyle = StyleSheet.create({
           shadowRadius: 6,
           elevation: 5,
         },
+        errors: {
+          fontSize: 14,
+          color: 'red',
+          fontWeight: 'bold',
+          marginTop: 5
+        }
       
 })

@@ -47,6 +47,9 @@ export const text = {
     picture: {
         imageProfile: 'Importer une image'
     },
+    pseudo: {
+        updatePseudo: 'Modifier son pseudo'
+    },
     actifAccount: {
         title: 'Compte actif :'
     },

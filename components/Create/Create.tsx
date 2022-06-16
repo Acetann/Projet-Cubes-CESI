@@ -9,11 +9,16 @@ import { Cesi } from '../../api';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { Icon } from 'react-native-elements';
 import { text } from '../../words/words';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteParams } from '../../navigation/RouteNavigator';
 
 
 interface CreateProps { }
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
   const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
   const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(true))
 
@@ -59,6 +64,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           .then(async res => {
             try {
               if (res.status === 200) {
+                navigation.navigate("Login")
               }
             } catch (err) {
               console.log(err, 'erreur');

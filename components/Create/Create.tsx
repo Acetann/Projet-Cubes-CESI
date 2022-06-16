@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity, TouchableOpacityBase, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { Field } from 'formik';
 import * as Yup from 'yup';
 import AppForm from '../Form/AppForm';
@@ -9,6 +9,9 @@ import { Cesi } from '../../api';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { Icon } from 'react-native-elements';
 import { text } from '../../words/words';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteParams } from '../../navigation/RouteNavigator';
 
 
 interface CreateProps { }
@@ -16,6 +19,7 @@ interface CreateProps { }
 export const Create: React.FunctionComponent<CreateProps> = () => {
   const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
   const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(true))
+  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
   const validationSchema = Yup.object().shape({
     nom: Yup.string().required(text.lastName.validate).label('Name'),
@@ -59,6 +63,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           .then(async res => {
             try {
               if (res.status === 200) {
+                navigation.navigate("Tabs")
               }
             } catch (err) {
               console.log(err, 'erreur');

@@ -2,29 +2,26 @@ export const text = {
     email: {
         validate:"Veuillez saisir une adresse mail valide",
         required:"Veuillez saisir une adresse mail",
-        email: "Email",
+        content: "Email",
         updateEmail: 'Modifier mon mail',
     },
     password: {
         validate:"Veuillez saisir au moins 8 caractères",
         required:"Veuillez saisir un mot de passe",
         confirm: "Veuillez confirmer votre mot de passe",
-        password: "Mot de passe",
-        confirmPassword: "Confirmer le mot de passe"
+        content: "Mot de passe",
+        confirmPassword: "Confirmer le mot de passe",
+        limiteInf: "Votre mot de passe doit au moins contenir 4 caratères",
+        limiteSup: "Votre mot de passe ne doit pas excéder 10 caractères"
     },
     lastName: {
         validate: "Veuillez saisir votre nom",
-        lastName: "Nom",
+        content: "Nom",
         updateLastName: 'Modifier mon nom',
-    },
-    pseudo: {
-        validate: "Veuillez saisir votre pseudo",
-        pseudo: "Pseudo",
-        updatePseudo: 'Modifier mon pseudo',
     },
     firstName: {
         validate: "Veuillez saisir votre prénom",
-        firstName: "Prénom",
+        content: "Prénom",
         updateFirstName: 'Modifier mon prénom',
     },
     create: {

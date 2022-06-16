@@ -1,6 +1,8 @@
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Input } from 'react-native-elements';
+import { responsiveScreenWidth } from 'react-native-responsive-dimensions';
+import { Colors } from '../../config/colors/colors';
 import { mainStyle } from '../../styles/styles';
 
 const AppFormField = (props: any) => {
@@ -31,7 +33,7 @@ const AppFormField = (props: any) => {
                     />
                 </View>
             </View>
-        {hasError && <Text style={{ color: 'red' }}>{errors[name]}</Text>}
+        {hasError && <Text style={{ color: Colors.red, marginLeft: responsiveScreenWidth(5) }}>{errors[name]}</Text>}
         </>
     );
 };

@@ -11,7 +11,7 @@ export const mainStyle = StyleSheet.create({
   containerCreate: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10 
+        marginTop: 20 
   },
       sectionStyle: {
         flexDirection: 'row',
@@ -19,7 +19,7 @@ export const mainStyle = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
         borderColor: '#000',
-        padding: 10,
+        paddingHorizontal: 10,
       },
       imageStyle: {
         padding: 10,

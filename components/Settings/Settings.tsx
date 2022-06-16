@@ -1,10 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteParams } from "../../navigation/RouteNavigator";
 import { text } from "../../words/words"
-import { Button } from "../Button/Button"
+import { Button } from '@ant-design/react-native';
 
 interface SettingsProps {}
 
@@ -15,13 +15,13 @@ export const Settings: React.FunctionComponent<SettingsProps> = () => {
     return (
         <View style={{margin: 16}}>
             <Button
-                children={text.create.title}
-                onPress={() => navigation.navigate('Create')}
-            />
-            <Button
-                children={text.login.title}
-                onPress={() => navigation.navigate('Login')}
+                children={text.users.title}
+                onPress={() => navigation.navigate('Utilisateurs')}
             /> 
+            <Button
+                children={text.logout.title}
+                onPress={() => navigation.navigate('LandingScreen')}
+            />
         </View>
     )
 

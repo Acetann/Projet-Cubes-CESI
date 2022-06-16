@@ -32,6 +32,9 @@ export const text = {
         title: "Connexion",
         signUp: "Se connecter",
     },
+    logout: {
+        title: "Déconnexion",
+    },
     error: {
         allError: "Veuillez remplir tous les champs obligatoires"
     },
@@ -46,5 +49,8 @@ export const text = {
     },
     actifAccount: {
         title: 'Compte actif :'
+    },
+    users: {
+        title: "Utilisateurs",
     }
 }

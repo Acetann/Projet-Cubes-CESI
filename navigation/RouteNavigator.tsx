@@ -8,12 +8,14 @@ import { LandingScreen } from "./LandingScreen";
 import { Profile } from "../components/Profile/Profile";
 import { MyPublication } from "../components/Publications/MyPublication";
 import { MyFriend } from "../components/Friends/MyFriend";
-import { Users } from "../components/Users/Utilisateurs";
+import { Utilisateurs } from "../components/Users/Utilisateurs";
 import { Publication } from "../components/Publications/Publication";
 import { Comments } from "../components/Comments/Comments";
 import { MailProfile } from "../components/Profile/MailProfile";
 import { PrenomProfile } from "../components/Profile/PrenomProfile";
 import TabBarNavigation from "./TabBarNavigation";
+import { NomProfile } from "../components/Profile/NomProfile";
+import { PseudoProfile } from "../components/Profile/PseudoProfile";
 
 export type RouteParams = {
     Home: undefined
@@ -27,7 +29,7 @@ export type RouteParams = {
     Profile: undefined
     MyPublication: undefined
     MyFriend: undefined
-    Users: undefined
+    Utilisateurs: undefined
     Publication: undefined
     Comments: undefined
     Mail: {mail: string}
@@ -53,14 +55,14 @@ export const RouteNavigator = () => {
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="MyPublication" component={MyPublication} />
           <Stack.Screen name="MyFriend" component={MyFriend} />
-          <Stack.Screen name="Users" component={Users} />
+          <Stack.Screen name="Utilisateurs" component={Utilisateurs} />
           <Stack.Screen name="Publication" component={Publication} />
           <Stack.Screen name="Comments" component={Comments} />
           <Stack.Screen name="Paramètres" component={Settings} />
           <Stack.Screen name="Mail" component={MailProfile} />
           <Stack.Screen name="Prenom" component={PrenomProfile} />
-          <Stack.Screen name="Nom" component={MailProfile} />
-          <Stack.Screen name="Pseudo" component={MailProfile} />
+          <Stack.Screen name="Nom" component={NomProfile} />
+          <Stack.Screen name="Pseudo" component={PseudoProfile} />
         </Stack.Navigator>
     </NavigationContainer>
     )

@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Icon, Text } from 'react-native-elements';
-import { lightColors } from '../../config/colors/colors';
+import { Colors } from '../../config/colors/colors';
 import { RouteParams } from '../../navigation/RouteNavigator';
 
 export const TabButton = (currentTab: string, setCurrentTab: Function, title: string) => {
@@ -54,7 +54,7 @@ export const TabButton = (currentTab: string, setCurrentTab: Function, title: st
         navigation.navigate('MyFriend')
         break;
       case "Utilisateurs":
-        navigation.navigate('Users')
+        navigation.navigate('Utilisateurs')
         break;
       case "Publications":
         navigation.navigate('Publication')
@@ -83,12 +83,12 @@ export const TabButton = (currentTab: string, setCurrentTab: Function, title: st
           paddingRight: 35,
           borderRadius: 8,
         }}>
-          <Icon name={String(iconName)} color={currentTab == title ? lightColors.blue : "white"} />
+          <Icon name={String(iconName)} color={currentTab == title ? Colors.blue : "white"} />
           <Text style={{
             fontSize: 15,
             fontWeight: 'bold',
             paddingLeft: 15,
-            color: currentTab == title ? lightColors.blue : "white"
+            color: currentTab == title ? Colors.blue : "white"
           }}>{title}</Text>
         </View>
       </TouchableOpacity>

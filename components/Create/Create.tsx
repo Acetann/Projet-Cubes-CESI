@@ -1,39 +1,45 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, TouchableOpacity, TouchableOpacityBase, View } from 'react-native';
 import { Field } from 'formik';
 import * as Yup from 'yup';
 import AppForm from '../Form/AppForm';
 import AppFormField from '../Form/AppFormField';
 import AppFormSubmitButton from '../Form/AppFormSubmitButton';
 import { Cesi } from '../../api';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { Icon } from 'react-native-elements';
+import { text } from '../../words/words';
 
 
 interface CreateProps { }
 
-const validationSchema = Yup.object().shape({
-  nom: Yup.string().required('Name is required').label('Name'),
-  prenom: Yup.string().required('Name is required').label('Name'),
-  pseudo: Yup.string().required('Pseudo is required').label('Name'),
-  mail: Yup.string()
-    .email('Please enter valid email')
-    .required('Email is required')
-    .label('Email'),
-  mot_de_passe: Yup.string()
-    .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
-    .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
-    .matches(/\d/, 'Password must have a number')
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required('Password is required')
-    .label('Password'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('mot_de_passe')], 'Passwords do not match')
-    .required('Confirm password is required')
-    .label('Confirm Password'),
-});
-
 export const Create: React.FunctionComponent<CreateProps> = () => {
+  const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
+  const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(true))
+
+  const validationSchema = Yup.object().shape({
+    nom: Yup.string().required(text.lastName.validate).label('Name'),
+    prenom: Yup.string().required(text.firstName.validate).label('Name'),
+    pseudo: Yup.string().required(text.pseudo.validate).label('Name'),
+    mail: Yup.string()
+      .email(text.email.validate)
+      .required(text.email.required)
+      .label(text.email.content),
+    mot_de_passe: Yup.string()
+      .matches(/\w*[a-z]\w*/, 'Le mot de passe doit avoir une minuscule')
+      .matches(/\w*[A-Z]\w*/, 'Le mot de passe doit avoir une majuscule')
+      .matches(/\d/, 'Le mot de passe doit avoir un nombre')
+      .min(8, ({ min }) => `Le mot de passe doit avoir au minimum ${min} caractères`)
+      .required(text.password.required)
+      .label(text.password.content),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('mot_de_passe')], 'Les mots de passe ne correspondent pas')
+      .required('Veuillez confirmer le mot de passe')
+      .label(text.password.confirmPassword),
+  });
+
   return (
-    <>
+    <ScrollView>
       <AppForm
         initialValues={{ nom: '',prenom: '', pseudo: '', mail: '', mot_de_passe: '', confirmPassword: '' }}
         validationSchema={validationSchema}
@@ -84,7 +90,6 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           name="pseudo"
           placeholder="Pseudo"
         />
-
         <Field
           component={AppFormField}
           name="mail"
@@ -93,26 +98,48 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           keyboardType="email-address"
           textContentType="emailAddress"
         />
-
-        <Field
-          component={AppFormField}
-          name="mot_de_passe"
-          placeholder="Mot de passe"
-          secureTextEntry
-          textContentType="password"
-        />
-
-        <Field
-          component={AppFormField}
-          name="confirmPassword"
-          placeholder="Confirmer le mot de passe"
-          secureTextEntry
-          textContentType="password"
-        />
-        
+        <View style={{flexDirection: 'row',alignItems: 'center'}}>
+          <View>
+            <Field
+              component={AppFormField}
+              name="mot_de_passe"
+              placeholder="Mot de passe"
+              secureTextEntry={visiblePassword}
+              textContentType="password"
+            />
+          </View>
+          <TouchableOpacity style={{bottom: responsiveWidth(2), right: responsiveWidth(10)}} activeOpacity={0.5} 
+            onPress={() => {
+              !visiblePassword && setVisiblePassword(true),
+              visiblePassword && setVisiblePassword(false)
+            }}
+            >
+            <Icon name={visiblePassword ? "visibility-off" : "visibility"} />
+          </TouchableOpacity>
+        </View>
+        <View style={{flexDirection: 'row',alignItems: 'center'}}>
+          <View>
+            <Field
+            component={AppFormField}
+            name="confirmPassword"
+            placeholder="Confirmer le mot de passe"
+            secureTextEntry={visibleConfirmPassword}
+            textContentType="password"
+          />
+          </View>
+          <TouchableOpacity style={{bottom: responsiveWidth(2), right: responsiveWidth(10)}} activeOpacity={0.5} 
+            onPress={() => {
+              !visibleConfirmPassword && setVisibleConfirmPassword(true),
+              visibleConfirmPassword && setVisibleConfirmPassword(false)
+            }}
+            >
+            <Icon name={visibleConfirmPassword ? "visibility-off" : "visibility"} />
+          </TouchableOpacity>
+        </View>
         <AppFormSubmitButton title="Créer un compte" />
       </AppForm>
-    </>
+      <View style={{marginBottom: responsiveWidth(5)}} />
+    </ScrollView>
   );
 };
 

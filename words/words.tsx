@@ -48,6 +48,9 @@ export const text = {
         imageProfile: 'Importer une image'
     },
     pseudo: {
+        validate: "Veuillez saisir votre pseudo",
+        content: "Pseudo",
+        updateFirstName: 'Modifier mon pseudo',
         updatePseudo: 'Modifier son pseudo'
     },
     actifAccount: {

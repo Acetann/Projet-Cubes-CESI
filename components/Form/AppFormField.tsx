@@ -33,7 +33,7 @@ const AppFormField = (props: any) => {
                     />
                 </View>
             </View>
-        {hasError && <Text style={{ color: Colors.red, marginLeft: responsiveScreenWidth(5) }}>{errors[name]}</Text>}
+        {hasError && <Text style={{ color: Colors.red, marginLeft: responsiveScreenWidth(5), bottom: responsiveScreenWidth(5) }}>{errors[name]}</Text>}
         </>
     );
 };

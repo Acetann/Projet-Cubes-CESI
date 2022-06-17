@@ -17,14 +17,24 @@ import { RouteParams } from '../../navigation/RouteNavigator';
 interface CreateProps { }
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
+
   const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
   const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(true))
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
   const validationSchema = Yup.object().shape({
-    nom: Yup.string().required(text.lastName.validate).label('Name'),
-    prenom: Yup.string().required(text.firstName.validate).label('Name'),
-    pseudo: Yup.string().required(text.pseudo.validate).label('Name'),
+    nom: Yup
+      .string()
+      .required(text.lastName.validate)
+      .label('Name'),
+    prenom: Yup
+      .string()
+      .required(text.firstName.validate)
+      .label('Name'),
+    pseudo: Yup
+      .string()
+      .required(text.pseudo.validate)
+      .label('Name'),
     mail: Yup.string()
       .email(text.email.validate)
       .required(text.email.required)
@@ -32,7 +42,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
     mot_de_passe: Yup.string()
       .matches(/\w*[a-z]\w*/, 'Le mot de passe doit avoir une minuscule')
       .matches(/\w*[A-Z]\w*/, 'Le mot de passe doit avoir une majuscule')
-      .matches(/\d/, 'Le mot de passe doit avoir un nombre')
+      .matches(/\d/, 'Le mot de passe doit avoir un chiffre')
       .min(8, ({ min }) => `Le mot de passe doit avoir au minimum ${min} caractères`)
       .required(text.password.required)
       .label(text.password.content),
@@ -42,12 +52,21 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
       .label(text.password.confirmPassword),
   });
 
+  const initialValues = {
+    nom: '', 
+    prenom: '', 
+    pseudo: '', 
+    mail: '', 
+    mot_de_passe: '', 
+    confirmPassword: ''
+  }
+
   return (
     <ScrollView>
       <AppForm
-        initialValues={{ nom: '',prenom: '', pseudo: '', mail: '', mot_de_passe: '', confirmPassword: '' }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values: { nom: any; prenom: any; pseudo: any; mail: any; mot_de_passe: any; }) => fetch(`http://${Cesi}:3000/api/utilisateur`, {
+        onSubmit={(values: { nom: any; prenom: any; pseudo: any; mail: any; mot_de_passe: any; }, actions: any) => fetch(`http://${Cesi}:3000/api/utilisateur`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -63,7 +82,10 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           .then(async res => {
             try {
               if (res.status === 200) {
+                console.log(values)
+                actions.resetForm({ values: initialValues })
                 navigation.navigate("Tabs")
+                
               }
             } catch (err) {
               console.log(err, 'erreur');

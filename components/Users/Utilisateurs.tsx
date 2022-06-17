@@ -5,11 +5,8 @@ import { ScrollView, View } from "react-native";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Cesi } from "../../api";
 import { getUsers } from "../../api/Users";
-import { image } from "../../assets";
 import { RouteParams } from "../../navigation/RouteNavigator";
 import { SocialContent } from "../../src/components/Social/SocialContent";
-import { mainStyle } from "../../styles/styles";
-import { text } from "../../words/words";
 
 interface UsersProps{
   nom: string;

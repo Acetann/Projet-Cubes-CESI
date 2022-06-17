@@ -12,11 +12,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
 import { Icon } from 'react-native-elements';
 import { buttonStyle } from '../Button/ButtonStyle';
-import { Button } from '@ant-design/react-native';
+import { ActionSheet, Button } from '@ant-design/react-native';
 import { Cesi, Maison, Alex} from '../../api';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import AppForm from '../Form/AppForm';
-import { Field } from 'formik';
+import { Field, useFormikContext } from 'formik';
 import AppFormField from '../Form/AppFormField';
 import AppFormSubmitButton from '../Form/AppFormSubmitButton';
 
@@ -34,15 +34,20 @@ const validationSchema = Yup.object
     .required(text.password.required),
   });
 
+  const initialValues = {
+    mail: '', 
+    mot_de_passe: '' 
+  }
+
 
 export const Login: React.FunctionComponent<LoginProps> = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
   return (
     <>
       <AppForm
-        initialValues={{ mail: '', mot_de_passe: '' }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values: {mail: any; mot_de_passe: any; }) => fetch(`http://${Cesi}:3000/api/connexion`, {
+        onSubmit={(values: {mail: any; mot_de_passe: any; }, actions: any) => fetch(`http://${Cesi}:3000/api/connexion`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -52,20 +57,22 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
             mot_de_passe: values.mot_de_passe
           })
         })
-          .then(async res => {
-            try {
-              if (res.status === 200) {
-                console.log(values)
-                navigation.navigate("Tabs")
-              }
-            } catch (err) {
-              console.log(err, 'erreur');
-            };
-          })
-          .catch(err => {
-            console.log(err);
+        .then(async res => {
+          try {
+            if (res.status === 200) {
+              console.log(values)
+              actions.resetForm({ values : initialValues})
+              navigation.navigate("Tabs") 
+            }
+          } catch (err) {
+            console.log(err, 'erreur');
+          };
         })
-    }>
+        .catch(err => {
+          console.log(err);
+        })
+        
+        }>
         <Field
           component={AppFormField}
           name="mail"

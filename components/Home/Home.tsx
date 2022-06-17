@@ -11,6 +11,7 @@ interface HomeProps {
   date_creation: Date;
   utilisateur: string;
   pseudo: string;
+  nb_reaction: number;
 }
 
 export const Home: React.FunctionComponent<HomeProps> = () => {
@@ -32,6 +33,7 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
                 titre={item.titre} 
                 img={item.image} 
                 date_creation={item.date_creation}
+                nb_reaction={item.nb_reaction}
               />
             </Fragment>
           )

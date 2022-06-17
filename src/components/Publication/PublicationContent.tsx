@@ -1,9 +1,8 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
-import { getPublication } from "../../../api/Publications";
 import { Colors, lightColors } from "../../../config/colors/colors";
 import { mainStyle } from "../../../styles/styles";
 import { image } from "../../../assets";
@@ -16,11 +15,12 @@ interface PublicationContentProps {
     date_creation: Date;
     utilisateur?: string;
     pseudo: string;
+    nb_reaction: number;
   }
 
-export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({texte, titre, img, date_creation, utilisateur, pseudo}) => {
+export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({texte, titre, img, date_creation, utilisateur, pseudo,nb_reaction}) => {
     const [isLike, setIsLike] = useState(Boolean(true))
-  
+
       return (
             <View style={[mainStyle.shadow,{
               padding: responsiveWidth(3),
@@ -38,12 +38,15 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                 {texte !== undefined && <Text style={{color: lightColors.mainBlue}}>{texte}</Text>}
               </View>
               <View style={{flexDirection:'row',alignItems:'center', justifyContent:'space-around', marginTop: responsiveWidth(5)}}>
-              <TouchableOpacity  onPress={() => {
+                <View style={{alignItems:'center'}}>
+                <Text style={{color: lightColors.mainBlue}}>{nb_reaction}</Text>
+              <TouchableOpacity style={{flexDirection:'row',alignItems:'center',marginVertical: responsiveWidth(2)}}  onPress={() => {
                       !isLike && setIsLike(true),
                       isLike && setIsLike(false)
                   }}>
                     <Icon name={isLike ? "thumb-up-off-alt" : "thumb-up"} color={Colors.blue} />
               </TouchableOpacity>
+              </View>
                 <TouchableOpacity style={
                   {
                     padding: responsiveWidth(2),

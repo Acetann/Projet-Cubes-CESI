@@ -6,6 +6,7 @@ import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimen
 import { Colors, lightColors } from "../../../config/colors/colors";
 import { mainStyle } from "../../../styles/styles";
 import { image } from "../../../assets";
+import { format } from "../../../utils/Number";
 
 
 interface PublicationContentProps {
@@ -38,14 +39,14 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                 {texte !== undefined && <Text style={{color: lightColors.mainBlue}}>{texte}</Text>}
               </View>
               <View style={{flexDirection:'row',alignItems:'center', justifyContent:'space-around', marginTop: responsiveWidth(5)}}>
-                <View style={{alignItems:'center'}}>
-                <Text style={{color: lightColors.mainBlue}}>{nb_reaction}</Text>
-              <TouchableOpacity style={{flexDirection:'row',alignItems:'center',marginVertical: responsiveWidth(2)}}  onPress={() => {
+                <View style={{alignItems:'center', justifyContent:'center'}}>
+                  {nb_reaction !== undefined && (<Text style={{color: lightColors.mainBlue}}>{format(nb_reaction, false)}</Text>)}
+                  <TouchableOpacity style={{flexDirection:'row',alignItems:'center',marginVertical: responsiveWidth(2)}}  onPress={() => {
                       !isLike && setIsLike(true),
                       isLike && setIsLike(false)
-                  }}>
-                    <Icon name={isLike ? "thumb-up-off-alt" : "thumb-up"} color={Colors.blue} />
-              </TouchableOpacity>
+                    }}>
+                      <Icon name={isLike ? "thumb-up-off-alt" : "thumb-up"} color={Colors.blue} />
+                  </TouchableOpacity>
               </View>
                 <TouchableOpacity style={
                   {
@@ -55,7 +56,6 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                   }}>
                     <Icon name="comment" color={Colors.blue} />
                   </TouchableOpacity>
-                  
             </View>
             <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
               <Text style={{color: lightColors.mainBlue}}>{"Publié le : "}</Text>

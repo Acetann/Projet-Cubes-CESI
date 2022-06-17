@@ -42,6 +42,7 @@ const validationSchema = Yup.object
 
 export const Login: React.FunctionComponent<LoginProps> = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+   const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
   return (
     <>
       <AppForm
@@ -83,14 +84,25 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
           keyboardType="email-address"
           textContentType="emailAddress"
         />
-
-        <Field
-          component={AppFormField}
-          name="mot_de_passe"
-          placeholder="Mot de passe"
-          secureTextEntry
-          textContentType="password"
-        />
+        <View style={{flexDirection: 'row',alignItems: 'center'}}>
+          <View>
+            <Field
+              component={AppFormField}
+              name="mot_de_passe"
+              placeholder="Mot de passe"
+              secureTextEntry={visiblePassword}
+              textContentType="password"
+            />
+          </View>
+          <TouchableOpacity style={{marginBottom: responsiveWidth(6), right: responsiveWidth(10)}} activeOpacity={0.5} 
+            onPress={() => {
+              !visiblePassword && setVisiblePassword(true),
+              visiblePassword && setVisiblePassword(false)
+            }}
+            >
+            <Icon name={visiblePassword ? "visibility-off" : "visibility"} />
+          </TouchableOpacity>
+        </View>
         <AppFormSubmitButton title="Se connecter" />
       </AppForm>
     </>

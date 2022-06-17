@@ -16,6 +16,7 @@ import { PrenomProfile } from "../components/Profile/PrenomProfile";
 import TabBarNavigation from "./TabBarNavigation";
 import { NomProfile } from "../components/Profile/NomProfile";
 import { PseudoProfile } from "../components/Profile/PseudoProfile";
+import Abonne from "../components/Social/components/Abonne";
 
 export type RouteParams = {
     Home: undefined
@@ -28,7 +29,7 @@ export type RouteParams = {
     LandingScreen: undefined
     Profile: undefined
     MyPublication: undefined
-    MyFriend: undefined
+    Amis: undefined
     Utilisateurs: undefined
     Publication: undefined
     Comments: undefined
@@ -37,6 +38,7 @@ export type RouteParams = {
     Nom: {nom: string}
     Pseudo: {pseudo: string}
     Tabs: undefined
+    Abonne: undefined
 }
 
 const Stack = createNativeStackNavigator<RouteParams>();
@@ -54,7 +56,7 @@ export const RouteNavigator = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="MyPublication" component={MyPublication} />
-          <Stack.Screen name="MyFriend" component={MyFriend} />
+          <Stack.Screen name="Amis" component={MyFriend} />
           <Stack.Screen name="Utilisateurs" component={Utilisateurs} />
           <Stack.Screen name="Publication" component={Publication} />
           <Stack.Screen name="Comments" component={Comments} />
@@ -63,6 +65,7 @@ export const RouteNavigator = () => {
           <Stack.Screen name="Prenom" component={PrenomProfile} />
           <Stack.Screen name="Nom" component={NomProfile} />
           <Stack.Screen name="Pseudo" component={PseudoProfile} />
+          <Stack.Screen name="Abonne" component={Abonne} />
         </Stack.Navigator>
     </NavigationContainer>
     )

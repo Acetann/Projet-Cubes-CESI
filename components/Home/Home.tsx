@@ -18,27 +18,27 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
 
   const [publication, setPublication] = useState([]);
 
-    useEffect(() => {
-        getPublication(setPublication);
-    }, []);
-    
-    return (
-      <ScrollView style={{padding: responsiveWidth(5), paddingBottom: responsiveWidth(10)}}>
-        {publication.map(((item: HomeProps, index: number) => {
-          return (
-            <Fragment key={index}>
-              <PublicationContent
-                pseudo={item.pseudo} 
-                texte={item.texte} 
-                titre={item.titre} 
-                img={item.image} 
-                date_creation={item.date_creation}
-                nb_reaction={item.nb_reaction}
-              />
-            </Fragment>
-          )
-        }))}
-        <View style={{marginBottom: responsiveWidth(5)}} />
-      </ScrollView>
-    )
+  useEffect(() => {
+    getPublication(setPublication);
+  }, []);
+
+  return (
+    <ScrollView style={{ padding: responsiveWidth(5), paddingBottom: responsiveWidth(10) }}>
+      {publication.map(((item: HomeProps, index: number) => {
+        return (
+          <Fragment key={index}>
+            <PublicationContent
+              pseudo={item.pseudo}
+              texte={item.texte}
+              titre={item.titre}
+              img={item.image}
+              date_creation={item.date_creation}
+              nb_reaction={item.nb_reaction}
+            />
+          </Fragment>
+        )
+      }))}
+      <View style={{ marginBottom: responsiveWidth(5) }} />
+    </ScrollView>
+  )
 }

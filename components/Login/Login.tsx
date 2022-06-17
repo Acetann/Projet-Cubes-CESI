@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Text, TouchableOpacity, View } from 'react-native';
+import {Alert, Text, TouchableOpacity, View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Input } from "../../utils/Input";
@@ -57,12 +57,14 @@ export const Login: React.FunctionComponent<LoginProps> = () => {
             mot_de_passe: values.mot_de_passe
           })
         })
-        .then(async res => {
+        .then(async response => {
           try {
-            if (res.status === 200) {
-              console.log(values)
-              actions.resetForm({ values : initialValues})
-              navigation.navigate("Tabs") 
+            if (response.status === 200) {
+            const jsonResponse = await response.json()
+            console.log(jsonResponse)
+
+            actions.resetForm({ values : initialValues})
+            navigation.navigate("Tabs")
             }
           } catch (err) {
             console.log(err, 'erreur');

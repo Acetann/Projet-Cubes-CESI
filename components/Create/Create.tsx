@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity, TouchableOpacityBase, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { Field } from 'formik';
 import * as Yup from 'yup';
 import AppForm from '../Form/AppForm';
@@ -17,10 +17,10 @@ import { RouteParams } from '../../navigation/RouteNavigator';
 interface CreateProps { }
 
 export const Create: React.FunctionComponent<CreateProps> = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
   const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
   const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(true))
+  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
   const validationSchema = Yup.object().shape({
     nom: Yup.string().required(text.lastName.validate).label('Name'),
@@ -64,7 +64,7 @@ export const Create: React.FunctionComponent<CreateProps> = () => {
           .then(async res => {
             try {
               if (res.status === 200) {
-                navigation.navigate("Login")
+                navigation.navigate("Tabs")
               }
             } catch (err) {
               console.log(err, 'erreur');

@@ -6,6 +6,6 @@ interface MyFriendProps{}
 export const MyFriend: React.FunctionComponent<MyFriendProps> = () => {
 
     return (
-      <ListUserContent />
+      <ListUserContent isSocial={false} />
     )
 }

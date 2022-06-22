@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, TextInput, View} from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
-import { Cesi } from '../../../api';
+import { Cesi, Maison } from '../../../api';
 import { Colors } from '../../../config/colors/colors';
 import { SocialContent } from '../../../src/components/Social/SocialContent';
 
-const ListUserContent = () => {
+const ListUserContent = ({isSocial}) => {
 
 const [filterData, setFilterData] = useState([]);
 const [usersData, setUsersData] = useState([]);
 const [search, setSearch] = useState('');
 
 const getUsers = () => {
-    fetch(`http://${Cesi}:3000/api/utilisateur`)
+    fetch(`http://${Maison}:3000/api/utilisateur`)
     .then((response) => response.json())
     .then((responseJson) => {
         setFilterData(responseJson);
@@ -62,15 +62,17 @@ const searchFilter = (text) => {
   }, []);
 
   return (
-    <View style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
-        <TextInput
+    <View style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(isSocial ? 2 : 20), paddingTop: responsiveWidth(5)}}>
+        {!isSocial && (
+          <TextInput
             style={{height:40,borderWidth:1,paddingLeft:20,marginBottom:responsiveWidth(5),borderColor:search.length === 0 ? Colors.red : Colors.blue,backgroundColor: Colors.white}}
             value={search}
             placeholder="Rechercher un utilisateur"
             underlineColorAndroid="transparent"
             onChangeText={(text) => searchFilter(text)}
-        />
-        <FlatList showsVerticalScrollIndicator={false} keyExtractor={(item, index) => index.toString()} data={filterData} renderItem={({item}) => (
+          />
+        )}
+        <FlatList showsVerticalScrollIndicator={false} keyExtractor={(item, index) => index.toString()} data={filterData.slice(0, isSocial ? 1 : 10)} renderItem={({item}) => (
             <SocialContent
                 nom={item.nom} 
                 prenom={item.prenom} 
@@ -82,7 +84,7 @@ const searchFilter = (text) => {
             />
         )} 
         />
-  </View>
+    </View>
   );
 };
 

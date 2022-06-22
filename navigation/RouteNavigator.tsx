@@ -18,6 +18,7 @@ import { NomProfile } from "../components/Profile/NomProfile";
 import { PseudoProfile } from "../components/Profile/PseudoProfile";
 import Abonne from "../components/Social/components/Abonne";
 import Abonnement from "../components/Social/components/Abonnement";
+import { AllPublication } from "../components/Publications/AllPublications";
 
 export type RouteParams = {
     Home: undefined
@@ -33,6 +34,7 @@ export type RouteParams = {
     Amis: undefined
     Utilisateurs: undefined
     Publication: undefined
+    AllPublication: undefined
     Comments: undefined
     Mail: {mail: string}
     Prenom: {prenom: string}
@@ -58,8 +60,9 @@ export const RouteNavigator = () => {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="MyPublication" component={MyPublication} />
-          <Stack.Screen name="Amis" component={MyFriend} />
+          <Stack.Screen options={{headerTitle: 'Mes Publications'}} name="MyPublication" component={MyPublication} />
+          <Stack.Screen options={{headerTitle: 'Publications'}} name="AllPublication" component={AllPublication} />
+          <Stack.Screen options={{headerTitle: 'BOnjour'}} name="Amis" component={MyFriend} />
           <Stack.Screen name="Utilisateurs" component={Utilisateurs} />
           <Stack.Screen name="Publication" component={Publication} />
           <Stack.Screen name="Comments" component={Comments} />

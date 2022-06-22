@@ -13,7 +13,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { imageUploaderStyles } from "./stylesProfile";
 
 interface ProfileProps{
-nom: string;
+  nom: string;
   prenom: string;
   id: number;
   mail: string;
@@ -44,7 +44,7 @@ export const Profile: React.FunctionComponent<ProfileProps> = () => {
       getUsers(setUsers);
     }, []);
     return (
-        <>
+        <View style={{flex:1}}>
             <TouchableOpacity onPress={addImage} style={imageUploaderStyles.contain}>
                 {images === '' ? (
                     <View style={imageUploaderStyles.container}>
@@ -88,12 +88,6 @@ export const Profile: React.FunctionComponent<ProfileProps> = () => {
           </Card>
         )
       })).slice(0,1)}
-        <View style={{margin: responsiveWidth(2)}}>
-            <Button type="primary" onPress={() => navigation.navigate("MyFriend")} style={buttonStyle.Container}>{text.friend.allFriend}</Button>
-        </View>
-        <View style={{margin: responsiveWidth(2)}}>
-            <Button type="primary" onPress={() => navigation.navigate("MyPublication")} style={buttonStyle.Container}>{text.publication.allPublication}</Button>
-        </View>
-      </>
+      </View>
     )
 }

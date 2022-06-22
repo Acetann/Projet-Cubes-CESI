@@ -5,6 +5,7 @@ import { Profile } from "../components/Profile/Profile";
 import { Publication } from "../components/Publications/Publication";
 import { Settings } from "../components/Settings/Settings";
 import { Social } from "../components/Social/Social";
+import { Colors } from "../config/colors/colors";
 
 const Tab = createBottomTabNavigator();
 const home = "Accueil";
@@ -34,12 +35,13 @@ export default function TabBarNavigation(){
                 }
                 return <Icon name={String(iconName)} size={size} color={color}/>
             },
+            tabBarActiveTintColor: Colors.blue,
         })}>
-            <Tab.Screen  name="Accueil" component={Home} />
-            <Tab.Screen  name="Profil" component={Profile} />
-            <Tab.Screen  name="Publication" component={Publication} />
-            <Tab.Screen  name="Social" component={Social} />
-            <Tab.Screen  name="Paramètres" component={Settings} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Accueil" component={Home} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Profil" component={Profile} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Publication" component={Publication} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Social" component={Social} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Paramètres" component={Settings} />
           </Tab.Navigator>
     )
 }

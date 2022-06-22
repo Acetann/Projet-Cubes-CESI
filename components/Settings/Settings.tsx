@@ -5,7 +5,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteParams } from "../../navigation/RouteNavigator";
 import { text } from "../../words/words"
 import { Button } from '@ant-design/react-native';
-import { Colors } from '../../config/colors/colors';
 
 interface SettingsProps {}
 
@@ -14,7 +13,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     return (
-        <View style={{flex:1, justifyContent:'flex-end', backgroundColor:Colors.primary}}>
+        <View style={{flex:1, justifyContent:'flex-end'}}>
             <Button
                 children={text.geolocalisation.title}
                 onPress={() => navigation.navigate('Geolocalisation')}

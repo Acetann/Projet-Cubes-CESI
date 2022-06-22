@@ -4,7 +4,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { View } from "react-native";
 import { responsiveWidth } from "react-native-responsive-dimensions";
-import { Colors } from "../../config/colors/colors";
 import { RouteParams } from "../../navigation/RouteNavigator";
 import ListUserContent from "./components/ListUserContent";
 
@@ -15,7 +14,7 @@ export const Social: React.FunctionComponent<SocialProps> = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     return (
-        <View style={{flex:1, backgroundColor:Colors.primary}}>
+        <View style={{flex:1}}>
             <ListUserContent isSocial />
             <Button
                 style={{marginHorizontal: responsiveWidth(5),borderRadius: 16}}

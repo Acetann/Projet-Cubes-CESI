@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteParams } from "../../navigation/RouteNavigator";
 import { text } from "../../words/words"
 import { Button } from '@ant-design/react-native';
+import { Colors } from '../../config/colors/colors';
 
 interface SettingsProps {}
 
@@ -13,10 +14,10 @@ export const Settings: React.FunctionComponent<SettingsProps> = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     return (
-        <View style={{margin: 16}}>
+        <View style={{flex:1, justifyContent:'flex-end', backgroundColor:Colors.primary}}>
             <Button
-                children={text.users.title}
-                onPress={() => navigation.navigate('Utilisateurs')}
+                children={text.geolocalisation.title}
+                onPress={() => navigation.navigate('Geolocalisation')}
             /> 
             <Button
                 children={text.logout.title}

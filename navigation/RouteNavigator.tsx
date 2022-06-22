@@ -41,6 +41,7 @@ export type RouteParams = {
     Tabs: undefined
     Abonne: undefined
     Abonnement: undefined
+    Geolocalisation: undefined
 }
 
 const Stack = createNativeStackNavigator<RouteParams>();
@@ -69,6 +70,7 @@ export const RouteNavigator = () => {
           <Stack.Screen name="Pseudo" component={PseudoProfile} />
           <Stack.Screen name="Abonne" component={Abonne} />
           <Stack.Screen name="Abonnement" component={Abonnement} />
+          <Stack.Screen name="Geolocalisation" component={Abonnement} />
         </Stack.Navigator>
     </NavigationContainer>
     )

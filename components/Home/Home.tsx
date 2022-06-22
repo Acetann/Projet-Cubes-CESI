@@ -3,6 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { getPublication } from '../../api/Publications';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { PublicationContent } from '../../src/components/Publication/PublicationContent';
+import { Colors } from '../../config/colors/colors';
 
 interface HomeProps {
   texte: string;
@@ -23,7 +24,7 @@ export const Home: React.FunctionComponent<HomeProps> = () => {
     }, []);
     
     return (
-      <ScrollView style={{padding: responsiveWidth(5), paddingBottom: responsiveWidth(10)}}>
+      <ScrollView style={{backgroundColor: Colors.primary, padding: responsiveWidth(5), paddingBottom: responsiveWidth(10)}}>
         {publication.map(((item: HomeProps, index: number) => {
           return (
             <Fragment key={index}>

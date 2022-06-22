@@ -58,5 +58,8 @@ export const text = {
     },
     users: {
         title: "Utilisateurs",
-    }
+    },
+    geolocalisation: {
+        title: 'Geolocalisation'
+    },
 }

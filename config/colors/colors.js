@@ -36,7 +36,7 @@ export const Colors = {
   lightWhite: '#0A121E',
   lightWhite2: '#0A121E',
   white: '#FFF',
-
+  primary: '#108ee9',
   green: '#54D58B',
   red: '#E1000F',
   mainPink: '#D20073',

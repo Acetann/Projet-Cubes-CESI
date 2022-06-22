@@ -17,6 +17,7 @@ import TabBarNavigation from "./TabBarNavigation";
 import { NomProfile } from "../components/Profile/NomProfile";
 import { PseudoProfile } from "../components/Profile/PseudoProfile";
 import Abonne from "../components/Social/components/Abonne";
+import Abonnement from "../components/Social/components/Abonnement";
 
 export type RouteParams = {
     Home: undefined
@@ -39,6 +40,7 @@ export type RouteParams = {
     Pseudo: {pseudo: string}
     Tabs: undefined
     Abonne: undefined
+    Abonnement: undefined
 }
 
 const Stack = createNativeStackNavigator<RouteParams>();
@@ -66,6 +68,7 @@ export const RouteNavigator = () => {
           <Stack.Screen name="Nom" component={NomProfile} />
           <Stack.Screen name="Pseudo" component={PseudoProfile} />
           <Stack.Screen name="Abonne" component={Abonne} />
+          <Stack.Screen name="Abonnement" component={Abonnement} />
         </Stack.Navigator>
     </NavigationContainer>
     )

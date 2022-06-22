@@ -15,24 +15,24 @@ export const Social: React.FunctionComponent<SocialProps> = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     return (
-        <View>
+        <View style={{flex:1, backgroundColor:Colors.primary}}>
             <ListUserContent isSocial />
             <Button
-                style={{marginHorizontal: responsiveWidth(5),borderRadius: 16, borderColor: Colors.blue}}
+                style={{marginHorizontal: responsiveWidth(5),borderRadius: 16}}
                 children={'Voir la liste de mes amis'}
                 onPress={() => navigation.navigate('Amis')}
             />
             <ListUserContent isSocial />
             <Button
-                style={{marginHorizontal: responsiveWidth(5),borderRadius: 16, borderColor: Colors.blue}}
+                style={{ marginHorizontal: responsiveWidth(5),borderRadius: 16}}
                 children={'Voir la liste de mes abonnés'}
                 onPress={() => navigation.navigate('Abonne')}
             />
             <ListUserContent isSocial />
             <Button
-                style={{marginHorizontal: responsiveWidth(5),borderRadius: 16, borderColor: Colors.blue}}
+                style={{marginHorizontal: responsiveWidth(5),borderRadius: 16}}
                 children={'Voir la liste de mes abonnements'}
-                onPress={() => navigation.navigate('LandingScreen')}
+                onPress={() => navigation.navigate('Abonnement')}
             />
         </View>
     )

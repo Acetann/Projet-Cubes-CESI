@@ -1,110 +1,86 @@
-import React, { useState } from 'react';
-import * as Yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {Alert, Text, TouchableOpacity, View } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
-
-import { Input } from "../../utils/Input";
-import { text } from "../../words/words";
-import { mainStyle } from '../../styles/styles';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import { TextField } from '../Form/TextField';
+import { Button } from '../Form/Button'
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { ApplicationState, onLogin, UserAction } from '../../src/redux';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
-import { Icon } from 'react-native-elements';
-import { buttonStyle } from '../Button/ButtonStyle';
-import { ActionSheet, Button } from '@ant-design/react-native';
-import { Cesi, Maison, Alex} from '../../api';
-import { responsiveWidth } from 'react-native-responsive-dimensions';
-import AppForm from '../Form/AppForm';
-import { Field, useFormikContext } from 'formik';
-import AppFormField from '../Form/AppFormField';
-import AppFormSubmitButton from '../Form/AppFormSubmitButton';
+import * as Yup from "yup";
+import { text } from '../../words/words';
 
-
-interface LoginProps {}
-
-const validationSchema = Yup.object
-  ({
-    mail: Yup
-    .string()
-    .email(text.email.validate)
-    .required(text.email.required),
-    mot_de_passe: Yup
-    .string()
-    .required(text.password.required),
-  });
-
-  const initialValues = {
-    mail: '', 
-    mot_de_passe: '' 
-  }
-
-
-export const Login: React.FunctionComponent<LoginProps> = () => {
+export const Login = () => {
+  const [mail, setMail] = useState('');
+  const [mot_de_passe, setMot_de_passe] = useState('')
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-   const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
-  return (
-    <>
-      <AppForm
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values: {mail: any; mot_de_passe: any; }, actions: any) => fetch(`http://${Cesi}:3000/api/connexion`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            mail: values.mail,
-            mot_de_passe: values.mot_de_passe
-          })
-        })
-        .then(async response => {
-          try {
-            if (response.status === 200) {
-            const jsonResponse = await response.json()
-            console.log(jsonResponse)
+  const dispatch = useDispatch();
 
-            actions.resetForm({ values : initialValues})
-            navigation.navigate("Tabs")
-            }
-          } catch (err) {
-            console.log(err, 'erreur');
-          };
-        })
-        .catch(err => {
-          console.log(err);
-        })
-        
-        }>
-        <Field
-          component={AppFormField}
-          name="mail"
-          placeholder="Email"
-          autoCompleteType="email"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <View style={{flexDirection: 'row',alignItems: 'center'}}>
-          <View>
-            <Field
-              component={AppFormField}
-              name="mot_de_passe"
-              placeholder="Mot de passe"
-              secureTextEntry={visiblePassword}
-              textContentType="password"
-            />
-          </View>
-          <TouchableOpacity style={{marginBottom: responsiveWidth(6), right: responsiveWidth(10)}} activeOpacity={0.5} 
-            onPress={() => {
-              !visiblePassword && setVisiblePassword(true),
-              visiblePassword && setVisiblePassword(false)
-            }}
-            >
-            <Icon name={visiblePassword ? "visibility-off" : "visibility"} />
-          </TouchableOpacity>
+  const { utilisateur, error } = useSelector(
+    (state: ApplicationState) => state.userReducer 
+  );
+
+  const { token, body } = utilisateur;
+
+    useEffect(() => {
+    if (token !== undefined) {
+      console.log('_id: ' + body._id)
+      navigation.navigate("Tabs");
+    }
+  }, [utilisateur]);
+
+  const onTapLogin = () => {
+    dispatch<any>(onLogin(mail, mot_de_passe))
+  };
+  
+  const validationSchema = Yup.object
+    ({
+      mail: Yup
+        .string()
+        .email(text.email.validate)
+        .required(text.email.required),
+      mot_de_passe: Yup
+        .string()
+        .required(text.password.required),
+    });
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.navigation}></View>
+      <View style={styles.body}>
+        <View style={styles.loginView}>
+        <TextField 
+          placeholder="mail" 
+          onChangeText={setMail}
+          />
+        <TextField 
+          placeholder="mot de passe"
+          onChangeText={setMot_de_passe} 
+          isSecure={true}/>
+          <Button title="Login" onTap={onTapLogin} />
         </View>
-        <AppFormSubmitButton title="Se connecter" />
-      </AppForm>
-    </>
+      </View>
+    <View style={styles.footer}></View>
+  </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  navigation: {
+    flex: 2,
+  },
+  body: {
+    flex: 9,
+  },
+  loginView: {
+    marginLeft: 20,
+    marginRight: 20,
+    height: 400,
+  },
+  footer: {
+    flex: 1,
+  },
+});

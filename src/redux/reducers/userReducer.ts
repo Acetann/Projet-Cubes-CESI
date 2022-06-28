@@ -1,25 +1,30 @@
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace'
+import { ActionType } from '../actions/actionsType'
 import { UserAction, UserModel } from '../actions/userActions'
 
 type UserState = {
-    utilisateur: UserModel
+    data: UserModel
     error: string | undefined
 }
 
 const initialState= {
-    utilisateur: {} as UserModel,
+    data: {} as UserModel,
     error: undefined
 }
 
-const UserReducer = (state: UserState = initialState, action: UserAction) => {
+export const UserReducer = (state: UserState = initialState, action: UserAction) => {
     switch(action.type){
 
-        case 'ON_LOGIN':
+        case ActionType.LOGIN:
             return {
                 ...state,
-                utilisateur: action.payload
+                data: action.payload
             }
-        case 'ON_ERROR':
+        case ActionType.REGISTER:
+            return {
+                ...state,
+                data: action.payload
+            }    
+        case ActionType.ERROR:
             return {
                 ...state,
                 error: action.payload
@@ -28,5 +33,3 @@ const UserReducer = (state: UserState = initialState, action: UserAction) => {
             return state;
     }
 };
-
-export { UserReducer };

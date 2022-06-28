@@ -1,173 +1,96 @@
-import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { Field } from 'formik';
-import * as Yup from 'yup';
-import AppForm from '../Form/AppForm';
-import AppFormField from '../Form/AppFormField';
-import AppFormSubmitButton from '../Form/AppFormSubmitButton';
-import { Cesi } from '../../api';
-import { responsiveWidth } from 'react-native-responsive-dimensions';
-import { Icon } from 'react-native-elements';
-import { text } from '../../words/words';
+import React, { useEffect, useState } from 'react';
+import {StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState, onRegister } from '../../src/redux';
+import { TextField } from '../Form/TextField';
+import { Button } from '../Form/Button'
 
 
-interface CreateProps { }
+export const Create = () => {
+  const [nom, setNom] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [pseudo, setPseudo] = useState('');
+  const [mail, setMail] = useState('');
+  const [confirmMdp, setConfirmMdp] = useState('');
+  const [mot_de_passe, setMot_de_passe] = useState('')
 
-export const Create: React.FunctionComponent<CreateProps> = () => {
-
-  const [visiblePassword, setVisiblePassword] = useState(Boolean(true))
-  const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(Boolean(true))
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+  const dispatch = useDispatch();
 
-  const validationSchema = Yup.object().shape({
-    nom: Yup
-      .string()
-      .required(text.lastName.validate)
-      .label('Name'),
-    prenom: Yup
-      .string()
-      .required(text.firstName.validate)
-      .label('Name'),
-    pseudo: Yup
-      .string()
-      .required(text.pseudo.validate)
-      .label('Name'),
-    mail: Yup.string()
-      .email(text.email.validate)
-      .required(text.email.required)
-      .label(text.email.content),
-    mot_de_passe: Yup.string()
-      .matches(/\w*[a-z]\w*/, 'Le mot de passe doit avoir une minuscule')
-      .matches(/\w*[A-Z]\w*/, 'Le mot de passe doit avoir une majuscule')
-      .matches(/\d/, 'Le mot de passe doit avoir un chiffre')
-      .min(8, ({ min }) => `Le mot de passe doit avoir au minimum ${min} caractères`)
-      .required(text.password.required)
-      .label(text.password.content),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('mot_de_passe')], 'Les mots de passe ne correspondent pas')
-      .required('Veuillez confirmer le mot de passe')
-      .label(text.password.confirmPassword),
-  });
+  const { data, error } = useSelector(
+    (state: ApplicationState) => state.utilisateur
+  );
 
-  const initialValues = {
-    nom: '', 
-    prenom: '', 
-    pseudo: '', 
-    mail: '', 
-    mot_de_passe: '', 
-    confirmPassword: ''
-  }
+
+
+  useEffect(() => {
+    if (data.token !== undefined) {
+      
+  /*  navigation.navigate("Tabs");  */
+    }
+  }, [data]);
+
+  const onTapRegister = () => {
+    dispatch<any>(onRegister(nom, prenom, pseudo, mail, mot_de_passe))
+  };
 
   return (
-    <ScrollView>
-      <AppForm
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values: { nom: any; prenom: any; pseudo: any; mail: any; mot_de_passe: any; }, actions: any) => fetch(`http://${Cesi}:3000/api/utilisateur`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            nom: values.nom,
-            prenom: values.prenom,
-            pseudo: values.pseudo,
-            mail: values.mail,
-            mot_de_passe: values.mot_de_passe,
-          })
-        })
-          .then(async res => {
-            try {
-              if (res.status === 200) {
-                console.log(values)
-                actions.resetForm({ values: initialValues })
-                navigation.navigate("Tabs")
-                
-              }
-            } catch (err) {
-              console.log(err, 'erreur');
-            };
-          })
-          .catch(err => {
-            console.log(err);
-            
-          })
-        }>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ width: "50%" }}>
-          <Field
-          component={AppFormField} 
-          name="nom" 
-          placeholder="Nom" 
+    <View style={styles.container}>
+      <View style={styles.navigation}></View>
+      <View style={styles.body}>
+        <View style={styles.loginView}>
+          <TextField
+            placeholder="nom"
+            onChangeText={setNom}
           />
-          </View>
-          <View style={{ width: "50%" }}>
-          <Field
-            component={AppFormField}
-            name="prenom"
-            placeholder="Prenom"
+          <TextField
+            placeholder="prenom"
+            onChangeText={setPrenom}
           />
-          </View>
-        </View>
-        <Field
-          component={AppFormField}
-          name="pseudo"
-          placeholder="Pseudo"
-        />
-        <Field
-          component={AppFormField}
-          name="mail"
-          placeholder="Email"
-          autoCompleteType="email"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <View style={{flexDirection: 'row',alignItems: 'center'}}>
-          <View>
-            <Field
-              component={AppFormField}
-              name="mot_de_passe"
-              placeholder="Mot de passe"
-              secureTextEntry={visiblePassword}
-              textContentType="password"
-            />
-          </View>
-          <TouchableOpacity style={{bottom: responsiveWidth(2), right: responsiveWidth(10)}} activeOpacity={0.5} 
-            onPress={() => {
-              !visiblePassword && setVisiblePassword(true),
-              visiblePassword && setVisiblePassword(false)
-            }}
-            >
-            <Icon name={visiblePassword ? "visibility-off" : "visibility"} />
-          </TouchableOpacity>
-        </View>
-        <View style={{flexDirection: 'row',alignItems: 'center'}}>
-          <View>
-            <Field
-            component={AppFormField}
-            name="confirmPassword"
-            placeholder="Confirmer le mot de passe"
-            secureTextEntry={visibleConfirmPassword}
-            textContentType="password"
+          <TextField
+            placeholder="pseudo"
+            onChangeText={setPseudo}
           />
-          </View>
-          <TouchableOpacity style={{bottom: responsiveWidth(2), right: responsiveWidth(10)}} activeOpacity={0.5} 
-            onPress={() => {
-              !visibleConfirmPassword && setVisibleConfirmPassword(true),
-              visibleConfirmPassword && setVisibleConfirmPassword(false)
-            }}
-            >
-            <Icon name={visibleConfirmPassword ? "visibility-off" : "visibility"} />
-          </TouchableOpacity>
+          <TextField
+            placeholder="mail"
+            onChangeText={setMail}
+          />
+          <TextField
+            placeholder="mot de passe"
+            onChangeText={setMot_de_passe}
+            isSecure={true} />
+          <TextField
+            placeholder="confirm mot de passe"
+            onChangeText={setConfirmMdp}
+            isSecure={true}
+          />
+          <Button title="Login" onTap={onTapRegister} />
         </View>
-        <AppFormSubmitButton title="Créer un compte" />
-      </AppForm>
-      <View style={{marginBottom: responsiveWidth(5)}} />
-    </ScrollView>
-  );
-};
+      </View>
+      <View style={styles.footer}></View>
+    </View>
+  )
+}
 
-export default Create;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  navigation: {
+    flex: 2,
+  },
+  body: {
+    flex: 9,
+  },
+  loginView: {
+    marginLeft: 20,
+    marginRight: 20,
+    height: 400,
+  },
+  footer: {
+    flex: 1,
+  },
+});

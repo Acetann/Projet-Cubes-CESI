@@ -4,45 +4,48 @@ import { TextField } from '../Form/TextField';
 import { Button } from '../Form/Button'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import { ApplicationState, onLogin, UserAction } from '../../src/redux';
+import { ApplicationState, onLogin } from '../../src/redux';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigation/RouteNavigator';
-import * as Yup from "yup";
-import { text } from '../../words/words';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Login = () => {
   const [mail, setMail] = useState('');
   const [mot_de_passe, setMot_de_passe] = useState('')
+
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
   const dispatch = useDispatch();
 
-  const { utilisateur, error } = useSelector(
-    (state: ApplicationState) => state.userReducer 
+
+  const { data, error } = useSelector((state: ApplicationState) => state.utilisateur
   );
 
-  const { token, body } = utilisateur;
-
     useEffect(() => {
-    if (token !== undefined) {
-      console.log('_id: ' + body._id)
-      navigation.navigate("Tabs");
+    if (data.token !== undefined) { 
+      setToken();
+      console.log(data)
+      
+/*     navigation.navigate("Tabs"); */
     }
-  }, [utilisateur]);
+  }, [data]);
+
+  const setToken = async () => {
+    if (!data.token) {
+      console.log('pas de token trouvé')
+    } else {
+      try {
+        await AsyncStorage.setItem('token', data.token)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   const onTapLogin = () => {
     dispatch<any>(onLogin(mail, mot_de_passe))
   };
   
-  const validationSchema = Yup.object
-    ({
-      mail: Yup
-        .string()
-        .email(text.email.validate)
-        .required(text.email.required),
-      mot_de_passe: Yup
-        .string()
-        .required(text.password.required),
-    });
+  
 
   return (
     <View style={styles.container}>

@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { View } from "react-native";
-import { RouteParams } from "../../navigation/RouteNavigator";
+import { RouteParams } from "../../src/screens/navigation/RouteNavigator";
 
 interface SocialProps{}
 

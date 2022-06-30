@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, TextInput, View} from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
-import { Cesi } from '../../../api';
+import { Cesi } from '../../../src/services';
 import { Colors } from '../../../config/colors/colors';
 import { SocialContent } from '../../../src/components/Social/SocialContent';
 

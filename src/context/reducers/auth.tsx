@@ -1,38 +1,62 @@
-export const auth = (state: any, {type, payload}: any) => {
-    switch( type){
-        
-        case 'REGISTER_LOADING':
-        case 'LOGIN_LOADING':
+import { CLEAR_AUTH_STATE, LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT, REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../constants/actionTypes";
+import authState from "../initialStates/authState";
+
+
+export const auth = (state: typeof authState, {type, payload}: any) => {
+    switch(type){ 
+        case REGISTER_LOADING:
             return {
                 ...state,
                 loading: true,
             };
-        case 'REGISTER_SUCCESS':
+        case LOGIN_LOADING:
+            return {
+                ...state,
+                loading: true,
+            };
+
+        case REGISTER_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 data: payload,
             };
-        case 'LOGIN_SUCCESS':
+
+        case LOGIN_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 data: payload,
                 isLoggedIn: true,
             };
-        case 'REGISTER_FAIL':
-        case 'LOGIN_FAIL':
+
+        case REGISTER_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: payload,
             };
-        case 'CLEAR_AUTH_STATE':
+        case LOGIN_FAIL:
             return {
                 ...state,
                 loading: false,
-                daata: null,
+                error: payload,
+            };
+
+        case CLEAR_AUTH_STATE:
+            return {
+                ...state,
+                loading: false,
+                data: null,
                 error: null
+            };
+            
+        case LOGOUT:
+            return {
+                ...state,
+                loading: false,
+                data: null,
+                isLoggedIn: false
             };
     
         default:

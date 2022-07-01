@@ -1,13 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useContext, useEffect, useState } from "react"
-import { Container } from "../../components/common/Container"
 import { LoginComponent } from "../../components/Login/LoginComponent";
 import login from "../../context/actions/auth/login";
 import { GlobalContext } from "../../context/globalContext";
 import { RouteParams } from "../../navigations/AuthNavigator";
 
 export const Login = () => {
+    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     const [form, setForm] = useState({
         mail: '',
@@ -19,10 +19,7 @@ export const Login = () => {
         mot_de_passe: '',
     });
 
-    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-
-    const { authDispatch, authState: { error, loading } } =
-        useContext(GlobalContext)
+    const { authDispatch, authState: { error, loading } } = useContext(GlobalContext)
 
     const onSubmit = () => {
         if (form.mail && form.mot_de_passe){

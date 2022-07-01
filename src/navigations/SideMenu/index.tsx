@@ -1,28 +1,49 @@
-import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { HomeNavigator } from '../HomeNavigator';
-import { HOME_NAVIGATOR, LOGIN, SETTINGS } from '../../constants/routesName';
-import { SafeAreaView, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { SETTINGS } from '../../constants/routesName';
+import { SafeAreaView, Image, StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Container } from '../../components/common/Container';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../AuthNavigator';
 import { useNavigation } from '@react-navigation/native';
+import logout from '../../context/actions/auth/logout';
+import a from '@ant-design/react-native/lib/modal/operation';
+import { GlobalContext } from '../../context/globalContext';
 
-export const SideMenu = ({}) => {
-
+export const SideMenu = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
+    const { authDispatch } = useContext(GlobalContext)
+
+    const getDeconnected = () => {
+        Alert.alert('Logout!', 'Are you sure you want to logout ?', [
+            {
+                text: 'Cancel',
+                onPress: () => {}
+            },
+            {
+                text: 'OK',
+                onPress: () => {
+                    logout()(authDispatch)
+                }
+            },
+        ]);
+    }
+    
     const menuItems=[
         {
-            icon: <Text>1</Text>, name:"Settings", onPress:() => {
+            icon: <Text>1</Text>, 
+            name:"Settings", 
+            onPress:() => {
                 navigation.navigate(SETTINGS)
             }
         },
         {
-            icon: <Text>2</Text>, name: "Logout", onPress: () => {
-                /* navigation.navigate(LOGIN); */
-            }
-        },
+            icon: <Text>2</Text>, 
+            name: "Logout", 
+            onPress: getDeconnected
+        } 
     ]
+
     return (
         <SafeAreaView>
             <Container>

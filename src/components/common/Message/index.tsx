@@ -45,47 +45,44 @@ export const Message: React.FC<MessageProps> = ({
     return (
         <>
         {userDismissed ? null : (
-        <TouchableOpacity
-            style={[styles.wrapper, { backgroundColor: getBgColor() }]}>
-            <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-                <Text
-                    style={{
-                        color: colors.white,
-                    }}>
-                    { message }
-                </Text>
-
-                {retry && typeof onDismiss !== 'function' && (
-                    <TouchableOpacity onPress={retryFn}>
-                        <Text
-                            style={{
-                                color: colors.white,
-                            }}>
-                            Retry
-                        </Text>
-                    </TouchableOpacity>
-                )}
-
-                {typeof onDismiss === 'function' && (
-                    <TouchableOpacity
-                        onPress={() => {
-                            setDismissed(true);
-                            onDismiss();
+            <TouchableOpacity style={[styles.wrapper, { backgroundColor: getBgColor() }]}>
+                <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                    <Text 
+                        style={{color: colors.white
                         }}>
-                        <Text
-                            style={{
-                                color: colors.white,
-                            }}>
-                            X
-                        </Text>
-                    </TouchableOpacity>
-                )}
-            </View>
-        </TouchableOpacity>
-    )
-}
-    </>
-  );
+                        {message}
+                    </Text>
+
+                        {retry && typeof onDismiss !== 'function' && (
+                            <TouchableOpacity onPress={retryFn}>
+                                <Text
+                                    style={{
+                                        color: colors.white,
+                                    }}>
+                                    Retry
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+
+                        {typeof onDismiss === 'function' && (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setDismissed(true);
+                                    onDismiss();
+                                }}>
+                                <Text
+                                    style={{
+                                        color: colors.white,
+                                    }}>
+                                    X
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                </TouchableOpacity>
+            )}
+        </>
+    );
 };
 
 const styles = StyleSheet.create({

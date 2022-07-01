@@ -7,13 +7,7 @@ export const clearAuthState = () => (dispatch: any) => {
     })
 }
 
-export default ({
-    nom, 
-    prenom, 
-    pseudo, 
-    mail, 
-    mot_de_passe,
-}) =>(dispatch: any)=> {
+export default ({ nom, prenom, pseudo, mail, mot_de_passe }) => (dispatch: any) => (onSuccess: any) => {
     dispatch({
         type: REGISTER_LOADING
     });
@@ -30,13 +24,12 @@ export default ({
                 type: REGISTER_SUCCESS,
                 payload: res.data
             });
+            onSuccess(res.data);
         })
         .catch((err) => {
             dispatch({
                 type: REGISTER_FAIL,
-                payload: err.response
-                    ? err.response.data
-                    :{error: 'Something went wront, try again'},
-            });
+                payload: err.response ? err.response.data : { error: 'Something went wront, try again'}
+            }); 
         });
     };

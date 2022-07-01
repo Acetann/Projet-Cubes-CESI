@@ -36,6 +36,7 @@ export const LoginComponent: React.FC<LoginProps> = ({
 }) => {
 
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
     const [isSecureEntry, setIsSecureEntry] = useState(true);
 
 
@@ -51,15 +52,22 @@ export const LoginComponent: React.FC<LoginProps> = ({
                         <Text style={styles.title}>Bienvenue sur Socially</Text>
                         <Text style={styles.subTitle}>Connectez vous ici</Text>
 
-                       {/*  {error && !error.error && (
+           {/*              {error && !error.error && (
                             <Message
                                 onDismiss={() => {}}
                                 danger
                                 message="invalid credentials"
                             />
-                        )}
+                        )} */}
 
-                        {<Message danger onDismiss message={error?.error} />} */}
+                        {<Message 
+                        danger 
+                        retry
+                        retryFn={() => {
+                            console.log('222', 222)
+                        }} 
+                        onDismiss = {() => {}}
+                        message='invalid credentials' />}
                             
                         <View style={styles.form}>
                             <Input
@@ -71,7 +79,14 @@ export const LoginComponent: React.FC<LoginProps> = ({
                             />
                             <Input
                                 placeholder="Mot de passe"
-                                icon={<Text>SHOW</Text>}
+                                icon={
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            setIsSecureEntry((prev) => !prev);
+                                        }}>
+                                        <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                                    </TouchableOpacity>
+                                }
                                 iconPosition='right'
                                 isSecure={isSecureEntry}
                                 onChangeText={(value: string) => {

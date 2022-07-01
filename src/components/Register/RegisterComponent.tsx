@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Container } from '../common/Container'
 import { Input } from '../common/Input'
 import { CustomButton } from '../common/Button'
@@ -8,7 +8,7 @@ import { LOGIN } from '../../constants/routesName'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteParams } from '../../navigations/AuthNavigator'
-import { Message } from '../common/Message'
+
 
 interface RegisterProps{
     onSubmit: Function
@@ -22,31 +22,21 @@ interface RegisterProps{
         mot_de_passe: string
         confirmMdp: string;
     }
-    error:{
-        nom: string
-        prenom: string
-        pseudo: string
-        mail: string
-        mot_de_passe: string
-        confirmMdp: string;
-        error: string
-    }
+    error : any
     loading:{}
 }
+
 
 export const RegisterComponent: React.FC<RegisterProps> = ({
     onSubmit,
     onChange,
-    form,
     errors,
-    error,
-    loading
+    loading,
+    error
 }) => {
 
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     const [isSecureEntry, setIsSecureEntry] = useState(true);
-
-
     return (
         <Container>
             <Image
@@ -60,15 +50,15 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
 
                 <View style={styles.createSection}>
                     <View style={{ width: "50%" }}>
-                        {error?.error && (
+                       {/*  {error?.error && (
                             <Message retry danger retryFn={onSubmit} message={error?.error}/>
-                        )}
+                        )} */}
                         <Input
                             placeholder="Nom"
                             error={errors.nom || error?.nom?.[0]}
                             onChangeText={(value: string) => {
                                 onChange({name: 'nom', value})
-                            }}  
+                            }}
                         />
                         <Input
                             placeholder="Prenom"
@@ -83,7 +73,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                 <View>
                     <Input
                         placeholder="Pseudo"
-                        error={errors.pseudo || error?.pseudo?.[0]}
+                        error={errors.pseudo || error?.pseudo}
                         onChangeText={(value: string) => {
                             onChange({ name: 'pseudo', value })
                         }}
@@ -92,7 +82,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                     <View>
                     <Input
                         placeholder="Mail"
-                        error={errors.mail || error?.mail?.[0]}
+                            error={errors.mail || error?.mail}
                         onChangeText={(value: string) => {
                             onChange({ name: 'mail', value })
                         }}
@@ -101,8 +91,15 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                     <View style={styles.form}>
                     <Input
                         placeholder="Mot de passe"
-                        error={errors.mail || error?.mot_de_passe?.[0]}
-                        icon={<Text>SHOW</Text>}
+                        error={errors.mot_de_passe || error?.mot_de_passe?.[0]}
+                        icon={
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setIsSecureEntry((prev) => !prev);
+                                }}>
+                                <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                            </TouchableOpacity>
+                        }
                         iconPosition='right'
                         isSecure={isSecureEntry}
                         onChangeText={(value: string) => {
@@ -111,8 +108,15 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                     />
                     <Input
                         placeholder="Confirmer le mot de passe"
-                        error={errors.mail || error?.confirmMdp?.[0]}
-                        icon={<Text>SHOW</Text>}
+                        error={errors.confirmMdp || error?.confirmMdp?.[0]}
+                        icon={
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setIsSecureEntry((prev) => !prev);
+                                }}>
+                                <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                            </TouchableOpacity>
+                        }
                         iconPosition='right'
                         isSecure={isSecureEntry}
                         onChangeText={(value: string) => {

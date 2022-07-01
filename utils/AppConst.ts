@@ -1,1 +1,1 @@
-export const BASE_URL = "http://192.168.1.14:3000/api"
+export const BASE_URL = "https://projetcubesapi.herokuapp.com/api"

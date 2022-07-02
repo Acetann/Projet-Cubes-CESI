@@ -1,12 +1,17 @@
 import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Icon } from 'react-native-elements';
 import { Colors } from "../../config/colors/colors";
-import { Contacts } from "../screens/Contacts";
-import { Settings } from "../screens/Settings";
+import { Home } from "../tabs/Home/Home";
+import { Profil } from "../tabs/Profil/Profil";
+import { Publication } from "../tabs/Publication/Publication";
+import { Settings } from "../tabs/Settings/Settings";
+import { Social } from "../tabs/Social/Social";
 
 const Tab = createBottomTabNavigator();
-const home = "CONTACT_LIST";
-const profile = "Profil";
+const home = "Accueil";
+const contact = "CONTACT_LIST";
+
+const profil = "Profil";
 const publication = "Publication";
 const ami = "Social";
 
@@ -20,7 +25,7 @@ export default function TabBarNavigation(){
                 
                 if(rn === home){
                     iconName = 'home';
-                } else if (rn === profile) {
+                } else if (rn === profil) {
                     iconName = 'person';
                 }else if (rn === publication ) {
                     iconName = 'book'
@@ -33,11 +38,11 @@ export default function TabBarNavigation(){
             },
             tabBarActiveTintColor: Colors.blue,
         })}>
-            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="CONTACT_LIST" component={Contacts} />
-            {/* <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Profil" component={Profile} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Accueil" component={Home} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Profil" component={Profil} />
             <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Publication" component={Publication} />
-            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Social" component={Social} /> */}
-            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="SETTINGS" component={Settings} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Social" component={Social} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Paramètres" component={Settings} />
           </Tab.Navigator>
     )
 }

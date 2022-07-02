@@ -2,8 +2,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { CONTACT_DETAIL, CONTACT_LIST, CREATE_CONTACT, SETTINGS } from '../constants/routesName';
 import { Contacts } from '../screens/Contacts';
-import { Settings } from '../screens/Settings'
 import TabBarNavigation from './TabBarNavigator';
+import { Settings } from '../tabs/Settings/Settings';
 
 
 export const HomeNavigator = () => {

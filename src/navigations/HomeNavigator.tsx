@@ -3,13 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { CONTACT_DETAIL, CONTACT_LIST, CREATE_CONTACT, SETTINGS } from '../constants/routesName';
 import { Contacts } from '../screens/Contacts';
 import { Settings } from '../screens/Settings'
+import TabBarNavigation from './TabBarNavigator';
 
 
 export const HomeNavigator = () => {
     const HomeStack = createStackNavigator();
    
     return(
-        <HomeStack.Navigator initialRouteName="Contacts">
+        <HomeStack.Navigator initialRouteName="Tabs">
+            <HomeStack.Screen options={{headerShown: false}} name="Tabs" component={TabBarNavigation} />
             <HomeStack.Screen name={CONTACT_LIST} component={Contacts}></HomeStack.Screen>
 {/*             <HomeStack.Screen name={CONTACT_DETAIL} component={ContactDetails}></HomeStack.Screen>
             <HomeStack.Screen name={CREATE_CONTACT} component={CreateContact}></HomeStack.Screen> */}

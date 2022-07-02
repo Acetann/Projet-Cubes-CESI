@@ -2,10 +2,16 @@ export default interface IPublicationsData {
     _id?: any | null,
     texte: string,
     titre: string,
-    data_creation: Date,
+    date_creation: Date,
     nb_reaction: Number,
     Image: Buffer,
     validation: Boolean,
+    pseudo: string,
+    utilisateur: {
+        mail:string,
+        description: string,
+        pseudo: string,
+    }
 }
 
 export const defaultPublications: IPublicationsData[] = [];

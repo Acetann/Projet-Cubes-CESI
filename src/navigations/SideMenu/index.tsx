@@ -15,13 +15,13 @@ export const SideMenu = () => {
     const { authDispatch } = useContext(GlobalContext)
 
     const getDeconnected = () => {
-        Alert.alert('Logout!', 'Are you sure you want to logout ?', [
+        Alert.alert('Déconnexion!', 'Es-tu sûr de vouloir te déconnecter ?', [
             {
-                text: 'Cancel',
+                text: 'Annuler',
                 onPress: () => {}
             },
             {
-                text: 'OK',
+                text: 'Oui',
                 onPress: () => {
                     logout()(authDispatch)
                 }

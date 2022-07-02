@@ -19,8 +19,10 @@ export const Login = () => {
         mot_de_passe: '',
     });
 
-    const { authDispatch, authState: { error, loading } } = useContext(GlobalContext)
+    
 
+    const { authDispatch, authState: { error, loading } } = useContext(GlobalContext)
+   
     const onSubmit = () => {
         if (form.mail && form.mot_de_passe){
             login(form)(authDispatch);

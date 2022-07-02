@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { axiosInstance } from "../../../helpers/axios.interceptor";
+import { axiosInstance, axiosWithoutToken } from "../../../helpers/axios.interceptor";
 import { LOGIN_LOADING, LOGIN_FAIL, LOGIN_SUCCESS } from '../../../constants/actionTypes';
 
 export default ({ mail, mot_de_passe }) => (dispatch: any) => {
@@ -7,14 +7,13 @@ export default ({ mail, mot_de_passe }) => (dispatch: any) => {
         type: LOGIN_LOADING
     });
     //requete avec l'instance d'axios interceptor (+ token)
-    axiosInstance
+    axiosWithoutToken
         .post('connexion', {
             mail,
             mot_de_passe,
         })
         //stockage du current user si success
         .then((res) => {
-            console.log("currentUser", res.data)
             AsyncStorage.setItem('currentToken', res.data.token)
             AsyncStorage.setItem('currentUser', JSON.stringify(res.data.utilisateur))
             dispatch({

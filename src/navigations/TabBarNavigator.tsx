@@ -1,7 +1,7 @@
 import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Icon } from 'react-native-elements';
 import { Colors } from "../../config/colors/colors";
-import { Home } from "../tabs/Home/Home";
+import { Home } from '../tabs/Home/Home';
 import { Profil } from "../tabs/Profil/Profil";
 import { Publication } from "../tabs/Publication/Publication";
 import { Settings } from "../tabs/Settings/Settings";

@@ -1,5 +1,5 @@
 import { REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS, CLEAR_AUTH_STATE } from "../../../constants/actionTypes";
-import { axiosInstance } from "../../../helpers/axios.interceptor";
+import { axiosInstance, axiosWithoutToken } from "../../../helpers/axios.interceptor";
 
 export const clearAuthState = () => (dispatch: any) => {
     dispatch({
@@ -11,7 +11,7 @@ export default ({ nom, prenom, pseudo, mail, mot_de_passe }) => (dispatch: any) 
     dispatch({
         type: REGISTER_LOADING
     });
-    axiosInstance
+    axiosWithoutToken
         .post('inscription', {
             nom,
             prenom,

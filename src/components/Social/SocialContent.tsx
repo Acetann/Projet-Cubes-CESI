@@ -21,7 +21,7 @@ interface SocialContentProps {
     onDelete:(id: number) => void;
   }
 
-export const SocialContent: React.FunctionComponent<SocialContentProps> = ({nom, prenom, _id, mail, compte_actif, img, onDelete,isFriend}) => {
+export const SocialContent: React.FunctionComponent<SocialContentProps> = ({nom, prenom, _id, mail, compte_actif, img, onDelete, isFriend}) => {
 
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 

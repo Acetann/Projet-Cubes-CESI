@@ -15,12 +15,10 @@ export const axiosWithoutToken = axios.create({
 
 axiosInstance.interceptors.request.use(
     async (config) => {
-        const token = await AsyncStorage.getItem('currentToken') 
-        console.log(token)
+        const token = await AsyncStorage.getItem('currentToken')
         if(token){
             config.headers!.Authorization = `Bearer ${token}`;
         }
-        console.log(config)
         return config;
     }, 
     (error) => {

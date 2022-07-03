@@ -64,7 +64,6 @@ export const LoginComponent: React.FC<LoginProps> = ({
                         danger 
                         retry
                         retryFn={() => {
-                            console.log('222', 222)
                         }} 
                         onDismiss = {() => {}}
                         message='invalid credentials' />}
@@ -94,7 +93,7 @@ export const LoginComponent: React.FC<LoginProps> = ({
                                 }}  
                         
                             />
-                            <CustomButton 
+                            <CustomButton
                             onPress={onSubmit} 
                             loading={loading}
                             secondary 

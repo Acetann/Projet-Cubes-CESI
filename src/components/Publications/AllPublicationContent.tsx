@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
+import color from '../../assets/theme/color';
 import { axiosWithoutToken } from '../../helpers/axios.interceptor';
 import IPublicationsData, { defaultPublications } from '../../Types/Publications.type';
 import { PublicationContent } from './PublicationContent';
@@ -25,6 +27,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
         }, []);
     
     return (
+      <>
       <ScrollView style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(isHome ? 0 : 10), paddingTop: responsiveWidth(5)}}>
         {publications.map(((item, index) => {
           return (
@@ -42,5 +45,23 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
         }))}
         <View style={{marginBottom: responsiveWidth(5)}} />
       </ScrollView>
+        <TouchableOpacity style={styles.floatingActionButton}>
+          <Icon name="add" color={color.white} size={21} />
+        </TouchableOpacity>
+      </>
     )
 }
+
+const styles = StyleSheet.create({
+  floatingActionButton: {
+    backgroundColor: 'red',
+    width: 55,
+    height: 55,
+    position: 'absolute',
+    bottom: 20,
+    right: 15,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})

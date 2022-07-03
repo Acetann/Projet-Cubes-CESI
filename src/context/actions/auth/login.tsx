@@ -6,13 +6,13 @@ export default ({ mail, mot_de_passe }) => (dispatch: any) => {
     dispatch({
         type: LOGIN_LOADING
     });
-    //requete avec l'instance d'axios interceptor (+ token)
+    //requete avec l'instance d'axios interceptor
     axiosWithoutToken
         .post('connexion', {
             mail,
             mot_de_passe,
         })
-        //stockage du current user si success
+        //stockage du current user et du currentToken si success
         .then((res) => {
             AsyncStorage.setItem('currentToken', res.data.token)
             AsyncStorage.setItem('currentUser', JSON.stringify(res.data.utilisateur))

@@ -11,7 +11,7 @@ export const AppNavContainer = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn)
     const [authLoaded, setAuthLoaded] = useState(false)
 
-    const getUser= async() => {
+        const getUser= async() => {
         try {
             //recupère l'user connecté
             const utilisateur = await AsyncStorage.getItem('currentUser')

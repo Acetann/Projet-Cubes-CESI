@@ -1,11 +1,12 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { colors, Icon } from "react-native-elements";
 import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors, lightColors } from "../../../config/colors/colors";
 import { mainStyle } from "../../../styles/styles";
 import { format } from "../../../utils/Number";
+import color from "../../assets/theme/color";
 
 interface PublicationContentProps {
     texte: string;
@@ -20,6 +21,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
     const [isLike, setIsLike] = useState(Boolean(true))
 
       return (
+        <>
             <View style={[mainStyle.shadow,{
               padding: responsiveWidth(3),
               marginBottom: responsiveHeight(2),
@@ -59,5 +61,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               <Text style={{color: lightColors.mainBlue}}>{`${moment(date_creation).format('DD/MM/YYYY,HH:mm').replace(':','h')}`}</Text>
             </View>
           </View>
+        </>
           )
   }
+

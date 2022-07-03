@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, Text, Modal, ScrollView, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import colors from '../../../assets/theme/color';
+import { CustomButton } from '../Button';
 
 interface AppModal {
     modalVisible?: any
@@ -37,7 +38,7 @@ export const AppModal: React.FC<AppModal> = ({
                                     setModalVisible(false);
                                 }}>
                             </TouchableOpacity>
-                            <Text style={styles.title}>{title || 'RNContacts'}</Text>
+                            <Text style={styles.title}>{title || 'Modifier mon profil'}</Text>
 
                             <View />
                             <View />
@@ -56,9 +57,14 @@ export const AppModal: React.FC<AppModal> = ({
                                     <View style={styles.footerSeparator} />
                                     <View style={styles.footerItems}>
                                         <View style={styles.footer}>
-                                            <Text style={styles.footerText}>Privacy Policy</Text>
-                                            <View style={styles.termsView} />
-                                            <Text style={styles.footerText}>Terms of Service</Text>
+                                          <CustomButton
+                                            danger
+                                          title= 'cancel'
+                                          ></CustomButton>
+                                            <CustomButton
+                                                secondary
+                                                title='valider'
+                                            ></CustomButton>
                                         </View>
                                     </View>
                                 </>
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         marginHorizontal: 20,
         borderRadius: 4,
-        minHeight: 300,
+        minHeight: 500,
     },
 
     header: {
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
     },
 
     body: {
-        minHeight: 300,
+        minHeight: 600,
         paddingHorizontal: 20,
         paddingVertical: 10,
     },

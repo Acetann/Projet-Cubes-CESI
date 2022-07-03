@@ -7,6 +7,10 @@ import { FlatList } from "react-native-gesture-handler";
 import { axiosInstance, axiosWithoutToken } from "../../helpers/axios.interceptor";
 import base64 from 'react-native-base64'
 import { AppModal } from "../../components/common/appModal";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RouteParams } from "../../navigations/AuthNavigator";
+import { EDIT_PROFILE } from "../../constants/routesName";
 interface ProfilProps{
     modalVisible : any,
     setModalVisible: any
@@ -15,6 +19,7 @@ interface ProfilProps{
 export const Profil: React.FC<ProfilProps> = () => {
 const [ currentUserDecoded, setCurrentUserDecoded] = useState()
 const [modalVisible, setModalVisible] = useState(false)
+const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
 const data = [
     {
@@ -44,10 +49,6 @@ const data = [
     useEffect(() => {
         getCurrentUser();
     }, []);
-
-    const goToEdit = () => {
-        
-    }
 
     return (
         <ScrollView style={{ backgroundColor: color.white, height: '100%' }}>
@@ -83,10 +84,9 @@ const data = [
             <Text style={{ fontSize: 18, color: 'black', paddingHorizontal: 15, marginTop: 10, fontWeight: 'bold', marginBottom: 20 }}>
                 {currentUserDecoded?.pseudo}
             </Text>
-            <AppModal modalVisible={modalVisible} setModalVisible={setModalVisible} modalFooter={undefined} modalBody={undefined} title={undefined}></AppModal>
             <CustomButton
                 onPress={() => {
-                    setModalVisible(true)
+                    navigation.navigate(EDIT_PROFILE)
                 }}
                 title="Modifier mon profil"
                 primary

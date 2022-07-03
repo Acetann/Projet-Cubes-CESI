@@ -1,6 +1,7 @@
 export const HOME_NAVIGATOR = 'Home';
 export const REGISTER = 'Register';
 export const LOGIN = 'Login';
+export const EDIT_PROFILE = "Edit_profil"
 export const AMIS = 'Amis';
 export const ABONNE = 'Abonne';
 export const ABONNEMENT = 'Abonnement';

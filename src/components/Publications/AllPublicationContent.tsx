@@ -54,12 +54,12 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
 
 const styles = StyleSheet.create({
   floatingActionButton: {
-    backgroundColor: 'red',
-    width: 55,
-    height: 55,
+    backgroundColor: '#253570',
+    width: 60,
+    height: 60,
     position: 'absolute',
-    bottom: 20,
-    right: 15,
+    bottom: 10,
+    right: 20,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center'

@@ -1,11 +1,11 @@
 import React from "react";
-import ListUserWithFilterContent from "../../components/Social/ListUserWithFilterContent";
+import ListFriend from "../../components/Social/Liste/ListFriend";
 
 interface AbonnementProps{}
 
 export const Abonnement: React.FunctionComponent<AbonnementProps> = () => {
 
     return (
-        <ListUserWithFilterContent />
+        <ListFriend />
     )
 }

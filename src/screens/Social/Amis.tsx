@@ -1,11 +1,11 @@
 import React from "react";
-import ListUserWithFilterContent from "../../components/Social/ListUserWithFilterContent";
+import ListFriend from "../../components/Social/Liste/ListFriend";
 
-interface MyFriendProps{}
+interface AmisProps{}
 
-export const MyFriend: React.FunctionComponent<MyFriendProps> = () => {
+export const Amis: React.FunctionComponent<AmisProps> = () => {
 
     return (
-        <ListUserWithFilterContent />
+        <ListFriend ami/>
     )
 }

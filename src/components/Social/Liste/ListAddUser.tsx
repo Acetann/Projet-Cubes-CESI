@@ -1,29 +1,24 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, {Fragment, useEffect, useState} from 'react';
 import { ScrollView, TextInput, View} from 'react-native';
-import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
-import { Colors } from '../../../config/colors/colors';
-import { MESSAGE } from '../../constants/routesName';
-import { axiosInstance } from '../../helpers/axios.interceptor';
-import { RouteParams } from '../../navigations/AuthNavigator';
-import IUtilisateursData, { defaultUtilisateurs } from '../../Types/User/Utilisateur.type';
-import Button from '../Button/Button';
-import { SocialContent } from './SocialContent';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { Colors } from '../../../../config/colors/colors';
+import { axiosInstance } from '../../../helpers/axios.interceptor';
+import IUtilisateursData, { defaultUtilisateurs } from '../../../Types/User/Utilisateur.type';
+import { SocialContent } from '../SocialContent';
 
-interface ListUserWithFilterContentProps {}
 
-export const ListUserWithFilterContent: React.FunctionComponent<ListUserWithFilterContentProps> = () => {
+interface ListAddUserProps {}
+
+export const ListAddUser: React.FunctionComponent<ListAddUserProps> = () => {
 
 const [filterData, setFilterData] = useState(defaultUtilisateurs);
 const [search, setSearch] = useState('');
-const [utilisateurs, setUtilisateurs]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
-const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+const [friend, setFriend]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
 
     useEffect(() => {
       axiosInstance.get<IUtilisateursData[]>('/utilisateur')
                 .then((res) => {
-                  setUtilisateurs(res.data)
+                  setFriend(res.data)
                 })
                 .catch((err) => {
                     console.log(err)
@@ -54,7 +49,7 @@ const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 //   };
 const searchFilter = (text:string) => {
       if(text){
-          const newData = utilisateurs.filter((item) => {
+          const newData = friend.filter((item) => {
           const itemData = item.prenom ? item.prenom.toUpperCase() : ''.toUpperCase();
           const textData = text.toUpperCase();
           return itemData.indexOf(textData) > -1;
@@ -62,7 +57,7 @@ const searchFilter = (text:string) => {
           setFilterData(newData);
           setSearch(text);
       } else {
-          setFilterData(utilisateurs);
+          setFilterData(friend);
           setSearch(text);
       }
   }
@@ -85,44 +80,17 @@ const searchFilter = (text:string) => {
                 prenom={item.prenom} 
                 _id={item._id} 
                 img={item.Image} 
-                compte_actif={item.compte_actif}
                 mail={item.pseudo}
                 onDelete={() => {}}
-                isFriend={item.compte_actif}
+                isFriend={false}
             />
             </Fragment>
           )
         }))}
-            <View style={{marginBottom: responsiveWidth(25)}} />
+        <View style={{marginBottom: responsiveWidth(10)}} />
     </ScrollView>
-      <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            position: 'absolute',
-            bottom: responsiveHeight(4),
-            zIndex: 999,
-            elevation: 9,
-          }}>
-          <Button
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center',
-              height: responsiveHeight(6),
-              borderRadius: 30,
-              paddingHorizontal: responsiveWidth(29),
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: Colors.blue
-            }}
-            title={'Ajouter un ami'}
-            styleTitle={{color: Colors.white}}
-            onPress={() => navigation.navigate(MESSAGE)}
-          />
-      </View>
     </>
   );
 };
 
-export default ListUserWithFilterContent;
+export default ListAddUser;

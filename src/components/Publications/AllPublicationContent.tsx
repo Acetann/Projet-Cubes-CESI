@@ -33,7 +33,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
           return (
             <Fragment key={index}>
               <PublicationContent
-                pseudo={item.utilisateur.pseudo} 
+                pseudo={item?.utilisateur?.pseudo} 
                 texte={item.texte} 
                 titre={item.titre} 
                 img={item.Image} 

@@ -54,7 +54,6 @@ const [utilisateurs, setUtilisateurs]: [IUtilisateursData[], (publications: IUti
                 prenom={item.prenom} 
                 _id={item._id} 
                 img={item.Image} 
-                compte_actif={item.compte_actif}
                 mail={item.pseudo}
                 onDelete={() => {}}
                 isFriend={item.compte_actif}

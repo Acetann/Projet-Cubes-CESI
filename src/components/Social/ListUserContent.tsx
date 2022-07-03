@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import { ScrollView, TextInput, View} from 'react-native';
+import { ScrollView} from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { axiosInstance } from '../../helpers/axios.interceptor';
 import IUtilisateursData, { defaultUtilisateurs } from '../../Types/User/Utilisateur.type';

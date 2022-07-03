@@ -25,7 +25,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = () => {
         ]);
     }
     return (
-            <View>
+            <View style={{flex:1, justifyContent:'flex-end'}}>
                 <Button
                     children={'Se déconnecter'}
                     onPress={getDeconnected}

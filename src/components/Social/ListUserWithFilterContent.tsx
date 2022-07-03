@@ -106,7 +106,18 @@ const searchFilter = (text:string) => {
             elevation: 9,
           }}>
           <Button
+            style={{
+              flexDirection: 'row',
+              alignSelf: 'center',
+              height: responsiveHeight(6),
+              borderRadius: 30,
+              paddingHorizontal: responsiveWidth(29),
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: Colors.blue
+            }}
             title={'Ajouter un ami'}
+            styleTitle={{color: Colors.white}}
             onPress={() => navigation.navigate(MESSAGE)}
           />
       </View>

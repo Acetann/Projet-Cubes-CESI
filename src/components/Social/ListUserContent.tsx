@@ -46,7 +46,7 @@ const [utilisateurs, setUtilisateurs]: [IUtilisateursData[], (publications: IUti
 
   return (
     <ScrollView style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(2), paddingTop: responsiveWidth(5)}}>
-        {utilisateurs.filter((user,index) => index < 1).map(((item: IUtilisateursData, index: number) => {
+        {utilisateurs.filter((user,index) => index < 3).map(((item: IUtilisateursData, index: number) => {
           return (
             <Fragment key={index}>
               <SocialContent
@@ -55,8 +55,9 @@ const [utilisateurs, setUtilisateurs]: [IUtilisateursData[], (publications: IUti
                 _id={item._id} 
                 img={item.Image} 
                 compte_actif={item.compte_actif}
-                mail={item.mail}
+                mail={item.pseudo}
                 onDelete={() => {}}
+                isFriend={item.compte_actif}
             />
             </Fragment>
           )

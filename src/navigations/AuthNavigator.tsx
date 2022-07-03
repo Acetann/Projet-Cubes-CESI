@@ -8,6 +8,7 @@ export type RouteParams = {
     Amis: undefined
     Abonne: undefined
     Abonnement: undefined
+    Message: undefined
     Login: undefined
     Register: undefined
 }

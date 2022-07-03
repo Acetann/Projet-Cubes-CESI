@@ -6,7 +6,7 @@ export default interface IUtilisateursData {
     nb_reaction: Number,
     Image: Buffer,
     compte_actif: Boolean,
-    mail: string,
+    pseudo: string,
     utilisateur: {
         mail:string,
         description: string,

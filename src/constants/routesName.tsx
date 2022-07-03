@@ -4,6 +4,7 @@ export const LOGIN = 'Login';
 export const AMIS = 'Amis';
 export const ABONNE = 'Abonne';
 export const ABONNEMENT = 'Abonnement';
+export const MESSAGE = 'Message';
 export const SETTINGS = 'Settings';
 export const LOGOUT = 'logout';
 

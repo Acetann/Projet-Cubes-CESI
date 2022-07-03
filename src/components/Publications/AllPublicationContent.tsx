@@ -31,7 +31,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
             <Fragment key={index}>
               <PublicationContent
                 pseudo={item.utilisateur.pseudo} 
-                texte={item.utilisateur.description} 
+                texte={item.texte} 
                 titre={item.titre} 
                 img={item.Image} 
                 date_creation={item.date_creation}

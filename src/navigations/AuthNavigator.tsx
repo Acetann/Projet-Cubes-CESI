@@ -5,7 +5,9 @@ import { Register } from '../screens/Register';
 import { Login } from '../screens/Login';
 
 export type RouteParams = {
-
+    Amis: undefined
+    Abonne: undefined
+    Abonnement: undefined
     Login: undefined
     Register: undefined
 }

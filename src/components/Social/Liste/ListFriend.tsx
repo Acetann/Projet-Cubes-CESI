@@ -4,7 +4,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import { ScrollView, TextInput, View} from 'react-native';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { Colors } from '../../../../config/colors/colors';
-import { ADDABONNE, ADDABONNEMENT, ADDAMIS } from '../../../constants/routesName';
+import { ADDABONNE, ADDABONNEMENT } from '../../../constants/routesName';
 import { axiosInstance } from '../../../helpers/axios.interceptor';
 import { RouteParams } from '../../../navigations/AuthNavigator';
 import IUtilisateursData, { defaultUtilisateurs } from '../../../Types/User/Utilisateur.type';
@@ -13,11 +13,10 @@ import { SocialContent } from '../SocialContent';
 
 
 interface ListFriendProps {
-  ami?: Boolean;
   abonne?: Boolean;
 }
 
-export const ListFriend: React.FunctionComponent<ListFriendProps> = ({ami, abonne}) => {
+export const ListFriend: React.FunctionComponent<ListFriendProps> = ({abonne}) => {
 
 const [filterData, setFilterData] = useState(defaultUtilisateurs);
 const [search, setSearch] = useState('');
@@ -119,9 +118,9 @@ const searchFilter = (text:string) => {
               justifyContent: 'center',
               backgroundColor: Colors.blue
             }}
-            title={ami ? 'Ajouter un ami' : abonne ? 'Ajouter un abonné' : 'Ajouter un abonnement'}
+            title={abonne ? 'Ajouter un abonné' : 'Ajouter un abonnement'}
             styleTitle={{color: Colors.white}}
-            onPress={() => ami ? navigation.navigate(ADDAMIS) : abonne ? navigation.navigate(ADDABONNE) : navigation.navigate(ADDABONNEMENT)}
+            onPress={() => abonne ? navigation.navigate(ADDABONNE) : navigation.navigate(ADDABONNEMENT)}
           />
       </View>
     </>

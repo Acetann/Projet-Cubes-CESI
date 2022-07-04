@@ -1,11 +1,11 @@
 import React from "react";
-import ListFriend from "../../components/Social/Liste/ListFriend";
+import ListAbonne from "../../components/Social/Liste/ListAbonne";
 
 interface AbonnementProps{}
 
 export const Abonnement: React.FunctionComponent<AbonnementProps> = () => {
 
     return (
-        <ListFriend />
+        <ListAbonne abonne={false} />
     )
 }

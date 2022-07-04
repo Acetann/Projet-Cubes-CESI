@@ -38,10 +38,9 @@ export const mainStyle = StyleSheet.create({
             fontSize: 22,
             color: "red"
         },
-    container: {
+      container: {
             flex: 1,
-            backgroundColor: '#fff',
-            paddingHorizontal: 8,
+            
         },
         shadow: {
           shadowOffset: {

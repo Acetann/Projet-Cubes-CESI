@@ -50,11 +50,11 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
           }))}
           <View style={{marginBottom: responsiveWidth(5)}} />
           {!isHome && ( 
-          <Button
+            <Button
               style={{marginHorizontal: responsiveWidth(5),borderRadius: 16}}
               children={'Voir toutes mes publications'}
               onPress={() => navigation.navigate(MYPUBLICATION)}
-          />
+            />
         )}
         </ScrollView>
         {isHome && ( 

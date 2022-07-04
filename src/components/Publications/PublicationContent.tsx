@@ -1,17 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors, lightColors } from "../../../config/colors/colors";
 import { mainStyle } from "../../../styles/styles";
 import { format } from "../../../utils/Number";
-import { MYPUBLICATION } from "../../constants/routesName";
-import { axiosInstance } from "../../helpers/axios.interceptor";
-import { RouteParams } from "../../navigations/AuthNavigator";
-import IPublicationsData from "../../Types/Publications.type";
 
 interface PublicationContentProps {
     texte: string;
@@ -25,18 +19,7 @@ interface PublicationContentProps {
 
 export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({texte, titre, img, date_creation, pseudo,nb_reaction,myPublication}) => {
     const [isLike, setIsLike] = useState(Boolean(true))
-    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
-    useEffect(() => {
-      axiosInstance.delete<IPublicationsData[]>('/ressource')
-              .then((res) => {
-                  navigation.navigate(MYPUBLICATION)
-              })
-              .catch((err) => {
-                  console.log(err)
-
-              });
-      }, []);
       return (
         <>
             <View style={[mainStyle.shadow,{

@@ -7,10 +7,17 @@ import { useNavigation } from "@react-navigation/native";
 import { RouteParams } from "../../navigations/AuthNavigator";
 import { Profil } from "../../tabs/Profil/Profil";
 import { Icon } from "react-native-elements";
+import { axiosInstance } from "../../helpers/axios.interceptor";
+import { CustomButton } from "../../components/common/Button";
+import { PROFILE } from "../../constants/routesName";
 
 export const Edit_profil = () => {
     const [currentUserDecoded, setCurrentUserDecoded] = useState()
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
+    const [pseudo, setPseudo] = useState<string | null>(null)
+    const [description, setDescription] = useState<string | null>(null)
+    const [mail, setMail] = useState<string | null>(null)
 
     const data = [
         {
@@ -27,18 +34,34 @@ export const Edit_profil = () => {
     const getCurrentUser = async () => {
         try {
             const data = await AsyncStorage.getItem('currentUser')
-            const data1 = await AsyncStorage.getItem('currentToken')
-            console.log(data1)
             const currentUserDecoded = JSON.parse(data!)
-            console.log(currentUserDecoded)
+
             if (currentUserDecoded !== null) {
                 setCurrentUserDecoded(currentUserDecoded)
-                console.log(currentUserDecoded)
+
             }
         } catch (e) {
             console.log(e)
         }
     }
+
+    const updateCurrentUser = () => {
+        axiosInstance.patch('utilisateur/update', { 
+            description: description, 
+            pseudo: pseudo, 
+            mail: mail})
+            .then((res) => {
+                console.log(res.data)
+                navigation.navigate(PROFILE)
+
+            })
+            //gestion des erreur si fail
+            .catch((err) => {
+                console.log(err, 'error')
+            });
+       
+    }
+
 
     useEffect(() => {
         getCurrentUser();
@@ -85,34 +108,11 @@ export const Edit_profil = () => {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View style={{padding: 10}}>
-                <Text>Nom</Text>
-                <TextInput
-                placeholder="nom"
-                defaultValue={currentUserDecoded?.nom}
-                style={{
-                    fontSize : 16,
-                    borderBottomWidth: 1,
-                    borderColor: '#CDCDCD',
-                }}
-            />
-            </View>
             <View style={{ padding: 10 }}>
-                <Text>Prenom</Text>
+                <Text>pseudo</Text>
                 <TextInput
-                    placeholder="nom"
-                    defaultValue={currentUserDecoded?.prenom}
-                    style={{
-                        fontSize: 16,
-                        borderBottomWidth: 1,
-                        borderColor: '#CDCDCD',
-                    }}
-                />
-            </View>
-            <View style={{ padding: 10 }}>
-                <Text>Pseudo</Text>
-                <TextInput
-                    placeholder="nom"
+                    placeholder="pseudo"
+                    onChangeText={(text: string) => setPseudo(text)}
                     defaultValue={currentUserDecoded?.pseudo}
                     style={{
                         fontSize: 16,
@@ -121,6 +121,38 @@ export const Edit_profil = () => {
                     }}
                 />
             </View>
+            <View style={{padding: 10}}>
+                <Text>description</Text>
+                <TextInput
+                    placeholder="description"
+                    onChangeText={(text: string) => setDescription(text)}
+                    defaultValue={currentUserDecoded?.description}
+                style={{
+                    fontSize : 16,
+                    borderBottomWidth: 1,
+                    borderColor: '#CDCDCD',
+                }}
+            />
+            </View>
+            <View style={{ padding: 10 }}>
+                <Text>mail</Text>
+                <TextInput
+                    placeholder="mail"
+                    onChangeText={(text: string) => setMail(text)}
+                    defaultValue={currentUserDecoded?.mail}
+                    style={{
+                        fontSize: 16,
+                        borderBottomWidth: 1,
+                        borderColor: '#CDCDCD',
+                    }}
+                />
+            </View>
+         
+            <CustomButton
+                title={'submit'}
+                onPress={updateCurrentUser}
+                secondary
+            />
 
         </View>
     )

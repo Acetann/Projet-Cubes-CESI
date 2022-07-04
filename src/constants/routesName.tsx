@@ -2,6 +2,7 @@ export const HOME_NAVIGATOR = 'Home';
 export const REGISTER = 'Register';
 export const LOGIN = 'Login';
 export const EDIT_PROFILE = "Edit_profil"
+export const PROFILE = "Profil"
 export const ABONNE = 'Abonne';
 export const ADDABONNE = 'AddAbonne';
 export const ABONNEMENT = 'Abonnement';

@@ -18,7 +18,7 @@ export type RouteParams = {
     AddPublication: undefined
     EditPublication : {
         id: string;
-        title: string;
+        titre: string;
         texte: string;
     }
     Tabs: undefined

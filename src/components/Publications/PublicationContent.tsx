@@ -100,7 +100,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                   {myPublication && (
                     <View style={{flexDirection: 'row'}}>
                      <TouchableOpacity onPress={() => {
-                      navigation.navigate(EDIT_PUBLICATION,{title: titre, texte:texte, id:id})
+                      navigation.navigate(EDIT_PUBLICATION,{titre: titre, texte:texte, id:id})
                      }} style={[mainStyle.shadow,
                       {
                         padding: responsiveWidth(2),

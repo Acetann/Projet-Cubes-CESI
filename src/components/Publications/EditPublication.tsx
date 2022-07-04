@@ -10,18 +10,16 @@ import { CustomButton } from "../common/Button";
 export const EditPublicationComponent = () => {
     const route = useRoute<RouteProp<RouteParams>>();
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-    const [texte, setDescription] = useState(route.params?.texte)
-    const [title, setTitle] = useState(route.params?.title)
+    const [texte, setTexte] = useState(route.params?.texte)
+    const [titre, setTitre] = useState(route.params?.titre)
 
     const updateCurrentPublication = () => {
         axiosInstance.patch(`/ressource/${route.params?.id}/`, { 
-            texte: texte, 
-            title: title,
+            texte, 
+            titre,
             })
             .then((res) => {
-                console.log(res?.data,'tomate',route.params?.id, title)
-                setTitle(title)
-                setDescription(texte)
+                console.log(res.data)
                 navigation.navigate(MYPUBLICATION)
             })
             //gestion des erreur si fail
@@ -42,7 +40,7 @@ export const EditPublicationComponent = () => {
             <Text>description</Text>
             <TextInput
                 placeholder="description"
-                onChangeText={(text: string) => setDescription(text)}
+                onChangeText={(text: string) => setTexte(text)}
                 defaultValue={texte}
             style={{
                 fontSize : 16,
@@ -52,11 +50,11 @@ export const EditPublicationComponent = () => {
         />
         </View>
         <View style={{ padding: 10 }}>
-            <Text>title</Text>
+            <Text>titre</Text>
             <TextInput
-                placeholder="title"
-                onChangeText={(text: string) => setTitle(text)}
-                defaultValue={title}
+                placeholder="titre"
+                onChangeText={(text: string) => setTitre(text)}
+                defaultValue={titre}
                 style={{
                     fontSize: 16,
                     borderBottomWidth: 1,

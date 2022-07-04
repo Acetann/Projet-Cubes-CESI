@@ -9,6 +9,7 @@ export const ABONNEMENT = 'Abonnement';
 export const ADDABONNEMENT = 'AddAbonnement';
 export const MYPUBLICATION = 'MyPublication';
 export const ADDPUBLICATION = 'AddPublication';
+export const EDIT_PUBLICATION = "EditPublication"
 export const MESSAGE = 'Message';
 export const SETTINGS = 'Settings';
 export const LOGOUT = 'logout';

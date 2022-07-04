@@ -62,7 +62,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
           {isHome && (
             <Button
               style={{ marginHorizontal: responsiveWidth(5), borderRadius: 16 }}
-              children={'Voir toutes mes publications'}
+              children={currentUserDecoded?.ressources.length === 0 ? 'Ajouter une publication' : 'Voir toutes mes publications'}
               onPress={() => navigation.navigate(MYPUBLICATION)}
             />
           )}

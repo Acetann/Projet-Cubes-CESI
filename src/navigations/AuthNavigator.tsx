@@ -16,6 +16,8 @@ export type RouteParams = {
     Profil: undefined
     Login: undefined
     Register: undefined
+    AddPublication: undefined
+    Tabs: undefined
 }
 
 const AuthStack = createStackNavigator<RouteParams>();

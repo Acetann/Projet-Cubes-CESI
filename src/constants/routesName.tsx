@@ -8,10 +8,8 @@ export const ABONNE = 'Abonne';
 export const ADDABONNE = 'AddAbonne';
 export const ABONNEMENT = 'Abonnement';
 export const ADDABONNEMENT = 'AddAbonnement';
+export const ADDPUBLICATION = 'AddPublication';
 export const MESSAGE = 'Message';
 export const SETTINGS = 'Settings';
 export const LOGOUT = 'logout';
 
-export const CONTACT_LIST = 'Contacts';
-export const CONTACT_DETAIL = 'Contact detail';
-export const CREATE_CONTACT = 'Create Contact';

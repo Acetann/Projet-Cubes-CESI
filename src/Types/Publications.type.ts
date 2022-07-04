@@ -8,6 +8,7 @@ export default interface IPublicationsData {
     validation: Boolean,
     pseudo: string,
     utilisateur: {
+        _id: string,
         mail:string,
         description: string,
         pseudo: string,

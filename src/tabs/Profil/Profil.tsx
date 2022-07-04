@@ -35,6 +35,8 @@ const data = [
     const getCurrentUser = async () => {
         try {
             const data = await AsyncStorage.getItem('currentUser')
+            const data1 = await AsyncStorage.getItem('currentToken')
+            console.log(data1)
             const currentUserDecoded = JSON.parse(data!)
             console.log(currentUserDecoded)
             if (currentUserDecoded !== null){

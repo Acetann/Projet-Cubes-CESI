@@ -34,17 +34,18 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
     return (
       <>
         <ScrollView style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(10), paddingTop: responsiveWidth(5)}}>
-          {publications.filter((itm,index) => Boolean(isHome) ? index : index < 2).map(((item, index) => {
+          {publications.filter((itm,index) => Boolean(isHome) ? publications.length : index < 2).map(((item, index) => {
             return (
               <Fragment key={index}>
                 <PublicationContent
-                  pseudo={item?.utilisateur?.pseudo} 
-                  texte={item.texte} 
-                  titre={item.titre} 
-                  img={item.Image} 
+                  id={item?._id}
+                  pseudo={item?.utilisateur?.pseudo}
+                  texte={item.texte}
+                  titre={item.titre}
+                  img={item.Image}
                   date_creation={item.date_creation}
-                  nb_reaction={item.nb_reaction}
-                />
+                  nb_reaction={item.nb_reaction} 
+                  utilisateur={item?.utilisateur?._id}/>
               </Fragment>
             )
           }))}

@@ -9,9 +9,11 @@ import { Colors, lightColors } from "../../../config/colors/colors";
 import { mainStyle } from "../../../styles/styles";
 import { format } from "../../../utils/Number";
 import { EDIT_PROFILE, EDIT_PUBLICATION } from "../../constants/routesName";
+import { axiosInstance } from "../../helpers/axios.interceptor";
 import { RouteParams } from "../../navigations/AuthNavigator";
 
 interface PublicationContentProps {
+    id: string;
     texte: string;
     titre: string;
     img: Buffer;
@@ -19,11 +21,35 @@ interface PublicationContentProps {
     pseudo: string;
     nb_reaction: Number;
     myPublication?: Boolean;
+    utilisateur?: string
   }
 
-export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({texte, titre, img, date_creation, pseudo,nb_reaction,myPublication}) => {
+export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, img, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur }) => {
     const [isLike, setIsLike] = useState(Boolean(true))
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
+    const onLike = () => {
+      try {
+      axiosInstance.patch(`/ressource/${id}/reaction`)
+        .then((res) => {
+          console.log(res.data)
+        })
+      } catch (e) {
+        console.log(e)
+    };
+  };
+
+  const onFollow = () => {
+    axiosInstance.patch(`/utilisateur/follow/${utilisateur}`)
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+
+      });
+  };
+
       return (
         <>
             <View style={[mainStyle.shadow,{
@@ -44,10 +70,9 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               <View style={{flexDirection:'row',alignItems:'flex-end', justifyContent:'space-around', marginTop: responsiveWidth(5)}}>
                 <View style={{alignItems:'center', justifyContent:'center'}}>
                   {nb_reaction !== undefined && (<Text style={{color: lightColors.mainBlue}}>{format(nb_reaction, false)}</Text>)}
-                  <TouchableOpacity style={{flexDirection:'row',alignItems:'center',marginVertical: responsiveWidth(2)}}  onPress={() => {
-                      !isLike && setIsLike(true),
-                      isLike && setIsLike(false)
-                    }}>
+                  <TouchableOpacity 
+                  style={{flexDirection:'row',alignItems:'center',marginVertical: responsiveWidth(2)}}  
+                  onPress={onLike}>
                       <Icon name={isLike ? "thumb-up-off-alt" : "thumb-up"} color={Colors.blue} />
                   </TouchableOpacity>
               </View>
@@ -58,7 +83,20 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                     borderRadius: 14,
                   }}>
                     <Icon name="comment" color={Colors.blue} />
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                {!myPublication && (
+                <TouchableOpacity 
+                style={
+                  {
+                    padding: responsiveWidth(2),
+                    marginHorizontal: responsiveWidth(2),
+                    borderRadius: 14,
+                  }}
+                 onPress={onFollow}>
+                    
+                <Icon name="person-add" color={Colors.blue} />
+              </TouchableOpacity>
+              )}
                   {myPublication && (
                     <View style={{flexDirection: 'row'}}>
                      <TouchableOpacity onPress={() => {

@@ -6,6 +6,6 @@ interface MyPublicationProps {}
 export const MyPublication: React.FunctionComponent<MyPublicationProps> = () => {
 
     return (
-        <MyPublicationContent /> 
+        <MyPublicationContent isHome={false} /> 
     )
 }

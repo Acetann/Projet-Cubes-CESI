@@ -1,3 +1,4 @@
+import { useAsyncStorage } from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -5,33 +6,44 @@ import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import color from '../../assets/theme/color';
-import { ADDPUBLICATION } from '../../constants/routesName';
+import { ADDPUBLICATION, MYPUBLICATION } from '../../constants/routesName';
 import { axiosWithoutToken } from '../../helpers/axios.interceptor';
 import { RouteParams } from '../../navigations/AuthNavigator';
 import IPublicationsData, { defaultPublications } from '../../Types/Publications.type';
 import { PublicationContent } from './PublicationContent';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button } from '@ant-design/react-native';
 
-interface MyPublicationProps {}
+interface MyPublicationProps {
+  isHome: Boolean;
+}
 
-export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> = () => {
+export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> = ({ isHome }) => {
+  const [currentUserDecoded, setCurrentUserDecoded] = useState()
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-  const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
 
+
+  const getCurrentUser = async () => {
+    try {
+      const data = await AsyncStorage.getItem('currentUser')
+      const currentUserDecoded = JSON.parse(data!)
+      console.log(currentUserDecoded)
+      if (currentUserDecoded !== null) {
+        setCurrentUserDecoded(currentUserDecoded)
+        console.log(currentUserDecoded)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
     useEffect(() => {
-        axiosWithoutToken.get<IPublicationsData[]>('/ressource')
-                .then((res) => {
-                    setPublications(res.data)
-                })
-                .catch((err) => {
-                    console.log(err)
-
-                });
+       getCurrentUser()
         }, []);
     
     return (
       <>
         <ScrollView style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(10), paddingTop: responsiveWidth(5)}}>
-          {publications.map(((item, index) => {
+          {currentUserDecoded?.ressources.map(((item, index) => {
             return (
               <Fragment key={index}>
                 <PublicationContent
@@ -45,12 +57,22 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
                 />
               </Fragment>
             )
-          }))}
-          <View style={{marginBottom: responsiveWidth(5)}} />
+          })).slice(0, isHome?2: currentUserDecoded?.ressources.length)}
+          
+          {isHome && (
+            <Button
+              style={{ marginHorizontal: responsiveWidth(5), borderRadius: 16 }}
+              children={'Voir toutes mes publications'}
+              onPress={() => navigation.navigate(MYPUBLICATION)}
+            />
+          )}
+        <View style={{ marginBottom: responsiveWidth(10) }} />
         </ScrollView>
+        {!isHome && (
         <TouchableOpacity onPress={() => navigation.navigate(ADDPUBLICATION)} style={styles.floatingActionButton}>
           <Icon name="add" color={color.white} size={21} />
         </TouchableOpacity>
+        )}
       </>
     )
 }

@@ -16,7 +16,11 @@ export type RouteParams = {
     Register: undefined
     MyPublication: undefined
     AddPublication: undefined
-    EditPublication : undefined
+    EditPublication : {
+        id: string;
+        title: string;
+        texte: string;
+    }
     Tabs: undefined
 }
 

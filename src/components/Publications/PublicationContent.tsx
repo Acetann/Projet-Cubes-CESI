@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors, lightColors } from "../../../config/colors/colors";

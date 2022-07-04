@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { FC, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { MYPUBLICATION } from '../../constants/routesName';
 import { axiosInstance } from '../../helpers/axios.interceptor';
 import { RouteParams } from '../../navigations/AuthNavigator';
@@ -29,12 +30,12 @@ const addNewPublication = async () => {
 }
 
 return (
-    <View>
-        <Text>Hello from component</Text>
+    <View style={{margin: responsiveWidth(5)}}>
         <Input placeholder= 'Titre' onChangeText={(text: string) => setTitre(text)} />
         <Input placeholder='Texte' onChangeText={(text: string) => setTexte(text)} />
         <CustomButton 
-            title={'submit'}
+            style={{borderRadius: 16}}
+            title={'Envoyer'}
             onPress={addNewPublication}
             secondary
         />

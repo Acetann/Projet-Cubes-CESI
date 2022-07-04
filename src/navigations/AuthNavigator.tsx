@@ -16,6 +16,7 @@ export type RouteParams = {
     Profil: undefined
     Login: undefined
     Register: undefined
+    MyPublication: undefined
     AddPublication: undefined
     Tabs: undefined
 }

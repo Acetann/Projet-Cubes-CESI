@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ABONNE, ABONNEMENT, ADDABONNE, ADDABONNEMENT, ADDAMIS, ADDPUBLICATION, AMIS, EDIT_PROFILE, MESSAGE, SETTINGS } from '../constants/routesName';
+import { ABONNE, ABONNEMENT, ADDABONNE, ADDABONNEMENT, ADDAMIS, ADDPUBLICATION, AMIS, EDIT_PROFILE, MESSAGE, MYPUBLICATION, SETTINGS } from '../constants/routesName';
 import TabBarNavigation from './TabBarNavigator';
 import { Settings } from '../tabs/Settings/Settings';
 import { Amis } from '../screens/Social/Amis';
@@ -11,7 +11,8 @@ import { Edit_profil } from '../screens/Profil/EditProfil';
 import { AddAmis } from '../screens/Social/Ajouter/AddAmis';
 import { AddAbonne } from '../screens/Social/Ajouter/AddAbonne';
 import { AddAbonnement } from '../screens/Social/Ajouter/AddAbonnement';
-import { AddPublication } from '../tabs/Home/AddPublication/addPublication';
+import { AddPublication } from '../screens/Publication/AddPublication/addPublication';
+import { MyPublication } from '../screens/Publication/MyPublication';
 
 
 export const HomeNavigator = () => {
@@ -28,9 +29,9 @@ export const HomeNavigator = () => {
             <HomeStack.Screen options={{headerTitle: 'Mes abonnements'}} name={ABONNEMENT} component={Abonnement} ></HomeStack.Screen>
             <HomeStack.Screen options={{headerTitle: 'Ajouter un abonnement'}} name={ADDABONNEMENT} component={AddAbonnement} ></HomeStack.Screen>
             <HomeStack.Screen options={{ headerTitle: 'Ajouter une publication' }} name={ADDPUBLICATION} component={AddPublication} ></HomeStack.Screen>
+            <HomeStack.Screen options={{ headerTitle: 'Mes publications' }} name={MYPUBLICATION} component={MyPublication} ></HomeStack.Screen>
             <HomeStack.Screen name={EDIT_PROFILE} options={{ headerShown: false }} component={Edit_profil} ></HomeStack.Screen>
             <HomeStack.Screen name={MESSAGE} component={Message} ></HomeStack.Screen>
-            
         </HomeStack.Navigator>
     )
 }

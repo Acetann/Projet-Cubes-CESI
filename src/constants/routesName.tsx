@@ -8,6 +8,7 @@ export const ABONNE = 'Abonne';
 export const ADDABONNE = 'AddAbonne';
 export const ABONNEMENT = 'Abonnement';
 export const ADDABONNEMENT = 'AddAbonnement';
+export const MYPUBLICATION = 'MyPublication';
 export const ADDPUBLICATION = 'AddPublication';
 export const MESSAGE = 'Message';
 export const SETTINGS = 'Settings';

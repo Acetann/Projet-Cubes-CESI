@@ -6,17 +6,15 @@ import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import color from '../../assets/theme/color';
-import { ADDPUBLICATION, MYPUBLICATION } from '../../constants/routesName';
+import { ADDPUBLICATION } from '../../constants/routesName';
 import { axiosWithoutToken } from '../../helpers/axios.interceptor';
 import { RouteParams } from '../../navigations/AuthNavigator';
 import IPublicationsData, { defaultPublications } from '../../Types/Publications.type';
 import { PublicationContent } from './PublicationContent';
 
-interface AllPublicationProps {
-  isHome: Boolean;
-}
+interface MyPublicationProps {}
 
-export const AllPublicationContent: React.FunctionComponent<AllPublicationProps> = ({isHome}) => {
+export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
   const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
 
@@ -34,7 +32,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
     return (
       <>
         <ScrollView style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(10), paddingTop: responsiveWidth(5)}}>
-          {publications.filter((itm,index) => Boolean(isHome) ? index : index < 2).map(((item, index) => {
+          {publications.map(((item, index) => {
             return (
               <Fragment key={index}>
                 <PublicationContent
@@ -44,24 +42,16 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
                   img={item.Image} 
                   date_creation={item.date_creation}
                   nb_reaction={item.nb_reaction}
+                  myPublication
                 />
               </Fragment>
             )
           }))}
           <View style={{marginBottom: responsiveWidth(5)}} />
-          {!isHome && ( 
-          <Button
-              style={{marginHorizontal: responsiveWidth(5),borderRadius: 16}}
-              children={'Voir toutes mes publications'}
-              onPress={() => navigation.navigate(MYPUBLICATION)}
-          />
-        )}
         </ScrollView>
-        {isHome && ( 
         <TouchableOpacity onPress={() => navigation.navigate(ADDPUBLICATION)} style={styles.floatingActionButton}>
           <Icon name="add" color={color.white} size={21} />
         </TouchableOpacity>
-        )}
       </>
     )
 }

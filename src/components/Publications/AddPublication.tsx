@@ -1,14 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { FC, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { EDIT_PROFILE, HOME_NAVIGATOR } from '../../constants/routesName';
+import { Text, View } from 'react-native';
+import { MYPUBLICATION } from '../../constants/routesName';
 import { axiosInstance } from '../../helpers/axios.interceptor';
 import { RouteParams } from '../../navigations/AuthNavigator';
-import { Edit_profil } from '../../screens/Profil/EditProfil';
 import { CustomButton } from '../common/Button';
 import { Input } from '../common/Input'
-import { useForm } from '../useForm';
 
 
 
@@ -22,7 +20,7 @@ const addNewPublication = async () => {
       axiosInstance.post('ressource', { titre, texte })
           //stockage du current user et du currentToken si success
           .then((res) => {
-              navigation.navigate("Tabs")
+              navigation.navigate(MYPUBLICATION)
           })
           //gestion des erreur si fail
           .catch((err) => {

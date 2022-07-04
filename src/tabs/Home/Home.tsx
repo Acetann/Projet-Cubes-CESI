@@ -6,6 +6,6 @@ interface HomeProps {}
 export const Home: React.FunctionComponent<HomeProps> = () => {
 
     return (
-        <AllPublicationContent isHome={false} /> 
+        <AllPublicationContent isHome/> 
     )
 }

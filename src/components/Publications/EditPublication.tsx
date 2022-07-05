@@ -20,7 +20,7 @@ export const EditPublicationComponent = () => {
             })
             .then((res) => {
                 console.log(res.data)
-                navigation.navigate(MYPUBLICATION)
+                navigation.goBack()
             })
             //gestion des erreur si fail
             .catch((err) => {

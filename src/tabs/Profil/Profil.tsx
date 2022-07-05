@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, Image, StyleSheet, RefreshControl } from "react-native";
+import { ScrollView, Text, View, Image, StyleSheet, RefreshControl, ActivityIndicator } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import color from "../../assets/theme/color";
 import { CustomButton } from "../../components/common/Button";
@@ -53,9 +53,9 @@ const data = [
         getCurrentUser();
         
     }, []);
-
     return (
         <>
+        {refreshing && <ActivityIndicator />}
             <ScrollView 
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={getCurrentUser} />
@@ -73,7 +73,7 @@ const data = [
                                 backgroundColor: color.grey,
                                 borderRadius: 50,
                             }}
-                            source={{ uri: data[0].postImg }}
+                            source={{ uri: currentUserDecoded?.image }}
                         />
                         <View style={{alignItems:'center'}}>
                             <Text style={{ fontWeight: '400', fontSize: 18, color: color.success}}>{currentUserDecoded?.ressources.length}</Text>
@@ -89,11 +89,11 @@ const data = [
                         </View>
                     </View>
                 </View>
-                <Text style={{ fontSize: 18, color: 'black', marginTop: 10, fontWeight: 'bold' }}>
+                <Text style={{ fontSize: 18, color: 'black', fontWeight: 'bold' }}>
                     {currentUserDecoded?.pseudo}
                 </Text>
-                <Text style={{ fontSize: 18, color: 'black', marginTop: 10, marginBottom: 20 }}>
-                    {currentUserDecoded?.description}
+                <Text style={{ fontSize: 16, color: 'black', marginTop: 5, marginBottom: 20 }}>
+                    *{currentUserDecoded?.description}*
                 </Text>
                 <CustomButton
                     onPress={() => {

@@ -10,9 +10,10 @@ export const ListUserContent: React.FunctionComponent<ListUserContentProps> = ()
 const [abonnes, setAbonnes] = useState();
 
     useEffect(() => {
-      axiosInstance.get('/utilisateur/abonne')
+      axiosInstance.get('/utilisateur')
                 .then((res) => {
                   setAbonnes(res.data)
+                  console.log(res.data)
                 })
                 .catch((err) => {
                     console.log(err)

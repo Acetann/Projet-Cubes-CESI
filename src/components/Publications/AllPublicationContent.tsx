@@ -2,7 +2,7 @@ import { Button } from '@ant-design/react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { Fragment, useEffect, useState } from 'react';
-import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, View, StyleSheet, TouchableOpacity, RefreshControl } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import color from '../../assets/theme/color';
@@ -19,11 +19,26 @@ interface AllPublicationProps {
 export const AllPublicationContent: React.FunctionComponent<AllPublicationProps> = ({isHome}) => {
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
   const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
+  const [refreshing, setRefreshing] = useState(true);
+
+
+  const getAllPublications = () => {
+     axiosWithoutToken.get<IPublicationsData[]>('/ressource')
+                .then((res) => {
+                    setPublications(res.data)
+                    setRefreshing(false);
+                })
+                .catch((err) => {
+                    console.log(err)
+
+                });
+  }
 
     useEffect(() => {
         axiosWithoutToken.get<IPublicationsData[]>('/ressource')
                 .then((res) => {
                     setPublications(res.data)
+                    setRefreshing(false);
                 })
                 .catch((err) => {
                     console.log(err)
@@ -33,7 +48,16 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
     
     return (
       <>
-        <ScrollView style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(10), paddingTop: responsiveWidth(5)}}>
+        <ScrollView 
+        style={{
+          paddingHorizontal: responsiveWidth(5), 
+          paddingBottom: responsiveWidth(10), 
+          paddingTop: responsiveWidth(5)
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={getAllPublications} />
+          }
+          >
           {publications.filter((itm,index) => Boolean(isHome) ? publications.length : index < 2).map(((item, index) => {
             return (
               <Fragment key={index}>

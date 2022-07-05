@@ -12,12 +12,13 @@ interface ListAbonneProps {
 
 export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) => {
 
-const [friend, setFriend]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
+    const [abonneToUser, setAbonneToUser]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
 
     useEffect(() => {
-      axiosInstance.get<IUtilisateursData[]>('/utilisateur')
+      axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonne')
                 .then((res) => {
-                  setFriend(res.data)
+                  /* console.log('console importante', res) */
+                  setAbonneToUser(res.data)
                 })
                 .catch((err) => {
                     console.log(err)
@@ -27,16 +28,21 @@ const [friend, setFriend]: [IUtilisateursData[], (publications: IUtilisateursDat
 
   return (
     <ScrollView style={{backgroundColor:Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
-        {friend.map(((item: IUtilisateursData, index: number) => {
+      {abonneToUser.map(((item: IUtilisateursData, index: number) => {
           return (
             <Fragment key={index}>
-              <ListUser
-                nom={item.nom} 
-                prenom={item.prenom} 
-                pseudo={item.pseudo}
-                abonne={abonne}
-                image={item.image}
-            />
+              {item?.abonnement.map((itm: IUtilisateursData) => {
+                return(
+                <Fragment key={index}>
+                  <ListUser
+                    nom={itm.nom}
+                    prenom={itm.prenom}
+                    pseudo={itm.pseudo}
+                    abonne={abonne}
+                    image={itm.image}
+                  />
+                </Fragment>)
+              })}
             </Fragment>
           )
         }))}

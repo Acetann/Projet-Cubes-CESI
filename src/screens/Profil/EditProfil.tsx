@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { View, Text, Image } from "react-native"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
@@ -10,6 +10,7 @@ import { Icon } from "react-native-elements";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { CustomButton } from "../../components/common/Button";
 import { PROFILE } from "../../constants/routesName";
+import * as ImagePicker from 'expo-image-picker';
 
 export const Edit_profil = () => {
     const [currentUserDecoded, setCurrentUserDecoded] = useState()
@@ -18,6 +19,7 @@ export const Edit_profil = () => {
     const [pseudo, setPseudo] = useState<string | null>(null)
     const [description, setDescription] = useState<string | null>(null)
     const [mail, setMail] = useState<string | null>(null)
+    const [image, setImage] = useState('');
 
     const data = [
         {
@@ -49,7 +51,8 @@ export const Edit_profil = () => {
         axiosInstance.patch('utilisateur/update', { 
             description,
             pseudo,
-            mail })
+            mail,
+         })
             .then((res) => {
                 console.log(res.data)
                 const updateUser = JSON.stringify(res.data)
@@ -60,9 +63,25 @@ export const Edit_profil = () => {
             //gestion des erreur si fail
             .catch((err) => {
                 console.log(err, 'error')
-            });
-       
+            });  
     }
+
+    const pickImage = async () => {
+        let _image = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(_image);
+
+        if (!_image.cancelled) {
+            setImage(_image.uri);
+        }
+        return _image
+    };
+
 
 
     useEffect(() => {
@@ -91,21 +110,22 @@ export const Edit_profil = () => {
                     }}>
                 <Icon name="close" style={{fontSize: 35}} />            
                 </TouchableOpacity>
-                <Text style={{fontSize: 16, fontWeight: 'bold'}}>Modifier mon profil</Text>
-                <TouchableOpacity>
-                    <Icon name="check" style={{fontSize: 35, color: 'blue'}} />
-                </TouchableOpacity>
             </View>
             <View style={{padding: 20, alignItems: 'center'}}>
                 <Image
-                source={{ uri: data[0].postImg }}
-                style={{width: 80, height: 80, borderRadius: 100}}
+                    source={{ uri: image }}
+                    style={{width: 150, height: 150, borderRadius: 100}}
+                    defaultSource={{ uri: defaultImage}}
                 />
                 <TouchableOpacity>
                     <Text
                     style={{
-                        color: 'blue'
-                    }}>
+                        color: 'blue',
+                        padding: 10,
+                        fontSize: 14
+                    }}
+                    
+                        onPress={pickImage}>
                     Modifier photo de profil
                     </Text>
                 </TouchableOpacity>
@@ -154,6 +174,7 @@ export const Edit_profil = () => {
                 title={'submit'}
                 onPress={updateCurrentUser}
                 secondary
+                style={{marginTop: 50}}
             />
 
         </View>

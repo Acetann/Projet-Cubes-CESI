@@ -7,6 +7,8 @@ export default interface IUtilisateursData {
     image: string,
     compte_actif: Boolean,
     pseudo: string,
+    abonnement: [],
+    utilisateur: {}
 }
 
 export const defaultUtilisateurs: IUtilisateursData[] = [];

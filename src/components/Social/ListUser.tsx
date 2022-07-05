@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors } from "../../../config/colors/colors";
+import ModalUser from "../Modal/ModalUser";
 
 interface ListUserProps {
     nom: string;
@@ -10,13 +11,17 @@ interface ListUserProps {
     pseudo: string;
     image: string;
     abonne: Boolean;
-  }
+    isVisible: boolean;
+    openModal: () => void;
+    closeModal: () => void;
+}
 
-export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne}) => {
-    const [isAbonne, setIsAbonne] = useState(false)
+export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne, isVisible, openModal, closeModal}) => {
+    const [isAbonne, setIsAbonne] = useState(false);
+
     return (
         <View style={{marginVertical: responsiveWidth(5)}}>
-            <View style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
+            <TouchableOpacity onPress={openModal} style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
                 {image !== undefined && (<Image source={{uri: image}} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>)}
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row', marginBottom: responsiveWidth(2)}}>
@@ -40,7 +45,8 @@ export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, p
                     }
                     onPress={() => {}}
                 />
-            </View>
+            </TouchableOpacity>
+            <ModalUser nom={nom} prenom={prenom} image={image} pseudo={pseudo} visible={isVisible} setModalVisible={closeModal} />
         </View>
     )
 }

@@ -60,13 +60,7 @@ export const LoginComponent: React.FC<LoginProps> = ({
                             />
                         )} */}
 
-                        {<Message 
-                        danger 
-                        retry
-                        retryFn={() => {
-                        }} 
-                        onDismiss = {() => {}}
-                        message='invalid credentials' />}
+                        
                             
                         <View style={styles.form}>
                             <Input

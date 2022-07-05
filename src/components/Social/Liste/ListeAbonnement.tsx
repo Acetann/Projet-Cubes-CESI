@@ -11,8 +11,19 @@ interface ListAbonnementProps {
 }
 
 export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ abonne }) => {
-
+    const [isVisible, setVisible] = useState(false);
     const [userAbonnement, setUserAbonnement]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const openModal = () => {
+        setModalVisible(true);
+        setVisible(true);
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+        setVisible(false);
+    };
 
     useEffect(() => {
         axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonnement')
@@ -27,9 +38,8 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
     }, []);
 
     return (
-        <ScrollView style={{ backgroundColor: Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5) }}>
+        <ScrollView style={{ backgroundColor:isVisible ? Colors.inactiveTab : Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5),opacity: isVisible ? 0.5 : 1}}>
             {userAbonnement?.map(((item: IUtilisateursData, index: number) => {
-                console.log(item)
                 return (
                     <Fragment key={index}>
                         <ListUser
@@ -38,6 +48,9 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
                             pseudo={item?.utilisateur.pseudo}
                             abonne={abonne}
                             image={item?.utilisateur.image}
+                            isVisible={isVisible}
+                            closeModal={closeModal}
+                            openModal={openModal}
                         />
                     </Fragment>
                 )

@@ -11,9 +11,19 @@ interface ListAbonneProps {
 }
 
 export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) => {
+  const [isVisible, setVisible] = useState(false);
+  const [abonneToUser, setAbonneToUser]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
+  const [, setModalVisible] = useState(false);
 
-    const [abonneToUser, setAbonneToUser]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
+  const openModal = () => {
+      setModalVisible(true);
+      setVisible(true);
+  };
 
+  const closeModal = () => {
+      setModalVisible(false);
+      setVisible(false);
+  };
     useEffect(() => {
       axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonne')
                 .then((res) => {
@@ -25,27 +35,24 @@ export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) =
 
                 });
         }, []);
-
+        
   return (
-    <ScrollView style={{backgroundColor:Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
+    <ScrollView style={{ backgroundColor:isVisible ? Colors.inactiveTab : Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5),opacity: isVisible ? 0.5 : 1}}>
       {abonneToUser?.map(((item: IUtilisateursData, index: number) => {
           return (
             <Fragment key={index}>
-              {item?.abonnement?.map((itm: IUtilisateursData) => {
-                return(
-                <Fragment key={index}>
                   <ListUser
-                    nom={itm.nom}
-                    prenom={itm.prenom}
-                    pseudo={itm.pseudo}
+                    nom={item?.abonnement?.nom}
+                    prenom={item?.abonnement?.prenom}
+                    pseudo={item?.abonnement?.pseudo}
                     abonne={abonne}
-                    image={itm.image}
+                    image={item?.abonnement?.image}
+                    isVisible={isVisible}
+                    closeModal={closeModal}
+                    openModal={openModal}
                   />
                 </Fragment>)
-              })}
-            </Fragment>
-          )
-        }))}
+              }))}          
         <View style={{marginBottom: responsiveWidth(5)}} />
     </ScrollView>
   );

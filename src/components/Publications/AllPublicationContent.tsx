@@ -42,7 +42,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
                   pseudo={item?.utilisateur?.pseudo}
                   texte={item.texte}
                   titre={item.titre}
-                  img={item.Image}
+                  image={item.image}
                   date_creation={item.date_creation}
                   nb_reaction={item.nb_reaction} 
                   utilisateur={item?.utilisateur?._id}/>

@@ -4,7 +4,7 @@ export default interface IPublicationsData {
     titre: string,
     date_creation: Date,
     nb_reaction: Number,
-    Image: Buffer,
+    image: string,
     validation: Boolean,
     pseudo: string,
     utilisateur: {

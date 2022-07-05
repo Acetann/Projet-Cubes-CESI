@@ -8,7 +8,7 @@ import { responsiveHeight, responsiveWidth, useResponsiveWidth } from "react-nat
 import { Colors, lightColors } from "../../../config/colors/colors";
 import { mainStyle } from "../../../styles/styles";
 import { format } from "../../../utils/Number";
-import { EDIT_PROFILE, EDIT_PUBLICATION } from "../../constants/routesName";
+import { EDIT_PUBLICATION } from "../../constants/routesName";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { RouteParams } from "../../navigations/AuthNavigator";
 
@@ -16,7 +16,7 @@ interface PublicationContentProps {
     id: string;
     texte: string;
     titre: string;
-    img: Buffer;
+    image: string;
     date_creation: Date;
     pseudo: string;
     nb_reaction: Number;
@@ -24,7 +24,7 @@ interface PublicationContentProps {
     utilisateur?: string
   }
 
-export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, img, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur }) => {
+export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur }) => {
     const [isLike, setIsLike] = useState(Boolean(true))
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
@@ -49,7 +49,6 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
 
       });
   };
-
       return (
         <>
             <View style={[mainStyle.shadow,{
@@ -59,12 +58,10 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               justifyContent: 'space-between',
               backgroundColor: Colors.darkMainGrey,
             }]}>
-              <View style={{flexDirection:'row',alignItems:'center', justifyContent:'space-between', marginVertical: responsiveWidth(2)}}>
-                <Text style={{color: lightColors.mainBlue}}>{pseudo || "Anonyme" }</Text>
-                <Text style={{color: lightColors.mainBlue}}>{titre}</Text>
-              </View>
+              <Text style={{color: lightColors.mainBlue, marginBottom: responsiveWidth(2)}}>{pseudo || "Anonyme" }</Text>
+              <Text style={{color: lightColors.mainBlue, textAlign:'center'}}>{titre}</Text>
               <View style={{alignItems:'center', marginTop: responsiveWidth(2)}}>
-                <Image source={{uri: img}} style={{width: 30,height: 30}}/>
+                {image !== undefined && (<Image source={{uri: `https://projetcubesapi.herokuapp.com/images/${image}`}} style={{marginVertical:responsiveWidth(2), width: 50,maxWidth:50,maxHeight:50, height: 50}}/>)}
                 {texte !== undefined && <Text style={{color: lightColors.mainBlue}}>{texte}</Text>}
               </View>
               <View style={{flexDirection:'row',alignItems:'flex-end', justifyContent:'space-around', marginTop: responsiveWidth(5)}}>

@@ -28,7 +28,7 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
 
     return (
         <ScrollView style={{ backgroundColor: Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5) }}>
-            {userAbonnement.map(((item: IUtilisateursData, index: number) => {
+            {userAbonnement?.map(((item: IUtilisateursData, index: number) => {
                 console.log(item)
                 return (
                     <Fragment key={index}>

@@ -75,7 +75,7 @@ const data = [
                             source={{ uri: myprofil?.image }}
                         />
                         <View style={{alignItems:'center'}}>
-                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{myprofil?.ressources?.length}</Text>
+                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{myprofil?.ressources?.length > 0 ? myprofil?.ressources?.length : 0}</Text>
                             <Text style={{ fontSize: 18, color: color.grey}}>{'Post(s)'}</Text>
                         </View>
                         <View style={{alignItems:'center'}}>

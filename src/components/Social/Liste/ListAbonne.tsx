@@ -28,10 +28,10 @@ export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) =
 
   return (
     <ScrollView style={{backgroundColor:Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
-      {abonneToUser.map(((item: IUtilisateursData, index: number) => {
+      {abonneToUser?.map(((item: IUtilisateursData, index: number) => {
           return (
             <Fragment key={index}>
-              {item?.abonnement.map((itm: IUtilisateursData) => {
+              {item?.abonnement?.map((itm: IUtilisateursData) => {
                 return(
                 <Fragment key={index}>
                   <ListUser

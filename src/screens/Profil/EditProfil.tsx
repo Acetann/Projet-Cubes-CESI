@@ -47,11 +47,13 @@ export const Edit_profil = () => {
 
     const updateCurrentUser = () => {
         axiosInstance.patch('utilisateur/update', { 
-            description: description, 
-            pseudo: pseudo, 
-            mail: mail})
+            description,
+            pseudo,
+            mail })
             .then((res) => {
                 console.log(res.data)
+                const updateUser = JSON.stringify(res.data)
+                AsyncStorage.setItem('currentUser', updateUser)
                 navigation.navigate(PROFILE)
 
             })

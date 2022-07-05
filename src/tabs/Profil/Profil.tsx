@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, Image, StyleSheet } from "react-native";
+import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator, RefreshControl } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import color from "../../assets/theme/color";
 import { CustomButton } from "../../components/common/Button";
@@ -20,6 +20,7 @@ export const Profil: React.FC<ProfilProps> = () => {
 const [ currentUserDecoded, setCurrentUserDecoded] = useState()
 const [modalVisible, setModalVisible] = useState(false)
 const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+const [refreshing, setRefreshing] = useState(true);
 
 const data = [
     {
@@ -35,12 +36,13 @@ const data = [
     const getCurrentUser = async () => {
         try {
             const data = await AsyncStorage.getItem('currentUser')
-            const data1 = await AsyncStorage.getItem('currentToken')
-            console.log(data1)
+/*             const data1 = await AsyncStorage.getItem('currentToken')
+            console.log(data1) */
             const currentUserDecoded = JSON.parse(data!)
             console.log(currentUserDecoded)
             if (currentUserDecoded !== null){
                 setCurrentUserDecoded(currentUserDecoded)
+                setRefreshing(false);
                 console.log(currentUserDecoded)
             } 
         }catch(e){
@@ -50,10 +52,17 @@ const data = [
 
     useEffect(() => {
         getCurrentUser();
+        
     }, []);
 
     return (
-        <ScrollView style={{ backgroundColor: color.white, height: '100%' }}>
+        <>
+          {refreshing && <ActivityIndicator />}
+        <ScrollView 
+        refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={getCurrentUser} />
+        }
+        style={{ backgroundColor: color.white, height: '100%' }}>
             <View
                 style={{
                     flexDirection: 'row',
@@ -114,6 +123,7 @@ const data = [
             }}
             />
         </ScrollView>
+        </>
     )
 }
 

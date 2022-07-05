@@ -17,13 +17,12 @@ const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
   const [titre, setTitre] = useState<string | null>(null)
   const [texte, setTexte] = useState<string | null>(null)
 
-const addNewPublication = async () => {
+const addNewPublication = () => {
       axiosInstance.post('ressource', { titre, texte })
-          //stockage du current user et du currentToken si success
           .then((res) => {
-              navigation.navigate(MYPUBLICATION)
+            console.log(res.data)
+              navigation.navigate(MYPUBLICATION) 
           })
-          //gestion des erreur si fail
           .catch((err) => {
            console.log(err, 'error')
           });

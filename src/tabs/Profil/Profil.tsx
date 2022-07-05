@@ -10,6 +10,7 @@ import { RouteParams } from "../../navigations/AuthNavigator";
 import { EDIT_PROFILE } from "../../constants/routesName";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors } from "../../../config/colors/colors";
+import { axiosInstance } from "../../helpers/axios.interceptor";
 
 interface ProfilProps{
     modalVisible : any,
@@ -20,6 +21,7 @@ export const Profil: React.FC<ProfilProps> = () => {
 const [ currentUserDecoded, setCurrentUserDecoded] = useState()
 const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 const [refreshing, setRefreshing] = useState(true);
+const [myprofil, setMyProfil] = useState("")
 
 const data = [
     {
@@ -32,33 +34,29 @@ const data = [
         postImg: 'https://media.istockphoto.com/photos/empty-quarter-desert-dunes-rub-al-khali-landscape-picture-id1221129797?b=1&k=20&m=1221129797&s=170667a&w=0&h=Ax8cvgGe9ynXDCtOywQuaR-Lg-4CEPSB_L_looJGt8E='
     },
 ]
-    const getCurrentUser = async () => {
-        try {
-            const data = await AsyncStorage.getItem('currentUser')
-/*             const data1 = await AsyncStorage.getItem('currentToken')
-            console.log(data1) */
-            const currentUserDecoded = JSON.parse(data!)
-            console.log(currentUserDecoded)
-            if (currentUserDecoded !== null){
-                setCurrentUserDecoded(currentUserDecoded)
+    const getMyProfil = async () => {
+        axiosInstance.get('/utilisateur/monprofil')
+            .then((res) => {
                 setRefreshing(false);
-                console.log(currentUserDecoded)
-            } 
-        }catch(e){
-            console.log(e)
-        }
+                setMyProfil(res.data)
+                console.log('blabrlbaroahrahirhaihraehfrl', myprofil?.ressources.length)
+                
+            })
+            .catch((err) => {
+                console.log(err)
+            });
     }
 
     useEffect(() => {
-        getCurrentUser();
+        getMyProfil();
         
     }, []);
     return (
         <>
-        {refreshing && <ActivityIndicator />}
+            {refreshing && <ActivityIndicator />}
             <ScrollView 
                 refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={getCurrentUser} />
+                    <RefreshControl refreshing={refreshing} onRefresh={getMyProfil} />
                 }
                 style={{ 
                     backgroundColor: Colors.white,
@@ -68,32 +66,32 @@ const data = [
                     <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                         <Image
                             style={{
-                                height: 60,
-                                width: 60,
+                                height: 80,
+                                width: 80,
                                 backgroundColor: color.grey,
                                 borderRadius: 50,
                             }}
-                            source={{ uri: currentUserDecoded?.image }}
+                            source={{ uri: myprofil?.image }}
                         />
-                        <View style={{alignItems:'center'}}>
-                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success}}>{currentUserDecoded?.ressources.length}</Text>
+                      <View style={{alignItems:'center'}}>
+                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{myprofil?.ressources.length}</Text>
                             <Text style={{ fontSize: 18, color: color.grey}}>{'Post(s)'}</Text>
                         </View>
                         <View style={{alignItems:'center'}}>
-                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{currentUserDecoded?.nbdabonne}</Text>
+                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{myprofil?.nbdabonne}</Text>
                             <Text style={{ fontSize: 18, color: color.grey }}>{'Abonné(s)'}</Text>
                         </View>
                         <View style={{alignItems:'center'}}>
-                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success}}>{currentUserDecoded?.nbdabonnement}</Text>
+                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{myprofil?.nbdabonnement}</Text>
                             <Text style={{ fontSize: 18, color: color.grey }}>{'Abonnement(s)'}</Text>
                         </View>
                     </View>
                 </View>
                 <Text style={{ fontSize: 18, color: 'black', fontWeight: 'bold' }}>
-                    {currentUserDecoded?.pseudo}
+                    {myprofil?.pseudo}
                 </Text>
                 <Text style={{ fontSize: 16, color: 'black', marginTop: 5, marginBottom: 20 }}>
-                    *{currentUserDecoded?.description}*
+                    *{myprofil?.description}*
                 </Text>
                 <CustomButton
                     onPress={() => {

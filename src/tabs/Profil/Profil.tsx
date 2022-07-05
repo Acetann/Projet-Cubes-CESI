@@ -64,13 +64,13 @@ const data = [
                     paddingHorizontal: responsiveWidth(3),
                 }}>
                 <View style={{marginVertical: responsiveWidth(5)}}>
-                    <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                    <View style={{flexDirection:'row',justifyContent:'space-between', alignItems:'center'}}>
                         <Image
                             style={{
                                 height: 80,
                                 width: 80,
                                 backgroundColor: color.grey,
-                                borderRadius: 50,
+                                borderRadius: 80,
                             }}
                             source={{ uri: myprofil?.image }}
                         />
@@ -92,7 +92,7 @@ const data = [
                     {myprofil?.pseudo}
                 </Text>
                 <Text style={{ fontSize: 16, color: 'black', marginTop: 5, marginBottom: 20 }}>
-                    *{myprofil?.description}*
+                    {myprofil?.description}
                 </Text>
                 <CustomButton
                     onPress={() => {

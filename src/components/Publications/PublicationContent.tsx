@@ -61,7 +61,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               <Text style={{color: lightColors.mainBlue, marginBottom: responsiveWidth(2)}}>{pseudo || "Anonyme" }</Text>
               <Text style={{color: lightColors.mainBlue, textAlign:'center'}}>{titre}</Text>
               <View style={{alignItems:'center', marginTop: responsiveWidth(2)}}>
-                {image !== undefined && (<Image source={{uri: `https://projetcubesapi.herokuapp.com/images/${image}`}} style={{marginVertical:responsiveWidth(2), width: 50, height: 50}}/>)}
+                {image !== undefined && (<Image source={{uri:image}} style={{marginVertical:responsiveWidth(2), width: 50, height: 50}}/>)}
                 {texte !== undefined && <Text style={{color: lightColors.mainBlue}}>{texte}</Text>}
               </View>
               <View style={{flexDirection:'row',alignItems:'flex-end', justifyContent:'space-around', marginTop: responsiveWidth(5)}}>

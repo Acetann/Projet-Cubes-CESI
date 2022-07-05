@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteParams } from '../../navigations/AuthNavigator';
-import { LOGIN } from '../../constants/routesName';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 
 interface SettingsProps {}
@@ -64,17 +64,19 @@ export const Settings: React.FunctionComponent<SettingsProps> = () => {
         ]);
     }
     return (
-            <View style={{flex:1, justifyContent:'flex-end'}}>
-            <CustomButton
-                children={'Supprimer mon compte'}
-                onPress={deleteAccount} 
-                title={'deleteAccount'}  
-                danger          /> 
+            <View style={{flex:1,marginHorizontal:responsiveWidth(5), justifyContent:'flex-end'}}>
                 <CustomButton
                     children={'Se déconnecter'}
                     onPress={getDeconnected}
-                    title={'logout'}
+                    title={'Déconnexion'}
                     secondary
+                /> 
+                <CustomButton
+                    children={'Supprimer mon compte'}
+                    onPress={deleteAccount} 
+                    title={'Supprimer mon compte'}  
+                    danger 
+                    disabled={true}
                 /> 
             </View>
     )

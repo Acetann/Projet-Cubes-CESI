@@ -16,10 +16,9 @@ interface MyPublicationProps {
 }
 
 export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> = ({ isHome }) => {
+
   const [currentUserDecoded, setCurrentUserDecoded] = useState()
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-
-
   const getCurrentUser = async () => {
     try {
       const data = await AsyncStorage.getItem('currentUser')
@@ -49,7 +48,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
                   pseudo={currentUserDecoded?.pseudo}
                   texte={item.texte}
                   titre={item.titre}
-                  img={item.Image}
+                  image={item.image}
                   date_creation={item.date_creation}
                   nb_reaction={item.nb_reaction}
                   myPublication

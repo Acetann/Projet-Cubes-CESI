@@ -8,17 +8,16 @@ interface ListUserProps {
     nom: string;
     prenom: string;
     pseudo: string;
-    img?: Buffer;
+    image: string;
     abonne: Boolean;
   }
 
-export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, img,abonne}) => {
+export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne}) => {
     const [isAbonne, setIsAbonne] = useState(false)
-
     return (
         <View style={{marginVertical: responsiveWidth(5)}}>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-                <Image source={img} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40, marginHorizontal: responsiveWidth(3)}}/>
+            <View style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
+                {image !== undefined && (<Image source={{uri: image}} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>)}
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row', marginBottom: responsiveWidth(2)}}>
                         <Text style={{fontSize:12, color: 'black', marginRight: responsiveWidth(2)}}>{pseudo}</Text>

@@ -4,14 +4,9 @@ export default interface IUtilisateursData {
     prenom: string,
     date_creation: Date,
     nb_reaction: Number,
-    Image: Buffer,
+    image: string,
     compte_actif: Boolean,
     pseudo: string,
-    utilisateur: {
-        mail:string,
-        description: string,
-        pseudo: string,
-    }
 }
 
 export const defaultUtilisateurs: IUtilisateursData[] = [];

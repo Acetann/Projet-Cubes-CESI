@@ -25,7 +25,6 @@ const [friend, setFriend]: [IUtilisateursData[], (publications: IUtilisateursDat
                 });
         }, []);
 
-
   return (
     <ScrollView style={{backgroundColor:Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
         {friend.map(((item: IUtilisateursData, index: number) => {
@@ -36,6 +35,7 @@ const [friend, setFriend]: [IUtilisateursData[], (publications: IUtilisateursDat
                 prenom={item.prenom} 
                 pseudo={item.pseudo}
                 abonne={abonne}
+                image={item.image}
             />
             </Fragment>
           )

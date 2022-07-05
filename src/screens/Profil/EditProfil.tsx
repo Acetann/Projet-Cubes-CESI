@@ -125,7 +125,7 @@ export const Edit_profil = () => {
                 <TextInput
                     placeholder="description"
                     onChangeText={(text: string) => setDescription(text)}
-                    defaultValue={currentUserDecoded?.description}
+                    defaultValue={description}
                 style={{
                     fontSize : 16,
                     borderBottomWidth: 1,
@@ -138,7 +138,7 @@ export const Edit_profil = () => {
                 <TextInput
                     placeholder="mail"
                     onChangeText={(text: string) => setMail(text)}
-                    defaultValue={currentUserDecoded?.mail}
+                    defaultValue={mail}
                     style={{
                         fontSize: 16,
                         borderBottomWidth: 1,

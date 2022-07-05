@@ -5,16 +5,12 @@ import logout from '../../context/actions/auth/logout';
 import { GlobalContext } from '../../context/globalContext';
 import { axiosInstance } from '../../helpers/axios.interceptor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RouteParams } from '../../navigations/AuthNavigator';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 
 interface SettingsProps {}
 
 export const Settings: React.FunctionComponent<SettingsProps> = () => {
-    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     const { authDispatch } = useContext(GlobalContext)
 
     const getDeconnected = () => {

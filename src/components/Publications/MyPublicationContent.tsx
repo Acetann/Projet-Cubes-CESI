@@ -18,7 +18,6 @@ interface MyPublicationProps {
 
 export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> = ({ isHome }) => {
 
-  const [currentUserDecoded, setCurrentUserDecoded] = useState()
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
   const [refreshing, setRefreshing] = useState(true);
   const [myprofil, setMyProfil] = useState("")
@@ -70,7 +69,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
           {isHome && (
             <Button
               style={{ marginHorizontal: responsiveWidth(5), borderRadius: 16 }}
-              children={myprofil?.ressources?.length === 0 ? 'Ajouter une publication' : 'Voir toutes mes publications'}
+              children={myprofil?.ressources?.length === undefined ? 'Ajouter une publication' : 'Voir toutes mes publications'}
               onPress={() => navigation.navigate(MYPUBLICATION)}
             />
           )}

@@ -21,8 +21,7 @@ const addNewPublication = () => {
       axiosInstance.post('ressource', { titre, texte })
           .then((res) => {
             console.log(res.data)
-            navigation.navigate(MYPUBLICATION) 
-            return res.data
+            navigation.goBack()
               
           })
           .catch((err) => {

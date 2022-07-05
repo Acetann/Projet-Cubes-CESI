@@ -10,7 +10,12 @@ export type RouteParams = {
     Abonnement: undefined
     AddAbonnement: undefined
     Message: undefined
-    Edit_profil: undefined
+    Edit_profil: {
+        image: string,
+        pseudo: string,
+        description: string,
+        mail: string
+    }
     Profil: undefined
     Login: undefined
     Register: undefined

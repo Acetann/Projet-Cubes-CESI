@@ -96,7 +96,7 @@ const data = [
                 </Text>
                 <CustomButton
                     onPress={() => {
-                        navigation.navigate(EDIT_PROFILE)
+                        navigation.navigate(EDIT_PROFILE, { image: myprofil?.image, pseudo: myprofil?.pseudo, description: myprofil?.description, mail: myprofil?.mail})
                     }}
                     title="Modifier mon profil"
                     primary

@@ -3,7 +3,7 @@ import { View, Text, Image } from "react-native"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RouteParams } from "../../navigations/AuthNavigator";
 import { Profil } from "../../tabs/Profil/Profil";
 import { Icon } from "react-native-elements";
@@ -15,11 +15,12 @@ import * as ImagePicker from 'expo-image-picker';
 export const Edit_profil = () => {
     const [currentUserDecoded, setCurrentUserDecoded] = useState()
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-
-    const [pseudo, setPseudo] = useState<string | null>(null)
-    const [description, setDescription] = useState<string | null>(null)
-    const [mail, setMail] = useState<string | null>(null)
-    const [image, setImage] = useState('');
+    const route = useRoute<RouteProp<RouteParams>>();
+    
+    const [pseudo, setPseudo] = useState(route.params?.pseudo)
+    const [description, setDescription] = useState(route.params?.description)
+    const [mail, setMail] = useState(route.params?.mail)
+    const [image, setImage] = useState()
 
     const data = [
         {
@@ -33,20 +34,6 @@ export const Edit_profil = () => {
         },
     ]
 
-    const getCurrentUser = async () => {
-        try {
-            const data = await AsyncStorage.getItem('currentUser')
-            const currentUserDecoded = JSON.parse(data!)
-
-            if (currentUserDecoded !== null) {
-                setCurrentUserDecoded(currentUserDecoded)
-
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
     const updateCurrentUser = () => {
         axiosInstance.patch('utilisateur/update', { 
             description,
@@ -55,10 +42,7 @@ export const Edit_profil = () => {
          })
             .then((res) => {
                 console.log(res.data)
-                const updateUser = JSON.stringify(res.data)
-                AsyncStorage.setItem('currentUser', updateUser)
                 navigation.navigate(PROFILE)
-
             })
             //gestion des erreur si fail
             .catch((err) => {
@@ -81,13 +65,6 @@ export const Edit_profil = () => {
         }
         return _image
     };
-
-
-
-    useEffect(() => {
-        getCurrentUser();
-    }, []);
-
 
     return(
         <View
@@ -135,7 +112,7 @@ export const Edit_profil = () => {
                 <TextInput
                     placeholder="pseudo"
                     onChangeText={(text: string) => setPseudo(text)}
-                    defaultValue={currentUserDecoded?.pseudo}
+                    defaultValue={pseudo}
                     style={{
                         fontSize: 16,
                         borderBottomWidth: 1,

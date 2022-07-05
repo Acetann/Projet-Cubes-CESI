@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator, RefreshControl } from "react-native";
+import { ScrollView, Text, View, Image, StyleSheet, RefreshControl } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import color from "../../assets/theme/color";
 import { CustomButton } from "../../components/common/Button";
 import { FlatList } from "react-native-gesture-handler";
-import { axiosInstance, axiosWithoutToken } from "../../helpers/axios.interceptor";
-import base64 from 'react-native-base64'
-import { AppModal } from "../../components/common/appModal";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteParams } from "../../navigations/AuthNavigator";
 import { EDIT_PROFILE } from "../../constants/routesName";
+import { responsiveWidth } from "react-native-responsive-dimensions";
+import { Colors } from "../../../config/colors/colors";
+
 interface ProfilProps{
     modalVisible : any,
     setModalVisible: any
@@ -18,7 +18,6 @@ interface ProfilProps{
 
 export const Profil: React.FC<ProfilProps> = () => {
 const [ currentUserDecoded, setCurrentUserDecoded] = useState()
-const [modalVisible, setModalVisible] = useState(false)
 const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 const [refreshing, setRefreshing] = useState(true);
 
@@ -57,72 +56,73 @@ const data = [
 
     return (
         <>
-          {refreshing && <ActivityIndicator />}
-        <ScrollView 
-        refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={getCurrentUser} />
-        }
-        style={{ backgroundColor: color.white, height: '100%' }}>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 20,
-                    marginLeft: 10,
+            <ScrollView 
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={getCurrentUser} />
+                }
+                style={{ 
+                    backgroundColor: Colors.white,
+                    paddingHorizontal: responsiveWidth(3),
                 }}>
-                <Image
-                style={{
-                    height: 60,
-                    width: 60,
-                    backgroundColor: color.grey,
-                    borderRadius: 50,
-                }}
-                    source={{ uri: data[0].postImg }}
-                />
-                <View>
-                    <Text style={{ fontWeight: '400', fontSize: 20, color: color.success, paddingHorizontal: 15, marginLeft: 10 }}>{currentUserDecoded?.ressources.length}</Text>
-                    <Text style={{ fontSize: 20, color: color.grey, paddingHorizontal: 15 }}>Posts</Text>
-                </View>
-                <View>
-                    <Text style={{ fontWeight: '400', fontSize: 20, color: color.success, paddingHorizontal: 10, marginLeft: 10 }}>{currentUserDecoded?.nbdabonne}</Text>
-                    <Text style={{ fontSize: 20, color: color.grey, paddingHorizontal: 10 }}>Abonnés</Text>
-                </View>
-                <View>
-                    <Text style={{ fontWeight: '400', fontSize: 20, color: color.success, paddingHorizontal: 10, marginLeft: 10 }}>{currentUserDecoded?.nbdabonnement}</Text>
-                    <Text style={{ fontSize: 20, color: color.grey, paddingHorizontal: 10 }}>Abonnements</Text>
-                </View>
-            </View>
-            <Text style={{ fontSize: 18, color: 'black', paddingHorizontal: 15, marginTop: 10, fontWeight: 'bold', marginBottom: 20 }}>
-                {currentUserDecoded?.pseudo}
-            </Text>
-            <CustomButton
-                onPress={() => {
-                    navigation.navigate(EDIT_PROFILE)
-                }}
-                title="Modifier mon profil"
-                primary
-                style={{color}}
-            />
-            <Text style={{fontSize:18, color: 'black', paddingHorizontal: 15, marginTop: 10, fontWeight: 'bold', marginBottom: 20}}>Gallerie</Text>
-            <View style={{borderWidth: StyleSheet.hairlineWidth, borderColor: 'black'}}></View>
-            <FlatList
-            ListHeaderComponent={<></>}
-            data={data}
-            numColumns={3}
-            horizontal={false}
-            keyExtractor={(item, index) => {
-                return index.toString()
-            }}
-            renderItem = {({item}) => {
-                return(
-                    <View style={styles.container}>
-                        <Image source={{uri: item.postImg}}
-                        style={styles.headerImage}/>
+                <View style={{marginVertical: responsiveWidth(5)}}>
+                    <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                        <Image
+                            style={{
+                                height: 60,
+                                width: 60,
+                                backgroundColor: color.grey,
+                                borderRadius: 50,
+                            }}
+                            source={{ uri: data[0].postImg }}
+                        />
+                        <View style={{alignItems:'center'}}>
+                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success}}>{currentUserDecoded?.ressources.length}</Text>
+                            <Text style={{ fontSize: 18, color: color.grey}}>{'Post(s)'}</Text>
+                        </View>
+                        <View style={{alignItems:'center'}}>
+                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{currentUserDecoded?.nbdabonne}</Text>
+                            <Text style={{ fontSize: 18, color: color.grey }}>{'Abonné(s)'}</Text>
+                        </View>
+                        <View style={{alignItems:'center'}}>
+                            <Text style={{ fontWeight: '400', fontSize: 18, color: color.success}}>{currentUserDecoded?.nbdabonnement}</Text>
+                            <Text style={{ fontSize: 18, color: color.grey }}>{'Abonnement(s)'}</Text>
+                        </View>
                     </View>
-                )
-            }}
-            />
-        </ScrollView>
+                </View>
+                <Text style={{ fontSize: 18, color: 'black', marginTop: 10, fontWeight: 'bold' }}>
+                    {currentUserDecoded?.pseudo}
+                </Text>
+                <Text style={{ fontSize: 18, color: 'black', marginTop: 10, marginBottom: 20 }}>
+                    {currentUserDecoded?.description}
+                </Text>
+                <CustomButton
+                    onPress={() => {
+                        navigation.navigate(EDIT_PROFILE)
+                    }}
+                    title="Modifier mon profil"
+                    primary
+                    style={{color}}
+                />
+                <Text style={{fontSize:18, color: 'black',  marginTop: 10, fontWeight: 'bold', marginBottom: 20}}>{'Galerie'}</Text>
+                <View style={{borderWidth: StyleSheet.hairlineWidth, borderColor: 'black'}}></View>
+                <FlatList
+                    ListHeaderComponent={<></>}
+                    data={data}
+                    numColumns={3}
+                    horizontal={false}
+                    keyExtractor={(item, index) => {
+                        return index.toString()
+                    }}
+                    renderItem = {({item}) => {
+                        return(
+                            <View style={{flex:1,marginTop: responsiveWidth(5),justifyContent:'space-between', alignItems:'center'}}>
+                                <Image source={{uri: item.postImg}} style={styles.headerImage}/>
+                            </View>
+                        )
+                    }}
+                />
+                <View style={{marginBottom: responsiveWidth(5)}} />
+            </ScrollView>
         </>
     )
 }

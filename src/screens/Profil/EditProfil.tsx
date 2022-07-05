@@ -115,7 +115,7 @@ export const Edit_profil = () => {
                 <Image
                     source={{ uri: image }}
                     style={{width: 150, height: 150, borderRadius: 100}}
-                    defaultSource={{ uri: defaultImage}}
+                    /* defaultSource={{ uri: defaultImage}} */
                 />
                 <TouchableOpacity>
                     <Text

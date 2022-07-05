@@ -37,9 +37,10 @@ const data = [
     const getMyProfil = async () => {
         axiosInstance.get('/utilisateur/monprofil')
             .then((res) => {
-                setRefreshing(false);
                 setMyProfil(res.data)
-                console.log('blabrlbaroahrahirhaihraehfrl', myprofil?.ressources.length)
+                setRefreshing(false);
+                /* return res.data */
+                console.log(res.data)
                 
             })
             .catch((err) => {
@@ -73,10 +74,10 @@ const data = [
                             }}
                             source={{ uri: myprofil?.image }}
                         />
-                      <View style={{alignItems:'center'}}>
+              {/*           <View style={{alignItems:'center'}}>
                             <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{myprofil?.ressources.length}</Text>
                             <Text style={{ fontSize: 18, color: color.grey}}>{'Post(s)'}</Text>
-                        </View>
+                        </View> */}
                         <View style={{alignItems:'center'}}>
                             <Text style={{ fontWeight: '400', fontSize: 18, color: color.success }}>{myprofil?.nbdabonne}</Text>
                             <Text style={{ fontSize: 18, color: color.grey }}>{'Abonné(s)'}</Text>

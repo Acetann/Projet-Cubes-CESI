@@ -48,8 +48,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
             <RefreshControl refreshing={refreshing} onRefresh={getMyProfil} />
           }
         style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(10), paddingTop: responsiveWidth(5)}}>
-
-          {myprofil?.ressources?.map(((item, index) => {
+          {myprofil?.ressources?.map(((item, index: number) => {
             return (
               <Fragment key={index}>
                 <PublicationContent

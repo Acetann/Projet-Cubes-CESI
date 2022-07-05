@@ -7,7 +7,7 @@ import { Icon } from 'react-native-elements';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import color from '../../assets/theme/color';
 import { ADDPUBLICATION, MYPUBLICATION } from '../../constants/routesName';
-import { axiosWithoutToken } from '../../helpers/axios.interceptor';
+import { axiosInstance, axiosWithoutToken } from '../../helpers/axios.interceptor';
 import { RouteParams } from '../../navigations/AuthNavigator';
 import IPublicationsData, { defaultPublications } from '../../Types/Publications.type';
 import { PublicationContent } from './PublicationContent';
@@ -20,6 +20,18 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
   const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
   const [refreshing, setRefreshing] = useState(true);
+  const [myprofil, setMyProfil] = useState("")
+
+
+  const getMyProfil = async () => {
+    axiosInstance.get('/utilisateur/monprofil')
+      .then((res) => {
+        setMyProfil(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }
 
 
   const getAllPublications = () => {
@@ -44,6 +56,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
                     console.log(err)
 
                 });
+                getMyProfil()
         }, []);
     
     return (
@@ -69,7 +82,9 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
                   image={item.image}
                   date_creation={item.date_creation}
                   nb_reaction={item.nb_reaction} 
-                  utilisateur={item?.utilisateur?._id}/>
+                  utilisateur={item?.utilisateur?._id}
+                  _id={myprofil?._id}
+                />
               </Fragment>
             )
           }))}

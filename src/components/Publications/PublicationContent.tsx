@@ -14,6 +14,7 @@ import { RouteParams } from "../../navigations/AuthNavigator";
 
 interface PublicationContentProps {
     id: string;
+    _id?: string;
     texte: string;
     titre: string;
     image: string;
@@ -21,18 +22,22 @@ interface PublicationContentProps {
     pseudo: string;
     nb_reaction: Number;
     myPublication?: Boolean;
-    utilisateur?: string
+    utilisateur?: string;
   }
 
-export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur }) => {
-    const [isLike, setIsLike] = useState(Boolean(true))
+export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur,_id }) => {
+    const [isLike, setIsLike] = useState(false)
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     const onLike = () => {
       try {
       axiosInstance.patch(`/ressource/${id}/reaction`)
         .then((res) => {
-          console.log(res.data)
+          if(isLike){
+            setIsLike(false)
+          }else{
+            setIsLike(true)
+          }
         })
       } catch (e) {
         console.log(e)
@@ -50,7 +55,6 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
       });
   };
       return (
-        <>
             <View style={[mainStyle.shadow,{
               padding: responsiveWidth(3),
               marginBottom: responsiveHeight(2),
@@ -58,43 +62,48 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               justifyContent: 'space-between',
               backgroundColor: Colors.darkMainGrey,
             }]}>
-              <Text style={{color: lightColors.mainBlue, marginBottom: responsiveWidth(2)}}>{pseudo || "Anonyme" }</Text>
-              <Text style={{color: lightColors.mainBlue, textAlign:'center'}}>{titre}</Text>
-              <View style={{alignItems:'center', marginTop: responsiveWidth(2)}}>
-                {image !== undefined && (<Image source={{uri:image}} style={{marginVertical:responsiveWidth(2), width: 50, height: 50}}/>)}
+              <View style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
+                {image !== undefined && (<Image source={{uri: image}} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>)}
+                <View style={{flex:1}}>
+                    <View style={{flexDirection:'row', marginBottom: responsiveWidth(2)}}>
+                        <Text style={{ color: 'black', marginRight: responsiveWidth(2)}}>{pseudo}</Text>
+                    </View>
+                    <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
+                      <Text style={{fontSize:12, color: lightColors.mainBlue}}>{"Publié le : "}</Text>
+                      <Text style={{fontSize:12, color: lightColors.mainBlue}}>{`${moment(date_creation).format('DD/MM/YYYY,HH:mm').replace(':','h')}`}</Text>
+                    </View>
+                </View>
+                {!myPublication && utilisateur !== _id && (
+                  <TouchableOpacity 
+                    style={{
+                      padding: responsiveWidth(2),
+                      marginHorizontal: responsiveWidth(2),
+                      borderRadius: 14,
+                    }}
+                    onPress={onFollow}>  
+                    <Icon name="person-add" color={Colors.blue} />
+                  </TouchableOpacity>
+                )}
+            </View>
+              <Text style={{color: lightColors.mainBlue, textAlign:'center',marginVertical: responsiveWidth(2)}}>{titre}</Text>
                 {texte !== undefined && <Text style={{color: lightColors.mainBlue}}>{texte}</Text>}
-              </View>
-              <View style={{flexDirection:'row',alignItems:'flex-end', justifyContent:'space-around', marginTop: responsiveWidth(5)}}>
+              <View style={{flexDirection:'row',alignItems:'flex-end', justifyContent:'space-between', marginTop: responsiveWidth(5), marginHorizontal:responsiveWidth(10)}}>
                 <View style={{alignItems:'center', justifyContent:'center'}}>
                   {nb_reaction !== undefined && (<Text style={{color: lightColors.mainBlue}}>{format(nb_reaction, false)}</Text>)}
                   <TouchableOpacity 
-                  style={{flexDirection:'row',alignItems:'center',marginVertical: responsiveWidth(2)}}  
-                  onPress={onLike}>
-                      <Icon name={isLike ? "thumb-up-off-alt" : "thumb-up"} color={Colors.blue} />
+                    style={{flexDirection:'row',alignItems:'center',marginVertical: responsiveWidth(2)}}  
+                    onPress={onLike}>
+                      <Icon name={isLike ? "thumb-up" : "thumb-up-off-alt"} color={Colors.blue} />
                   </TouchableOpacity>
-              </View>
-                <TouchableOpacity style={
-                  {
+                </View>
+                <TouchableOpacity style={{
                     padding: responsiveWidth(2),
                     marginHorizontal: responsiveWidth(2),
                     borderRadius: 14,
                   }}>
                     <Icon name="comment" color={Colors.blue} />
-                    </TouchableOpacity>
-                {!myPublication && (
-                <TouchableOpacity 
-                style={
-                  {
-                    padding: responsiveWidth(2),
-                    marginHorizontal: responsiveWidth(2),
-                    borderRadius: 14,
-                  }}
-                 onPress={onFollow}>
-                    
-                <Icon name="person-add" color={Colors.blue} />
-              </TouchableOpacity>
-              )}
-                  {myPublication && (
+                </TouchableOpacity>
+                {myPublication && (
                     <View style={{flexDirection: 'row'}}>
                      <TouchableOpacity onPress={() => {
                       navigation.navigate(EDIT_PUBLICATION,{titre: titre, texte:texte, id:id})
@@ -118,14 +127,9 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                         <Icon name="delete" color={lightColors.white} />
                     </TouchableOpacity>
                     </View>
-                  )}
-            </View>
-            <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
-              <Text style={{color: lightColors.mainBlue}}>{"Publié le : "}</Text>
-              <Text style={{color: lightColors.mainBlue}}>{`${moment(date_creation).format('DD/MM/YYYY,HH:mm').replace(':','h')}`}</Text>
+                )}
             </View>
           </View>
-        </>
       )
   }
 

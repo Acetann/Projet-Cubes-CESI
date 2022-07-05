@@ -69,8 +69,8 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                         <Text style={{ color: 'black', marginRight: responsiveWidth(2)}}>{pseudo}</Text>
                     </View>
                     <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
-                      <Text style={{fontSize:12, color: lightColors.mainBlue}}>{"Publié le : "}</Text>
-                      <Text style={{fontSize:12, color: lightColors.mainBlue}}>{`${moment(date_creation).format('DD/MM/YYYY,HH:mm').replace(':','h')}`}</Text>
+                      <Text style={{fontSize:10, color: lightColors.mainBlue}}>{"Publié le : "}</Text>
+                      <Text style={{fontSize:10, color: lightColors.mainBlue}}>{`${moment(date_creation).format('DD/MM/YYYY,HH:mm').replace(':','h')}`}</Text>
                     </View>
                 </View>
                 {!myPublication && utilisateur !== _id && (

@@ -104,7 +104,7 @@ const data = [
                 <View style={{borderWidth: StyleSheet.hairlineWidth, borderColor: 'black'}}></View>
                 <FlatList
                     ListHeaderComponent={<></>}
-                    data={data}
+                    data={myprofil?.ressources}
                     numColumns={3}
                     horizontal={false}
                     keyExtractor={(item, index) => {
@@ -113,7 +113,7 @@ const data = [
                     renderItem = {({item}) => {
                         return(
                             <View style={{flex:1,marginTop: responsiveWidth(5),justifyContent:'space-between', alignItems:'center'}}>
-                                <Image source={{uri: item.postImg}} style={styles.headerImage}/>
+                                <Image source={{uri: item.image}} style={styles.headerImage}/>
                             </View>
                         )
                     }}

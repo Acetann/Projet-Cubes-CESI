@@ -18,12 +18,16 @@ interface AllPublicationProps {
 }
 export const AllPublicationContent: React.FunctionComponent<AllPublicationProps> = ({isHome}) => {
 
+  //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
+  //Déclare une variable d'état
+  //typé selon le modèle de l'interface <IPulicationsData>
+  //définit comme Array vide par défault
   const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
 
   const [refreshing, setRefreshing] = useState(true);
-  
+
   const [myprofil, setMyProfil] = useState("")
 
 

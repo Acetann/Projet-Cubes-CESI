@@ -10,13 +10,13 @@ interface ListUserProps {
     pseudo: string;
     image: string;
     visible: boolean;
-    setModalVisible: () => void;
+    closeModal: () => void;
 }
 
-export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image,visible,setModalVisible}) => {
+export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image,visible,closeModal}) => {
 
   return (
-    <Modal animationType="slide" transparent={true} visible={visible}>
+    <Modal animationType="slide"  transparent={true} visible={visible} onDismiss={closeModal}>
         <View style={styles.centeredView}>
             <View style={{flex: 1, marginHorizontal: responsiveWidth(5), paddingVertical: responsiveWidth(5)}}>
                 <View style={{flexDirection:'row', alignItems:'center'}}>
@@ -30,7 +30,7 @@ export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, 
                             <Text style={{fontSize:12,color: 'black'}}>{nom}</Text>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={setModalVisible}>
+                    <TouchableOpacity onPress={closeModal}>
                         <Icon name="close" color="black" size={40} />
                     </TouchableOpacity>
                 </View>

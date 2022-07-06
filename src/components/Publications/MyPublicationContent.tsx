@@ -60,6 +60,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
                   nb_reaction={item.nb_reaction}
                   myPublication
                   id={item?._id}
+                  imageUser={item?.utilisateur.image}
                   />
               </Fragment>
             )
@@ -68,7 +69,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
           {isHome && (
             <Button
               style={{ marginHorizontal: responsiveWidth(5), borderRadius: 16 }}
-              children={myprofil?.ressources?.length === undefined ? 'Ajouter une publication' : 'Voir toutes mes publications'}
+              children={myprofil?.ressources?.length === 0 ? 'Ajouter une publication' : 'Voir toutes mes publications'}
               onPress={() => navigation.navigate(MYPUBLICATION)}
             />
           )}

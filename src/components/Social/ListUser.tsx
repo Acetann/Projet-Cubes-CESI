@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors } from "../../../config/colors/colors";
+import { axiosInstance } from "../../helpers/axios.interceptor";
 import ModalUser from "../Modal/ModalUser";
 
 interface ListUserProps {
@@ -10,24 +11,53 @@ interface ListUserProps {
     prenom: string;
     pseudo: string;
     image: string;
-    abonne: Boolean;
-    isVisible: boolean;
-    openModal: () => void;
-    closeModal: () => void;
+    abonne?: Boolean;
+    utilisateur: string;
 }
 
-export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne, isVisible, openModal, closeModal}) => {
+export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne,utilisateur}) => {
     const [isAbonne, setIsAbonne] = useState(false);
+    const [visible, setVisible] = useState(false);
+
+    const openModal = () => {
+        setVisible(true);
+    };
+
+    const closeModal = () => {
+        setVisible(false);
+    };
+
+    const onFollow = () => {
+        axiosInstance.patch(`/utilisateur/follow/${utilisateur}`)
+          .then((res) => {
+            if(isAbonne){
+                setIsAbonne(false)
+            }else{
+                setIsAbonne(true)
+            }
+            console.log(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+    
+          });
+      };
+
+      console.log(utilisateur,'utilisateur abonné')
 
     return (
         <View style={{marginVertical: responsiveWidth(5)}}>
-            <TouchableOpacity onPress={openModal} style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
-                {image !== undefined && (<Image source={{uri: image}} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>)}
+            <View style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
+                {image !== undefined && (
+                    <TouchableOpacity onPress={openModal} style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
+                        <Image source={{uri: image}} style={{width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>
+                    </TouchableOpacity>
+                )}
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row', marginBottom: responsiveWidth(2)}}>
                         <Text style={{fontSize:12, color: 'black', marginRight: responsiveWidth(2)}}>{pseudo}</Text>
                         {abonne && (
-                            <TouchableOpacity disabled={isAbonne ? true : false}>
+                            <TouchableOpacity onPress={onFollow} disabled={isAbonne ? true : false}>
                                 <Text style={{fontSize:12, color: isAbonne ? Colors.inactiveTab : Colors.blue, fontWeight: isAbonne ? '600' : 'bold'}}>{isAbonne ? 'Abonné(e)' : "S'abonner"}</Text>
                             </TouchableOpacity>
                         )}
@@ -45,8 +75,8 @@ export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, p
                     }
                     onPress={() => {}}
                 />
-            </TouchableOpacity>
-            <ModalUser nom={nom} prenom={prenom} image={image} pseudo={pseudo} visible={isVisible} setModalVisible={closeModal} />
+            </View>
+            <ModalUser nom={nom} prenom={prenom} image={image} pseudo={pseudo} visible={visible} closeModal={closeModal} />
         </View>
     )
 }

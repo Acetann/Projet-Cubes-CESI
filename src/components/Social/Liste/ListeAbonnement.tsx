@@ -37,7 +37,7 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
             });
     }, []);
     return (
-        <ScrollView style={{ backgroundColor:isVisible ? Colors.inactiveTab : Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5),opacity: isVisible ? 0.5 : 1}}>
+        <ScrollView style={{ paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
             {userAbonnement?.filter(user => user.utilisateur !== null).map(((item: IUtilisateursData, index: number) => {
                 return (
                     <Fragment key={index}>
@@ -45,11 +45,8 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
                             nom={item?.utilisateur?.nom}
                             prenom={item?.utilisateur?.prenom}
                             pseudo={item?.utilisateur?.pseudo}
-                            abonne={abonne}
                             image={item?.utilisateur?.image}
-                            isVisible={isVisible}
-                            closeModal={closeModal}
-                            openModal={openModal}
+                            utilisateur={item?.abonnement?._id}
                         />
                     </Fragment>
                 )

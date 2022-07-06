@@ -13,14 +13,14 @@ import { PROFILE } from "../../constants/routesName";
 import * as ImagePicker from 'expo-image-picker';
 
 export const Edit_profil = () => {
-    const [currentUserDecoded, setCurrentUserDecoded] = useState()
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     const route = useRoute<RouteProp<RouteParams>>();
     
     const [pseudo, setPseudo] = useState(route.params?.pseudo)
     const [description, setDescription] = useState(route.params?.description)
     const [mail, setMail] = useState(route.params?.mail)
-    const [image, setImage] = useState()
+    const [image, setImage] = useState(route.params?.image)
+
 
     const data = [
         {
@@ -39,6 +39,7 @@ export const Edit_profil = () => {
             description,
             pseudo,
             mail,
+            image,
          })
             .then((res) => {
                 console.log(res.data)
@@ -50,21 +51,19 @@ export const Edit_profil = () => {
             });  
     }
 
-    const pickImage = async () => {
-        let _image = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
 
-        console.log(_image);
+const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        allowsEditing: true
+    });
+    if (!result.cancelled) {
+        setImage(result?.uri);
+    }
+};
 
-        if (!_image.cancelled) {
-            setImage(_image.uri);
-        }
-        return _image
-    };
 
     return(
         <View
@@ -89,11 +88,10 @@ export const Edit_profil = () => {
                 </TouchableOpacity>
             </View>
             <View style={{padding: 20, alignItems: 'center'}}>
-                <Image
+                {image && <Image
                     source={{ uri: image }}
                     style={{width: 150, height: 150, borderRadius: 100}}
-                    /* defaultSource={{ uri: defaultImage}} */
-                />
+                />}
                 <TouchableOpacity>
                     <Text
                     style={{

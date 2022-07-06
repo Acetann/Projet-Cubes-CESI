@@ -22,6 +22,7 @@ export type RouteParams = {
     MyPublication: undefined
     AddPublication: undefined
     EditPublication : {
+        image: string;
         id: string;
         titre: string;
         texte: string;

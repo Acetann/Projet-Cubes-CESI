@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View, Image, StyleSheet, RefreshControl, ActivityIndicator } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import color from "../../assets/theme/color";
 import { CustomButton } from "../../components/common/Button";
 import { FlatList } from "react-native-gesture-handler";
@@ -18,7 +17,6 @@ interface ProfilProps{
 }
 
 export const Profil: React.FC<ProfilProps> = () => {
-const [ currentUserDecoded, setCurrentUserDecoded] = useState()
 const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 const [refreshing, setRefreshing] = useState(true);
 const [myprofil, setMyProfil] = useState("")

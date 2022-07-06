@@ -18,6 +18,7 @@ interface PublicationContentProps {
     texte: string;
     titre: string;
     image: string;
+    imageUser: string;
     date_creation: Date;
     pseudo: string;
     nb_reaction: Number;
@@ -25,8 +26,8 @@ interface PublicationContentProps {
     utilisateur?: string;
   }
 
-export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur,_id }) => {
-    const [isLike, setIsLike] = useState(false)
+export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur,_id, imageUser }) => {
+    const [isLike, setIsLike] = useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
     const onLike = () => {
@@ -63,10 +64,10 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               backgroundColor: Colors.darkMainGrey,
             }]}>
               <View style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
-                {image !== undefined && (<Image source={{uri: image}} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>)}
+                {imageUser !== undefined && (<Image source={{uri: imageUser}} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>)}
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row', marginBottom: responsiveWidth(2)}}>
-                        <Text style={{ color: 'black', marginRight: responsiveWidth(2)}}>{pseudo}</Text>
+                        <Text style={{ color: 'black', marginRight: responsiveWidth(2)}}>{pseudo || "Anonyme"}</Text>
                     </View>
                     <View style={{flex:1,flexDirection:'row', alignItems:'center'}}>
                       <Text style={{fontSize:10, color: lightColors.mainBlue}}>{"Publié le : "}</Text>
@@ -87,6 +88,9 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
             </View>
               <Text style={{color: lightColors.mainBlue, textAlign:'center',marginVertical: responsiveWidth(2)}}>{titre}</Text>
                 {texte !== undefined && <Text style={{color: lightColors.mainBlue}}>{texte}</Text>}
+                <View style={{alignItems:'center', justifyContent:'center', marginVertical: responsiveWidth(2)}}>
+                  {image !== undefined && (<Image source={{uri: image}} style={{backgroundColor:'black', width: '100%',height: 200}}/>)}
+                </View>
               <View style={{flexDirection:'row',alignItems:'flex-end', justifyContent:'space-between', marginTop: responsiveWidth(5), marginHorizontal:responsiveWidth(10)}}>
                 <View style={{alignItems:'center', justifyContent:'center'}}>
                   {nb_reaction !== undefined && (<Text style={{color: lightColors.mainBlue}}>{format(nb_reaction, false)}</Text>)}

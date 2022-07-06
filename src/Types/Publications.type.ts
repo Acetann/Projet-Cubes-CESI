@@ -12,6 +12,7 @@ export default interface IPublicationsData {
         mail:string,
         description: string,
         pseudo: string,
+        image:string,
     }
 }
 

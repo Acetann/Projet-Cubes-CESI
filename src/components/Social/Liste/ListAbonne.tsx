@@ -38,7 +38,7 @@ export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) =
         
   return (
     <ScrollView style={{ backgroundColor:isVisible ? Colors.inactiveTab : Colors.white, paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5),opacity: isVisible ? 0.5 : 1}}>
-      {abonneToUser?.map(((item: IUtilisateursData, index: number) => {
+      {abonneToUser?.filter(user => user.utilisateur !== null).map(((item: IUtilisateursData, index: number) => {
           return (
             <Fragment key={index}>
                   <ListUser

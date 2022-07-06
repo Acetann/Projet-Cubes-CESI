@@ -8,7 +8,12 @@ export default interface IUtilisateursData {
     compte_actif: Boolean,
     pseudo: string,
     abonnement: [],
-    utilisateur: {}
+    utilisateur: {
+        nom: string,
+        pseudo: string,
+        prenom: string,
+        image: string,
+    }
 }
 
 export const defaultUtilisateurs: IUtilisateursData[] = [];

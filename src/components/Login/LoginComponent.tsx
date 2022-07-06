@@ -39,7 +39,7 @@ export const LoginComponent: React.FC<LoginProps> = ({
     //Fonction qui donne accès à l'objet navigation et permet de récuperer les props de RouteParams
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
-    //On définit une variable <boolean> a true par défault
+    //On définit une variable d'état de type <boolean> et à true par défault
     // utilisée pour cacher le mdp
     const [isSecureEntry, setIsSecureEntry] = useState(true);
 

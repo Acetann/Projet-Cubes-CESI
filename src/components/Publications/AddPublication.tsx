@@ -12,6 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 export const AddPublicationComponent: FC = (props) => {
 
+//Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
 const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
   //Déclare trois variables d'état

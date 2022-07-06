@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteParams } from '../../navigations/AuthNavigator'
 
-
+// définition des méthodes /propriétés de AddCommentaireComponent
 interface RegisterProps{
     onSubmit: Function
     onChange: Function
@@ -35,8 +35,13 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
     error
 }) => {
 
+    //Fonction qui donne accès à l'objet navigation et permet de récuperer les props de RouteParams
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
+        //On définit une variable d'état de type <boolean> et à true par défault
+    // utilisée pour cacher le mdp
     const [isSecureEntry, setIsSecureEntry] = useState(true);
+
     return (
         <Container>
             <Image

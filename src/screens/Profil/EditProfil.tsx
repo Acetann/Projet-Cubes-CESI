@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react"
-import { View, Text, Image } from "react-native"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from "react"
+import { View, Text, Image, Alert } from "react-native"
+
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RouteParams } from "../../navigations/AuthNavigator";
-import { Profil } from "../../tabs/Profil/Profil";
+
 import { Icon } from "react-native-elements";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { CustomButton } from "../../components/common/Button";
@@ -53,16 +53,64 @@ export const Edit_profil = () => {
 
 
 const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 1,
-        allowsEditing: true
-    });
-    if (!result.cancelled) {
-        setImage(result?.uri);
+    // Ask the user for the permission to access the media library 
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+        alert("You've refused to allow this appp to access your photos!");
+        return;
     }
-};
+    const result = await ImagePicker.launchImageLibraryAsync();
+
+    // Explore the result
+    console.log(result);
+
+    if (!result.cancelled) {
+        setImage(result.uri);
+        console.log(result.uri);
+    }
+}
+
+    const openCamera = async () => {
+        // Ask the user for the permission to access the camera
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("You've refused to allow this appp to access your camera!");
+            return;
+        }
+
+        const result = await ImagePicker.launchCameraAsync();
+
+        // Explore the result
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+            console.log(result.uri);
+        }
+    }
+
+    const selectChoose = () => {
+        Alert.alert('', '', [
+            {
+                text: 'Annuler',
+                onPress: () => { }
+            },
+            {
+                text: 'Choisir une image de la bibliothèque',
+                onPress: () => {
+                    pickImage()
+                 }
+            },
+            {
+                text: 'Prendre une nouvelle photo',
+                onPress: () => {
+                    openCamera()
+                }
+            },
+        ]);
+    }
 
 
     return(
@@ -100,7 +148,7 @@ const pickImage = async () => {
                         fontSize: 14
                     }}
                     
-                        onPress={pickImage}>
+                        onPress={selectChoose}>
                     Modifier photo de profil
                     </Text>
                 </TouchableOpacity>

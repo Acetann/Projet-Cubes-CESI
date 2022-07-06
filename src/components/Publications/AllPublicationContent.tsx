@@ -80,7 +80,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
                   texte={item.texte}
                   titre={item.titre}
                   image={item.image}
-                  imageUser={item?.utilisateur.image}
+                  imageUser={item?.utilisateur?.image}
                   date_creation={item.date_creation}
                   nb_reaction={item.nb_reaction} 
                   utilisateur={item?.utilisateur?._id}

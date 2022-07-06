@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { FC, useState } from 'react';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import { View, Image, TouchableOpacity, Text, Alert } from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { MYPUBLICATION } from '../../constants/routesName';
 import { axiosInstance } from '../../helpers/axios.interceptor';
@@ -31,16 +31,64 @@ const addNewPublication = () => {
 }
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
-      allowsEditing: true
-    });
-    if (!result.cancelled) {
-      setImage(result?.uri);
+    // Ask the user for the permission to access the media library 
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your photos!");
+      return;
     }
-  };
+    const result = await ImagePicker.launchImageLibraryAsync();
+
+    // Explore the result
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      console.log(result.uri);
+    }
+  }
+
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync();
+
+    // Explore the result
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      console.log(result.uri);
+    }
+  }
+
+  const selectChoose = () => {
+    Alert.alert('', '', [
+      {
+        text: 'Annuler',
+        onPress: () => { }
+      },
+      {
+        text: 'Choisir une image de la bibliothèque',
+        onPress: () => {
+          pickImage()
+        }
+      },
+      {
+        text: 'Prendre une nouvelle photo',
+        onPress: () => {
+          openCamera()
+        }
+      },
+    ]);
+  }
 
 return (
     <View style={{margin: responsiveWidth(5)}}>
@@ -60,7 +108,7 @@ return (
                 fontSize: 14
               }}
 
-              onPress={pickImage}>
+            onPress={selectChoose}>
               Ajouter une image
             </Text>
           </TouchableOpacity>

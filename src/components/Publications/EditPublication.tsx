@@ -1,7 +1,7 @@
 import { useRoute, RouteProp, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react"
-import { View, Text, TextInput, Image, TouchableOpacity } from "react-native"
+import { View, Text, TextInput, Image, TouchableOpacity, Alert } from "react-native"
 import { MYPUBLICATION } from "../../constants/routesName";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { RouteParams } from "../../navigations/AuthNavigator";
@@ -14,7 +14,7 @@ export const EditPublicationComponent = () => {
     const [texte, setTexte] = useState(route.params?.texte)
     const [titre, setTitre] = useState(route.params?.titre)
     const [image, setImage] = useState(route.params?.image)
-console.log(route?.params?.image)
+
 
     const updateCurrentPublication = () => {
         axiosInstance.patch(`/ressource/${route.params?.id}/`, { 
@@ -33,16 +33,64 @@ console.log(route?.params?.image)
     }
 
     const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            quality: 1,
-            allowsEditing: true
-        });
-        if (!result.cancelled) {
-            setImage(result?.uri);
+        // Ask the user for the permission to access the media library 
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("You've refused to allow this appp to access your photos!");
+            return;
         }
-    };
+        const result = await ImagePicker.launchImageLibraryAsync();
+
+        // Explore the result
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+            console.log(result.uri);
+        }
+    }
+
+    const openCamera = async () => {
+        // Ask the user for the permission to access the camera
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("You've refused to allow this appp to access your camera!");
+            return;
+        }
+
+        const result = await ImagePicker.launchCameraAsync();
+
+        // Explore the result
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+            console.log(result.uri);
+        }
+    }
+
+    const selectChoose = () => {
+        Alert.alert('', '', [
+            {
+                text: 'Annuler',
+                onPress: () => { }
+            },
+            {
+                text: 'Choisir une image de la bibliothèque',
+                onPress: () => {
+                    pickImage()
+                }
+            },
+            {
+                text: 'Prendre une nouvelle photo',
+                onPress: () => {
+                    openCamera()
+                }
+            },
+        ]);
+    }
 
     return(
         <View
@@ -91,7 +139,7 @@ console.log(route?.params?.image)
                             fontSize: 14
                         }}
 
-                        onPress={pickImage}>
+                        onPress={selectChoose}>
                         Modifier l'image
                     </Text>
                 </TouchableOpacity>

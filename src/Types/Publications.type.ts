@@ -14,6 +14,7 @@ export default interface IPublicationsData {
         pseudo: string,
         image:string,
     }
+    commentaires: []
 }
 
 export const defaultPublications: IPublicationsData[] = [];

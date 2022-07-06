@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ABONNE, ABONNEMENT, ADDABONNE, ADDABONNEMENT, ADDPUBLICATION, EDIT_PROFILE, EDIT_PUBLICATION, MESSAGE, MYPUBLICATION, SETTINGS } from '../constants/routesName';
+import { ABONNE, ABONNEMENT, ADDABONNE, ADDABONNEMENT, ADDPUBLICATION, ADD_COMMENTAIRE, EDIT_PROFILE, EDIT_PUBLICATION, MESSAGE, MYPUBLICATION, SETTINGS } from '../constants/routesName';
 import TabBarNavigation from './TabBarNavigator';
 import { Settings } from '../tabs/Settings/Settings';
 import { Abonne } from '../screens/Social/Abonne';
@@ -12,6 +12,8 @@ import { AddAbonnement } from '../screens/Social/Ajouter/AddAbonnement';
 import { AddPublication } from '../screens/Publication/AddPublication/addPublication';
 import { MyPublication } from '../screens/Publication/MyPublication';
 import { EditPublication } from '../screens/Publication/EditPublication/EditPublication';
+import { AddCommentaire } from '../screens/AddCommentaire/AddCommentaire'
+
 
 
 export const HomeNavigator = () => {
@@ -28,6 +30,7 @@ export const HomeNavigator = () => {
             <HomeStack.Screen options={{ headerTitle: 'Ajouter une publication' }} name={ADDPUBLICATION} component={AddPublication} ></HomeStack.Screen>
             <HomeStack.Screen options={{ headerTitle: 'Modifier ma publication' }} name={EDIT_PUBLICATION} component={EditPublication} ></HomeStack.Screen>
             <HomeStack.Screen options={{ headerTitle: 'Mes publications' }} name={MYPUBLICATION} component={MyPublication} ></HomeStack.Screen>
+            <HomeStack.Screen options={{ headerTitle: 'Ajouter un commentaire' }} name={ADD_COMMENTAIRE} component={AddCommentaire} ></HomeStack.Screen>
             <HomeStack.Screen name={EDIT_PROFILE} options={{ headerShown: false }} component={Edit_profil} ></HomeStack.Screen>
             <HomeStack.Screen name={MESSAGE} component={Message} ></HomeStack.Screen>
         </HomeStack.Navigator>

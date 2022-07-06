@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import colors from '../../../assets/theme/color';
 
+// définition des méthodes /propriétés de Input
 interface InputProps {
     onChangeText: Function;
     placeholder?: string;

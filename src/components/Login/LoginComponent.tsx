@@ -10,6 +10,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteParams } from '../../navigations/AuthNavigator'
 import { Message } from '../common/Message'
 
+// définition des méthodes /propriétés de AddCommentaireComponent
 interface LoginProps {
     onSubmit: Function
     onChange: Function
@@ -35,8 +36,11 @@ export const LoginComponent: React.FC<LoginProps> = ({
     loading
 }) => {
 
+    //Fonction qui donne accès à l'objet navigation et permet de récuperer les props de RouteParams
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 
+    //On définit une variable <boolean> a true par défault
+    // utilisée pour cacher le mdp
     const [isSecureEntry, setIsSecureEntry] = useState(true);
 
 
@@ -52,13 +56,13 @@ export const LoginComponent: React.FC<LoginProps> = ({
                         <Text style={styles.title}>Bienvenue sur Socially</Text>
                         <Text style={styles.subTitle}>Connectez vous ici</Text>
 
-           {/*              {error && !error.error && (
+                              {error && !error.error && (
                             <Message
                                 onDismiss={() => {}}
                                 danger
-                                message="invalid credentials"
+                                message="Adresse mail ou mot de passe invalides"
                             />
-                        )} */}
+                        )}
 
                         
                             
@@ -75,13 +79,13 @@ export const LoginComponent: React.FC<LoginProps> = ({
                                 icon={
                                     <TouchableOpacity
                                         onPress={() => {
-                                            setIsSecureEntry((prev) => !prev);
+                                            setIsSecureEntry((prev) => !prev); {/* change le boolean <true/false> pour afficher ou non le mdp */ }
                                         }}>
-                                        <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                                        <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>  
                                     </TouchableOpacity>
                                 }
                                 iconPosition='right'
-                                isSecure={isSecureEntry}
+                                isSecure={isSecureEntry} 
                                 onChangeText={(value: string) => {
                                     onChange({ name: 'mot_de_passe', value })
                                 }}  

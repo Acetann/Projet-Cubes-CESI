@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { Colors } from '../../../../config/colors/colors';
 import { axiosInstance } from '../../../helpers/axios.interceptor';
@@ -13,6 +13,7 @@ interface ListAbonnementProps {
 export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ abonne }) => {
     const [isVisible, setVisible] = useState(false);
     const [userAbonnement, setUserAbonnement]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
+    const [refreshing, setRefreshing] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
     const openModal = () => {
@@ -25,19 +26,32 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
         setVisible(false);
     };
 
-    useEffect(() => {
+    const getAbonnements = () => {
         axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonnement')
             .then((res) => {
                 console.log(res.data)
                 setUserAbonnement(res.data)
+                setRefreshing(false);
             })
             .catch((err) => {
                 console.log(err)
 
             });
+    }
+
+
+    useEffect(() => {
+        getAbonnements()
     }, []);
     return (
-        <ScrollView style={{ paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
+        <ScrollView 
+        style={{ 
+            paddingBottom: responsiveWidth(20), 
+            paddingTop: responsiveWidth(5)}}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={getAbonnements} />
+            }
+            >
             {userAbonnement?.filter(user => user.utilisateur !== null).map(((item: IUtilisateursData, index: number) => {
                 return (
                     <Fragment key={index}>

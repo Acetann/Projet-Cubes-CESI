@@ -27,6 +27,9 @@ export type RouteParams = {
         titre: string;
         texte: string;
     }
+    AddCommentaire: {
+        id: string
+    }
     Tabs: undefined
 }
 

@@ -12,14 +12,18 @@ import { RouteParams } from '../../navigations/AuthNavigator';
 import IPublicationsData, { defaultPublications } from '../../Types/Publications.type';
 import { PublicationContent } from './PublicationContent';
 
+// définition des méthodes /propriétés de AllPublicationContent
 interface AllPublicationProps {
   isHome: Boolean;
 }
-
 export const AllPublicationContent: React.FunctionComponent<AllPublicationProps> = ({isHome}) => {
+
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
   const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
+
   const [refreshing, setRefreshing] = useState(true);
+  
   const [myprofil, setMyProfil] = useState("")
 
 
@@ -38,7 +42,6 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
      axiosWithoutToken.get<IPublicationsData[]>('/ressource')
                 .then((res) => {
                     setPublications(res.data)
-                    setRefreshing(false);
                 })
                 .catch((err) => {
                     console.log(err)
@@ -72,6 +75,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
           }
           >
           {publications.filter((itm,index) => Boolean(isHome) ? publications.length : index < 2).map(((item, index) => {
+            console.log('tableau' , item)
             return (
               <Fragment key={index}>
                 <PublicationContent
@@ -85,6 +89,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
                   nb_reaction={item.nb_reaction} 
                   utilisateur={item?.utilisateur?._id}
                   _id={myprofil?._id}
+                  commentaires={item?.commentaires}
                 />
               </Fragment>
             )

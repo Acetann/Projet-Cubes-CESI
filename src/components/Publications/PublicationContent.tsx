@@ -11,6 +11,7 @@ import { format } from "../../../utils/Number";
 import { EDIT_PUBLICATION } from "../../constants/routesName";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { RouteParams } from "../../navigations/AuthNavigator";
+import ModalCommentaire from "../Modal/ModalCommentaire";
 
 interface PublicationContentProps {
     id: string;
@@ -24,11 +25,21 @@ interface PublicationContentProps {
     nb_reaction: Number;
     myPublication?: Boolean;
     utilisateur?: string;
+    commentaires? : []
   }
 
-export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur,_id, imageUser }) => {
+export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur,_id, imageUser, commentaires }) => {
     const [isLike, setIsLike] = useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+    const [visible, setVisible] = useState(false);
+
+  const openModal = () => {
+    setVisible(true);
+  };
+
+  const closeModal = () => {
+    setVisible(false);
+  };
 
     const onLike = () => {
       try {
@@ -48,7 +59,6 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
   const onFollow = () => {
     axiosInstance.patch(`/utilisateur/follow/${utilisateur}`)
       .then((res) => {
-        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -100,12 +110,15 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                       <Icon name={isLike ? "thumb-up" : "thumb-up-off-alt"} color={Colors.blue} />
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={{
+                <TouchableOpacity 
+                onPress={openModal}
+                style={{
                     padding: responsiveWidth(2),
                     marginHorizontal: responsiveWidth(2),
                     borderRadius: 14,
                   }}>
                     <Icon name="comment" color={Colors.blue} />
+                    
                 </TouchableOpacity>
                 {myPublication && (
                     <View style={{flexDirection: 'row'}}>
@@ -133,6 +146,12 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                     </View>
                 )}
             </View>
+           
+              <ModalCommentaire visible={visible} closeModal={closeModal} description={commentaires} pseudo={pseudo} image={image} date_creation={undefined} id={id}/>
+          
+              
+            
+          
           </View>
       )
   }

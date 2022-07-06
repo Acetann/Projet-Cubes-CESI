@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import { ScrollView, View} from 'react-native';
+import { RefreshControl, ScrollView, View} from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { axiosInstance } from '../../../helpers/axios.interceptor';
 import IUtilisateursData, { defaultUtilisateurs } from '../../../Types/User/Utilisateur.type';
@@ -11,21 +11,35 @@ interface ListAbonneProps {
 
 export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) => {
   const [abonneToUser, setAbonneToUser]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
+  const [refreshing, setRefreshing] = useState(true);
+
+
+  const getAbonnes = () => {
+    axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonne')
+      .then((res) => {
+        /* console.log('console importante', res) */
+        setAbonneToUser(res.data)
+        setRefreshing(false);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }
 
     useEffect(() => {
-      axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonne')
-                .then((res) => {
-                  /* console.log('console importante', res) */
-                  setAbonneToUser(res.data)
-                })
-                .catch((err) => {
-                    console.log(err)
-
-                });
+      getAbonnes()
         }, []);
         
   return (
-    <ScrollView style={{ paddingBottom: responsiveWidth(20), paddingTop: responsiveWidth(5)}}>
+    <ScrollView 
+    style={{ 
+      paddingBottom: responsiveWidth(20), 
+      paddingTop: responsiveWidth(5)
+      }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={getAbonnes} />
+      }
+      >
       {abonneToUser?.map(((item: IUtilisateursData, index: number) => {
           return (
                 <Fragment key={index}>

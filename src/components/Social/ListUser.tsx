@@ -43,8 +43,6 @@ export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, p
           });
       };
 
-      console.log(utilisateur,'utilisateur abonné')
-
     return (
         <View style={{marginVertical: responsiveWidth(5)}}>
             <View style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>

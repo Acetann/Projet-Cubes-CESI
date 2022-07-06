@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { color } from 'react-native-reanimated';
 import colors from '../../../assets/theme/color';
 
+// définition des méthodes /propriétés de Message
 interface MessageProps {
     message: string;
     retry? : any;

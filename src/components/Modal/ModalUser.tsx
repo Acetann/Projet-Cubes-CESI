@@ -4,6 +4,7 @@ import { Icon } from "react-native-elements";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors } from "../../../config/colors/colors";
 
+// définition des méthodes /propriétés de modalUser
 interface ListUserProps {
     nom: string;
     prenom: string;
@@ -13,7 +14,7 @@ interface ListUserProps {
     closeModal: () => void;
 }
 
-export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image,visible,closeModal}) => {
+export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, visible, closeModal}) => {
 
   return (
     <Modal animationType="slide"  transparent={true} visible={visible} onDismiss={closeModal}>

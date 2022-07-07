@@ -11,6 +11,7 @@ import { format } from "../../../utils/Number";
 import { COMMENTAIRE, EDIT_PUBLICATION } from "../../constants/routesName";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { RouteParams } from "../../navigations/AuthNavigator";
+import IPublicationsData from "../../Types/Publications.type";
 
 // définition des méthodes /propriétés de PublicationContent
 interface PublicationContentProps {
@@ -34,7 +35,6 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
    //<boolean>
    //définie sur false par défault
   const [isLike, setIsLike] = useState(false);
-    
   //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     
@@ -56,6 +56,17 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
         console.log(e)
     };
   };
+
+  const onDelete = () => {
+    axiosInstance.delete<IPublicationsData[]>(`/ressource/${id}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err)
+
+      });
+  }
 
   //Fonction qui permet à l'utilisateur de s'abonner à un autre utilisateur
   //params utilisateur est l'id de l'utilisateur qui a crée la ressource sur laquelle est le bouton follow
@@ -140,7 +151,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                       }]}>
                         <Icon name="edit" color={lightColors.white} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {}} style={[mainStyle.shadow,
+                    <TouchableOpacity onPress={onDelete} style={[mainStyle.shadow,
                       {
                         padding: responsiveWidth(2),
                         borderRadius: 14,

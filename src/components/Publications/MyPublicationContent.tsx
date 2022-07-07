@@ -56,6 +56,10 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
 
       });
   }
+  const onRefresh = () => {
+    getAllPublications()
+    getMyProfil()
+  }
 
     //Fonction qui va appelé la fonction getAllPublications au chargement de la page
     useEffect(() => {
@@ -68,7 +72,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
         <ScrollView
         //Rafraichit la page avec les nouvelles data au scrollDown
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={getMyProfil} />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(10), paddingTop: responsiveWidth(5)}}>
           {publications.filter(itm => itm?.utilisateur?._id === myprofil?._id).map(((item, index: number) => {

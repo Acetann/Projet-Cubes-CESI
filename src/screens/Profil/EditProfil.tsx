@@ -42,7 +42,6 @@ export const Edit_profil = () => {
             image,
          })
             .then((res) => {
-                console.log(res.data)
                 navigation.navigate(PROFILE)
             })
             //gestion des erreur si fail
@@ -52,45 +51,49 @@ export const Edit_profil = () => {
     }
 
 
-const pickImage = async () => {
-    // Ask the user for the permission to access the media library 
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    //Fonction qui renvoie l'URI d'une image qui sera enregistrée dans <image>
+    const pickImage = async () => {
+        // Message à l'utilisateur la permission d'accéder à ses photos
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if (permissionResult.granted === false) {
-        alert("You've refused to allow this appp to access your photos!");
-        return;
+        //Si permission refusée display un msg
+        if (permissionResult.granted === false) {
+            alert("Vous avez refusé d'autoriser cette application à accéder à vos photos");
+            return;
+        }
+
+        //
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1,
+            allowsEditing: true
+        });
+
+        // Si validé, l'image est enregistrée dans la variable d'état <image>
+        if (!result.cancelled) {
+            setImage(result.uri);
+        }
     }
-    const result = await ImagePicker.launchImageLibraryAsync();
-
-    // Explore the result
-    console.log(result);
-
-    if (!result.cancelled) {
-        setImage(result.uri);
-        console.log(result.uri);
-    }
-}
 
     const openCamera = async () => {
-        // Ask the user for the permission to access the camera
+        // Message à l'utilisateur la permission d'accéder à son appareil photo
         const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
+        //Si permission refusée display un msg
         if (permissionResult.granted === false) {
-            alert("You've refused to allow this appp to access your camera!");
+            alert("Vous avez refusé d'autoriser cette application à accéder à votre caméra");
             return;
         }
 
         const result = await ImagePicker.launchCameraAsync();
 
-        // Explore the result
-        console.log(result);
-
+        // Si validé, l'image est enregistrée dans la variable d'état <image>
         if (!result.cancelled) {
             setImage(result.uri);
-            console.log(result.uri);
         }
     }
 
+    //Fonction qui donne à l'user le choix de la source de sa photo
     const selectChoose = () => {
         Alert.alert('', '', [
             {
@@ -101,7 +104,7 @@ const pickImage = async () => {
                 text: 'Choisir une image de la bibliothèque',
                 onPress: () => {
                     pickImage()
-                 }
+                }
             },
             {
                 text: 'Prendre une nouvelle photo',

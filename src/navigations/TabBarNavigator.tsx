@@ -1,6 +1,7 @@
 import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Icon } from 'react-native-elements';
 import { Colors } from "../../config/colors/colors";
+import { ChannelScreen } from "../screens/Channel/ChannelScreen";
 import { Home } from '../tabs/Home/Home';
 import { Profil } from "../tabs/Profil/Profil";
 import { Publication } from "../tabs/Publication/Publication";
@@ -9,11 +10,10 @@ import { Social } from "../tabs/Social/Social";
 
 const Tab = createBottomTabNavigator();
 const home = "Accueil";
-const contact = "CONTACT_LIST";
-
 const profil = "Profil";
 const publication = "Publication";
 const ami = "Social";
+const settings = "Paramètres"
 
 export default function TabBarNavigation(){
     return (
@@ -31,8 +31,10 @@ export default function TabBarNavigation(){
                     iconName = 'book'
                 } else if( rn === ami) {
                     iconName = 'people'
-                }else {
+                }else if(rn === settings) {
                     iconName = 'settings'
+                }else {
+                    iconName = 'chat'
                 }
                 return <Icon name={String(iconName)} size={size} color={color}/>
             },
@@ -43,6 +45,8 @@ export default function TabBarNavigation(){
             <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Publication" component={Publication} />
             <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Social" component={Social} />
             <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Paramètres" component={Settings} />
+
+            <Tab.Screen options={{ headerTintColor: Colors.blue }} name="Channel" component={ChannelScreen} />
           </Tab.Navigator>
     )
 }

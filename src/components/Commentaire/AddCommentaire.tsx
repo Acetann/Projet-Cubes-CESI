@@ -40,7 +40,8 @@ export const AddCommentaireComponent: FC<commentaireProps> = () => {
 
     return (
         <View style={{ margin: responsiveWidth(5) }}>
-            <Input placeholder='Description' onChangeText={(text: string) => setDescription(text)} /> {/* enregistre la nouvelle valeur du field correspondant dans l'objet description */}
+            {/* enregistre la nouvelle valeur du field correspondant dans l'objet description */}
+            <Input placeholder='Description' onChangeText={(text: string) => setDescription(text)} /> 
             <View style={{ padding: 20, alignItems: 'center' }}>
             </View>
             <CustomButton

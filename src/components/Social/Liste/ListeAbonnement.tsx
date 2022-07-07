@@ -29,7 +29,6 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
     const getAbonnements = () => {
         axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonnement')
             .then((res) => {
-                console.log(res.data)
                 setUserAbonnement(res.data)
                 setRefreshing(false);
             })

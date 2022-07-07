@@ -13,6 +13,7 @@ import { axiosInstance } from "../../helpers/axios.interceptor";
 import { RouteParams } from "../../navigations/AuthNavigator";
 import ModalCommentaire from "../Modal/ModalCommentaire";
 
+// définition des méthodes /propriétés de PublicationContent
 interface PublicationContentProps {
     id: string;
     _id?: string;
@@ -29,25 +30,41 @@ interface PublicationContentProps {
   }
 
 export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur,_id, imageUser, commentaires }) => {
-    const [isLike, setIsLike] = useState(false);
-    const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
-    const [visible, setVisible] = useState(false);
+    
+  //Déclare une variable d'état
+   //<boolean>
+   //définie sur false par défault
+  const [isLike, setIsLike] = useState(false);
+    
+  //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
+  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+    
+    //Déclare une variable d'état
+   //<boolean>
+    //définie sur false par défault
+  const [visible, setVisible] = useState(false);
 
+  //Fonction qui enregistre le booléon visible à true
   const openModal = () => {
     setVisible(true);
   };
 
+  //Fonction qui enregistre le booléon visible à false
   const closeModal = () => {
     setVisible(false);
   };
 
+  //Fonction qui permet à l'utilisateur de liker une publication
+  //params id récupéré depuis les props de AllPublicationContent
     const onLike = () => {
       try {
       axiosInstance.patch(`/ressource/${id}/reaction`)
         .then((res) => {
+          //Si la publication est déja aimée , on n'aime plus
           if(isLike){
             setIsLike(false)
           }else{
+            //Si la publication n'est pas aimée , on l'aime
             setIsLike(true)
           }
         })
@@ -56,6 +73,9 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
     };
   };
 
+  //Fonction qui permet à l'utilisateur de s'abonner à un autre utilisateur
+  //params utilisateur est l'id de l'utilisateur qui a crée la ressource sur laquelle est le bouton follow
+  //récupéré depuis les props de AllPublicationContent
   const onFollow = () => {
     axiosInstance.patch(`/utilisateur/follow/${utilisateur}`)
       .then((res) => {

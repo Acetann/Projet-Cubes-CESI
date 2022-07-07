@@ -38,7 +38,6 @@ const data = [
                 setMyProfil(res.data)
                 setRefreshing(false);
                 /* return res.data */
-                console.log(res.data)
                 
             })
             .catch((err) => {

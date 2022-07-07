@@ -9,13 +9,22 @@ import { CustomButton } from "../common/Button";
 import * as ImagePicker from 'expo-image-picker';
 
 export const EditPublicationComponent = () => {
+
+    //Fonction qui donne accès l'objet route et permet de récuperer ses props
     const route = useRoute<RouteProp<RouteParams>>();
+    
+   //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+    
+    //Déclaration des 3 variables nécéssaire à l'update d'une publication
+    //On récupère les valeurs de la publication grâce à l'objet route et ses props
     const [texte, setTexte] = useState(route.params?.texte)
     const [titre, setTitre] = useState(route.params?.titre)
     const [image, setImage] = useState(route.params?.image)
 
-
+    //Fonction qui met à jour les publications
+    //le params<id> est récupéré grâce à l'objet route et ses props
+    //depuis la page PublicationContent
     const updateCurrentPublication = () => {
         axiosInstance.patch(`/ressource/${route.params?.id}/`, { 
             texte, 
@@ -23,7 +32,6 @@ export const EditPublicationComponent = () => {
             image
             })
             .then((res) => {
-                console.log(res.data)
                 navigation.goBack()
             })
             //gestion des erreur si fail
@@ -32,45 +40,50 @@ export const EditPublicationComponent = () => {
             });
     }
 
+
+    //Fonction qui renvoie l'URI d'une image qui sera enregistrée dans <image>
     const pickImage = async () => {
-        // Ask the user for the permission to access the media library 
+        // Message à l'utilisateur la permission d'accéder à ses photos
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
+        //Si permission refusée display un msg
         if (permissionResult.granted === false) {
-            alert("You've refused to allow this appp to access your photos!");
+            alert("Vous avez refusé d'autoriser cette application à accéder à vos photos");
             return;
         }
-        const result = await ImagePicker.launchImageLibraryAsync();
 
-        // Explore the result
-        console.log(result);
+        //
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1,
+            allowsEditing: true
+        });
 
+        // Si validé, l'image est enregistrée dans la variable d'état <image>
         if (!result.cancelled) {
             setImage(result.uri);
-            console.log(result.uri);
         }
     }
 
     const openCamera = async () => {
-        // Ask the user for the permission to access the camera
+        // Message à l'utilisateur la permission d'accéder à son appareil photo
         const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
+        //Si permission refusée display un msg
         if (permissionResult.granted === false) {
-            alert("You've refused to allow this appp to access your camera!");
+            alert("Vous avez refusé d'autoriser cette application à accéder à votre caméra");
             return;
         }
 
         const result = await ImagePicker.launchCameraAsync();
 
-        // Explore the result
-        console.log(result);
-
+        // Si validé, l'image est enregistrée dans la variable d'état <image>
         if (!result.cancelled) {
             setImage(result.uri);
-            console.log(result.uri);
         }
     }
 
+    //Fonction qui donne à l'user le choix de la source de sa photo
     const selectChoose = () => {
         Alert.alert('', '', [
             {

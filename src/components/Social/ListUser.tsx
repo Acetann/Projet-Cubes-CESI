@@ -35,7 +35,6 @@ export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, p
             }else{
                 setIsAbonne(true)
             }
-            console.log(res.data)
           })
           .catch((err) => {
             console.log(err)

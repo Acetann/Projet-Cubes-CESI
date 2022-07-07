@@ -4,7 +4,6 @@ import { GlobalProvider } from './src/context/globalProviders';
 import { StreamChat } from 'stream-chat';
 import React, { useEffect, useState } from 'react';
 import { OverlayProvider, Chat, ChannelList } from 'stream-chat-expo';
-import { TouchableOpacity, Text } from 'react-native';
 
 const API_KEY = "njtxbbvtq8qx";
 export const client = StreamChat.getInstance(API_KEY)

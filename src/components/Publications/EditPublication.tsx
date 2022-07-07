@@ -9,6 +9,7 @@ import { CustomButton } from "../common/Button";
 import * as ImagePicker from 'expo-image-picker';
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors } from "../../../config/colors/colors";
+import { Icon } from "react-native-elements";
 
 export const EditPublicationComponent = () => {
 
@@ -117,6 +118,19 @@ export const EditPublicationComponent = () => {
                                 style={{width: 150, height: 150, borderRadius: 150}}
                             />
                         </TouchableOpacity>
+                )}
+                {!image && (
+                    <View style={{ padding: 20, alignItems: 'center' }}>
+                        {image && <Image
+                            source={{ uri: image }}
+                            style={{ width: '100%', height: 300 }}
+                        />}
+                        <TouchableOpacity onPress={selectChoose}>
+                            <Icon
+                            reverse
+                            name='image'/>
+                        </TouchableOpacity>
+                    </View>
                 )}
             </View>
             <View style={{marginHorizontal: responsiveWidth(5)}}>

@@ -1,7 +1,7 @@
 import { CLEAR_AUTH_STATE, LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT, REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../constants/actionTypes";
 import authState from "../initialStates/authState";
 
-
+//Fonction qui détermine quel était l'état précédent et ce qu'elle doit changer en fonction du type
 export const auth = (state: typeof authState, {type, payload}: any) => {
     switch(type){ 
         case REGISTER_LOADING:

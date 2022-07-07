@@ -9,33 +9,33 @@ import { RouteParams } from "../../navigations/AuthNavigator";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { CustomButton } from "../../components/common/Button";
 import { PROFILE } from "../../constants/routesName";
-import * as ImagePicker from 'expo-image-picker';
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors } from "../../../config/colors/colors";
+import * as ImagePicker from 'expo-image-picker';
 
 export const Edit_profil = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     const route = useRoute<RouteProp<RouteParams>>();
-    
+
     const [pseudo, setPseudo] = useState(route.params?.pseudo)
     const [description, setDescription] = useState(route.params?.description)
     const [mail, setMail] = useState(route.params?.mail)
     const [image, setImage] = useState(route.params?.image)
 
     const updateCurrentUser = () => {
-        axiosInstance.patch('utilisateur/update', { 
+        axiosInstance.patch('utilisateur/update', {
             description,
             pseudo,
             mail,
             image,
-         })
+        })
             .then((res) => {
                 navigation.navigate(PROFILE)
             })
             //gestion des erreur si fail
             .catch((err) => {
                 console.log(err, 'error')
-            });  
+            });
     }
 
 
@@ -59,6 +59,7 @@ export const Edit_profil = () => {
 
         // Si validé, l'image est enregistrée dans la variable d'état <image>
         if (!result.cancelled) {
+
             setImage(result.uri);
         }
     }
@@ -104,20 +105,20 @@ export const Edit_profil = () => {
     }
 
 
-    return(
-        <View style={{flex:1,backgroundColor:Colors.white}}>
-            <View style={{marginTop: responsiveWidth(5), marginHorizontal: responsiveWidth(5),alignItems: 'center'}}>
+    return (
+        <View style={{ flex: 1, backgroundColor: Colors.white }}>
+            <View style={{ marginTop: responsiveWidth(5), marginHorizontal: responsiveWidth(5), alignItems: 'center' }}>
                 {image && (
-                        <TouchableOpacity  onPress={selectChoose}>
-                            <Image
-                                source={{ uri: image }}
-                                style={{width: 150, height: 150, borderRadius: 150}}
-                            />
-                        </TouchableOpacity>
+                    <TouchableOpacity onPress={selectChoose}>
+                        <Image
+                            source={{ uri: image }}
+                            style={{ width: 150, height: 150, borderRadius: 150 }}
+                        />
+                    </TouchableOpacity>
                 )}
             </View>
-            <View style={{marginHorizontal: responsiveWidth(5)}}>
-                <View style={{marginVertical: responsiveWidth(2)}}>
+            <View style={{ marginHorizontal: responsiveWidth(5) }}>
+                <View style={{ marginVertical: responsiveWidth(2) }}>
                     <Text>pseudo</Text>
                     <TextInput
                         placeholder="pseudo"
@@ -130,20 +131,20 @@ export const Edit_profil = () => {
                         }}
                     />
                 </View>
-                <View style={{marginVertical: responsiveWidth(2)}}>
+                <View style={{ marginVertical: responsiveWidth(2) }}>
                     <Text>description</Text>
                     <TextInput
                         placeholder="description"
                         onChangeText={(text: string) => setDescription(text)}
                         defaultValue={description}
-                    style={{
-                        fontSize : 16,
-                        borderBottomWidth: 1,
-                        borderColor: '#CDCDCD',
-                    }}
-                />
+                        style={{
+                            fontSize: 16,
+                            borderBottomWidth: 1,
+                            borderColor: '#CDCDCD',
+                        }}
+                    />
                 </View>
-                <View style={{marginVertical: responsiveWidth(2)}}>
+                <View style={{ marginVertical: responsiveWidth(2) }}>
                     <Text>mail</Text>
                     <TextInput
                         placeholder="mail"
@@ -156,12 +157,12 @@ export const Edit_profil = () => {
                         }}
                     />
                 </View>
-            <CustomButton
-                title={'Envoyer'}
-                onPress={updateCurrentUser}
-                secondary
-                style={{marginTop: responsiveWidth(3)}}
-            />
+                <CustomButton
+                    title={'Envoyer'}
+                    onPress={updateCurrentUser}
+                    secondary
+                    style={{ marginTop: responsiveWidth(3) }}
+                />
             </View>
         </View>
     )

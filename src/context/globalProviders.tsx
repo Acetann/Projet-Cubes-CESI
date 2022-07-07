@@ -10,8 +10,6 @@ interface props {
 export const GlobalProvider = ({ children }: props ) =>{
 
   const [authState, authDispatch] = useReducer(auth, authInitialState);
- 
-    
 
     return(
       <GlobalContext.Provider value={({authState, authDispatch})}>

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { axiosInstance, axiosWithoutToken } from "../../../helpers/axios.interceptor";
 import { LOGIN_LOADING, LOGIN_FAIL, LOGIN_SUCCESS } from '../../../constants/actionTypes';
+import { useChatContext } from 'stream-chat-expo';
 
 //Fonction de login
 export default ({ mail, mot_de_passe }) => (dispatch: any) => {

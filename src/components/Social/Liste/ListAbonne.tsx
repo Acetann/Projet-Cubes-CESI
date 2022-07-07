@@ -49,6 +49,8 @@ export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) =
                     pseudo={item?.abonnement?.pseudo}
                     abonne={abonne}
                     image={item?.abonnement?.image}
+                    nbdabonne={item?.abonnement?.nbdabonne}
+                    nbdabonnement={item?.abonnement?.nbdabonnement}
                     utilisateur={item?.abonnement?._id}
                   />
                 </Fragment>

@@ -11,12 +11,15 @@ interface ListUserProps {
     prenom: string;
     pseudo: string;
     image: string;
+    nbdabonne: string;
+    nbdabonnement: string;
     abonne?: Boolean;
     utilisateur: string;
 }
 
-export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne,utilisateur}) => {
+export const ListUser: React.FunctionComponent<ListUserProps> = ({ nom, prenom, pseudo, image, nbdabonne, nbdabonnement, abonne,utilisateur}) => {
     const [isAbonne, setIsAbonne] = useState(false);
+    const [isSignaled, setIsSignaled] = useState(false);
     const [visible, setVisible] = useState(false);
 
     const openModal = () => {
@@ -41,7 +44,7 @@ export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, p
     
           });
       };
-
+      
     return (
         <View style={{marginVertical: responsiveWidth(5)}}>
             <View style={{flexDirection:'row', alignItems:'center', marginLeft: responsiveWidth(3)}}>
@@ -73,7 +76,7 @@ export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, p
                     onPress={() => {}}
                 />
             </View>
-            <ModalUser nom={nom} prenom={prenom} image={image} pseudo={pseudo} visible={visible} closeModal={closeModal} />
+            <ModalUser nom={nom} prenom={prenom} image={image} pseudo={pseudo} nbdabonne={nbdabonne} nbdabonnement={nbdabonnement} visible={visible} closeModal={closeModal} />
         </View>
     )
 }

@@ -51,6 +51,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
     axiosWithoutToken.get<IPublicationsData[]>('/ressource')
       .then((res) => {
         setPublications(res.data)
+        console.log(res.data)
         setRefreshing(false);
       })
       .catch((err) => {
@@ -63,7 +64,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
     //Fonction qui va appelé la fonction getAllPublications au chargement de la page
     useEffect(() => {
       getAllPublications()
-        }, []);
+    }, []);
     
 
     return (

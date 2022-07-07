@@ -8,9 +8,9 @@ import color from '../../assets/theme/color';
 import { ADDPUBLICATION, MYPUBLICATION } from '../../constants/routesName';
 import { RouteParams } from '../../navigations/AuthNavigator';
 import { PublicationContent } from './PublicationContent';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@ant-design/react-native';
-import { axiosInstance } from '../../helpers/axios.interceptor';
+import { axiosInstance, axiosWithoutToken } from '../../helpers/axios.interceptor';
+import IPublicationsData, { defaultPublications } from '../../Types/Publications.type';
 
    // définition des méthodes /propriétés de MyPublicationContent
 interface MyPublicationProps {
@@ -31,6 +31,8 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
   //de type <string> et vide par défault
   const [myprofil, setMyProfil] = useState("")
 
+  const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
+
   //Fonction qui récupere les datas de l'utilisateur en cours (connécté)
   const getMyProfil = async () => {
     axiosInstance.get('/utilisateur/monprofil')
@@ -43,9 +45,21 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
       });
   }
 
-    //Fonction qui appelle la fonction getMyProfil au chargement de la page
+  const getAllPublications = () => {
+    axiosWithoutToken.get<IPublicationsData[]>('/ressource')
+      .then((res) => {
+        setPublications(res.data)
+        setRefreshing(false);
+      })
+      .catch((err) => {
+        console.log(err)
+
+      });
+  }
+
+    //Fonction qui va appelé la fonction getAllPublications au chargement de la page
     useEffect(() => {
-      getMyProfil()
+      getAllPublications()
         }, []);
     
     return (
@@ -57,24 +71,26 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
             <RefreshControl refreshing={refreshing} onRefresh={getMyProfil} />
           }
         style={{paddingHorizontal: responsiveWidth(5), paddingBottom: responsiveWidth(10), paddingTop: responsiveWidth(5)}}>
-          {myprofil?.ressources?.map(((item, index: number) => {
+          {publications.filter(itm => itm?.utilisateur?._id === myprofil?._id).map(((item, index: number) => {
             return (
               <Fragment key={index}>
                 <PublicationContent
-                  pseudo={myprofil?.pseudo}
+                  id={item?._id}
+                  pseudo={item?.utilisateur?.pseudo}
                   texte={item.texte}
                   titre={item.titre}
                   image={item.image}
+                  imageUser={item?.utilisateur?.image}
                   date_creation={item.date_creation}
-                  nb_reaction={item.nb_reaction}
-                  myPublication
-                  id={item?._id}
-                  imageUser={myprofil?.image}
+                  nb_reaction={item.nb_reaction} 
+                  utilisateur={item?.utilisateur?._id}
+                  _id={myprofil?._id}
+                  myPublication={true}
+                  commentaires={item?.commentaires}
                 />
               </Fragment>
             )
-          })).slice(0, isHome ? 2 : myprofil?.ressources?.length)}
-          
+          })).slice(0,2)}
           {isHome && (
             <Button
               style={{ marginHorizontal: responsiveWidth(5), borderRadius: 16 }}

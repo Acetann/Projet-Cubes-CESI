@@ -4,25 +4,22 @@ import moment from "moment";
 import React, { Fragment } from "react";
 import { Modal, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors, lightColors } from "../../../config/colors/colors";
-import { ADDPUBLICATION, ADD_COMMENTAIRE } from "../../constants/routesName";
+import { ADD_COMMENTAIRE } from "../../constants/routesName";
 import { RouteParams } from "../../navigations/AuthNavigator";
 import { CustomButton } from "../common/Button";
 
 // définition des méthodes /propriétés de ModalCommentaire
 interface ListCommentaireProps {
     id: string,
-    pseudo: string;
-    image: string;
-    description?: [];
-    date_creation: Date;
+    reponse: [],
     visible: boolean;
     closeModal: () => void;
 }
 
-export const ModalCommentaire: React.FunctionComponent<ListCommentaireProps> = ({ pseudo, image, date_creation, visible, description, id, closeModal }) => {
+export const ModalCommentaire: React.FunctionComponent<ListCommentaireProps> = ({ visible, reponse, id, closeModal }) => {
 
     //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
@@ -30,29 +27,21 @@ export const ModalCommentaire: React.FunctionComponent<ListCommentaireProps> = (
     return (
         <Modal animationType="slide" transparent={true} visible={visible} onDismiss={closeModal}>
             <View style={styles.centeredView}>
-
                 <View style={{ alignItems: 'center', justifyContent:'space-between', marginHorizontal: responsiveWidth(5), marginVertical:responsiveWidth(2), flexDirection: 'row'}}>
-                   <Text style={{fontSize: 12}}>{`commentaire`}</Text> 
+                   <Text style={{fontSize: 12}}>{`${reponse?.length} commentaire(s)`}</Text> 
                     <TouchableOpacity
                         onPress={closeModal}>
                         <Icon name="close" color="black" size={40} />
                     </TouchableOpacity>
                 </View>
-
                 <View style={{ flex: 1, marginHorizontal: responsiveWidth(5), paddingVertical: responsiveWidth(2) }}>
                     <TouchableOpacity
                         onPress={() => {navigation.navigate(ADD_COMMENTAIRE, { id: id})}}
                         onPressOut={closeModal}>  
-                        <CustomButton secondary title={"Ajouter un commentaire"}>Ajouter un commentaire</CustomButton>
+                        <CustomButton secondary title={"Ajouter un commentaire"} />
                     </TouchableOpacity>
-
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {/* <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 40, marginRight: responsiveWidth(3) }} /> */}
-                       
-                    </View>
-
                     <ScrollView style={{ flexDirection: 'column' }}>
-                        {description?.map((item, index) => {                        
+                        {reponse?.map((item, index) => {                        
                             return (
                                 <Fragment key={index}>
                                     <View style={{flexDirection: 'row'}}>
@@ -83,7 +72,7 @@ export const ModalCommentaire: React.FunctionComponent<ListCommentaireProps> = (
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-end",
         marginHorizontal: responsiveWidth(5),
         marginVertical: responsiveWidth(50),
         backgroundColor: Colors.white,

@@ -3,15 +3,16 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
-import { axiosInstance } from '../../helpers/axios.interceptor';
-import { RouteParams } from '../../navigations/AuthNavigator';
-import { CustomButton } from '../common/Button';
-import { Input } from '../common/Input'
+import { axiosInstance } from '../../../helpers/axios.interceptor';
+import { RouteParams } from '../../../navigations/AuthNavigator';
+import { CustomButton } from '../../common/Button';
+import { Input } from '../../common/Input';
 
-// définition des méthodes /propriétés de AddCommentaireComponent
-interface commentaireProps {}
 
-export const AddCommentaireComponent: FC<commentaireProps> = () => {
+// définition des méthodes /propriétés de AddReponsesComponent
+interface reponseProps {}
+
+export const AddReponse: FC<reponseProps> = () => {
 
     //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
@@ -26,11 +27,12 @@ export const AddCommentaireComponent: FC<commentaireProps> = () => {
     //Ajoute un nouveau commentaire
     //<param name="id"> Id de la ressource sur laquelle on ajoute le commentaire
     //<param> récupéré dans le navigate de PublicationContent(l.126) grâce à l'objet Route 
-    const addNewCommentaire = () => {
-        axiosInstance.patch(`/ressource/${route?.params?.id}/commentaire`, { 
+    const addNewReponse = () => {
+        axiosInstance.patch(`/commentaire/reponse/${route?.params?.id}`, { 
             description //variable concernée par la requête
         })
         .then((res) => {
+            console.log(res)
             navigation.goBack()
         })
         .catch((err) => {
@@ -42,12 +44,10 @@ export const AddCommentaireComponent: FC<commentaireProps> = () => {
         <View style={{ margin: responsiveWidth(5) }}>
             {/* enregistre la nouvelle valeur du field correspondant dans l'objet description */}
             <Input placeholder='Description' onChangeText={(text: string) => setDescription(text)} /> 
-            <View style={{ padding: 20, alignItems: 'center' }}>
-            </View>
             <CustomButton
                 style={{ borderRadius: 16 }}
                 title={'Envoyer'}
-                onPress={addNewCommentaire}
+                onPress={addNewReponse}
                 secondary
             />
         </View>

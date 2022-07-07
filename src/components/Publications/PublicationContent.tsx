@@ -8,10 +8,9 @@ import { responsiveHeight, responsiveWidth, useResponsiveWidth } from "react-nat
 import { Colors, lightColors } from "../../../config/colors/colors";
 import { mainStyle } from "../../../styles/styles";
 import { format } from "../../../utils/Number";
-import { EDIT_PUBLICATION } from "../../constants/routesName";
+import { COMMENTAIRE, EDIT_PUBLICATION } from "../../constants/routesName";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { RouteParams } from "../../navigations/AuthNavigator";
-import ModalCommentaire from "../Modal/ModalCommentaire";
 
 // définition des méthodes /propriétés de PublicationContent
 interface PublicationContentProps {
@@ -26,7 +25,7 @@ interface PublicationContentProps {
     nb_reaction: Number;
     myPublication?: Boolean;
     utilisateur?: string;
-    commentaires? : []
+    commentaires?: []
   }
 
 export const PublicationContent: React.FunctionComponent<PublicationContentProps> = ({ texte, titre, image, date_creation, pseudo, nb_reaction, myPublication, id, utilisateur,_id, imageUser, commentaires }) => {
@@ -39,21 +38,6 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
   //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     
-    //Déclare une variable d'état
-   //<boolean>
-    //définie sur false par défault
-  const [visible, setVisible] = useState(false);
-
-  //Fonction qui enregistre le booléon visible à true
-  const openModal = () => {
-    setVisible(true);
-  };
-
-  //Fonction qui enregistre le booléon visible à false
-  const closeModal = () => {
-    setVisible(false);
-  };
-
   //Fonction qui permet à l'utilisateur de liker une publication
   //params id récupéré depuis les props de AllPublicationContent
     const onLike = () => {
@@ -104,7 +88,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                       <Text style={{fontSize:10, color: lightColors.mainBlue}}>{`${moment(date_creation).format('DD/MM/YYYY,HH:mm').replace(':','h')}`}</Text>
                     </View>
                 </View>
-                {!myPublication && utilisateur !== _id && (
+                {utilisateur !== _id && (
                   <TouchableOpacity 
                     style={{
                       padding: responsiveWidth(2),
@@ -130,16 +114,18 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                       <Icon name={isLike ? "thumb-up" : "thumb-up-off-alt"} color={Colors.blue} />
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity 
-                onPress={openModal}
-                style={{
-                    padding: responsiveWidth(2),
-                    marginHorizontal: responsiveWidth(2),
-                    borderRadius: 14,
-                  }}>
+                <View style={{alignItems:'center', justifyContent:'center'}}>
+                  <Text style={{color: lightColors.mainBlue}}>{format(commentaires?.length, false)}</Text>
+                  <TouchableOpacity 
+                    onPress={() => navigation.navigate(COMMENTAIRE, {description: commentaires, id: id})}
+                    style={{
+                        padding: responsiveWidth(2),
+                        marginHorizontal: responsiveWidth(2),
+                        borderRadius: 14,
+                    }}>
                     <Icon name="comment" color={Colors.blue} />
-                    
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
                 {myPublication && (
                     <View style={{flexDirection: 'row'}}>
                      <TouchableOpacity onPress={() => {
@@ -166,12 +152,6 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
                     </View>
                 )}
             </View>
-           
-              <ModalCommentaire visible={visible} closeModal={closeModal} description={commentaires} pseudo={pseudo} image={image} date_creation={undefined} id={id}/>
-          
-              
-            
-          
           </View>
       )
   }

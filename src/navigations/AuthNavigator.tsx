@@ -27,7 +27,18 @@ export type RouteParams = {
         titre: string;
         texte: string;
     }
+    Commentaire: {
+        description: [] | undefined;
+        id: string;
+    }
+    Reponse: {
+        reponse: [] | undefined;
+        id: string;
+    }
     AddCommentaire: {
+        id: string
+    }
+    AddReponse: {
         id: string
     }
     Tabs: undefined

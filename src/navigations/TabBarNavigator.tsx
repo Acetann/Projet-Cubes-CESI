@@ -13,7 +13,7 @@ const home = "Accueil";
 const profil = "Profil";
 const publication = "Publication";
 const ami = "Social";
-const settings = "Paramètres"
+const chat = "Channel"
 
 export default function TabBarNavigation(){
     return (
@@ -31,10 +31,10 @@ export default function TabBarNavigation(){
                     iconName = 'book'
                 } else if( rn === ami) {
                     iconName = 'people'
-                }else if(rn === settings) {
-                    iconName = 'settings'
-                }else {
+                }else if(rn === chat) {
                     iconName = 'chat'
+                }else {
+                    iconName = 'settings'
                 }
                 return <Icon name={String(iconName)} size={size} color={color}/>
             },
@@ -44,9 +44,8 @@ export default function TabBarNavigation(){
             <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Profil" component={Profil} />
             <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Publication" component={Publication} />
             <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Social" component={Social} />
-            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Paramètres" component={Settings} />
-
             <Tab.Screen options={{ headerTintColor: Colors.blue }} name="Channel" component={ChannelScreen} />
+            <Tab.Screen  options={{ headerTintColor: Colors.blue}} name="Paramètres" component={Settings} />
           </Tab.Navigator>
     )
 }

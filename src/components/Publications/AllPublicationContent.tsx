@@ -57,7 +57,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
         console.log(err)
 
       });
-    getMyProfil()
+    getMyProfil();
   }
 
     //Fonction qui va appelé la fonction getAllPublications au chargement de la page
@@ -80,7 +80,7 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
           }
           >
           {/* Mapage du tableau publications pour récuperer chaque donnée contenue dedans individuellement */}
-          {publications.filter((itm,index) => Boolean(isHome) ? publications.length : index < 2).map(((item, index) => {
+          {publications.map(((item, index) => {
             return (
               <Fragment key={index}>
                 <PublicationContent

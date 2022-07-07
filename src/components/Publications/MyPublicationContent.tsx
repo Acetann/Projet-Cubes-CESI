@@ -12,30 +12,38 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@ant-design/react-native';
 import { axiosInstance } from '../../helpers/axios.interceptor';
 
+   // définition des méthodes /propriétés de MyPublicationContent
 interface MyPublicationProps {
   isHome: Boolean;
 }
 
 export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> = ({ isHome }) => {
 
+    //Fonction qui donne accès à la navigation et permet de récuperer les props de RouteParams
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
+
+   //Déclare une variable d'état
+   //<boolean>
+   //définie sur true car les données sont récupérées lors de l'ouverture de l'app
   const [refreshing, setRefreshing] = useState(true);
+
+  //Déclare une variable d'état
+  //de type <string> et vide par défault
   const [myprofil, setMyProfil] = useState("")
 
-
+  //Fonction qui récupere les datas de l'utilisateur en cours (connécté)
   const getMyProfil = async () => {
     axiosInstance.get('/utilisateur/monprofil')
       .then((res) => {
         setMyProfil(res.data)
         setRefreshing(false);
-        /* return res.data */
-        console.log(res.data)
-
       })
       .catch((err) => {
         console.log(err)
       });
   }
+
+    //Fonction qui appelle la fonction getMyProfil au chargement de la page
     useEffect(() => {
       getMyProfil()
         }, []);
@@ -44,6 +52,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
       <>
         {refreshing ? <ActivityIndicator /> : null}
         <ScrollView
+        //Rafraichit la page avec les nouvelles data au scrollDown
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getMyProfil} />
           }
@@ -60,7 +69,7 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
                   nb_reaction={item.nb_reaction}
                   myPublication
                   id={item?._id}
-                  imageUser={item?.utilisateur.image}
+                  imageUser={myprofil?.image}
                   />
               </Fragment>
             )

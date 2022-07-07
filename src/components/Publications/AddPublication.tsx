@@ -56,7 +56,6 @@ const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     // Si validé, l'image est enregistrée dans la variable d'état <image>
     if (!result.cancelled) {
       setImage(result.uri);
-      console.log(result.uri);
     }
   }
 
@@ -75,7 +74,6 @@ const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
     // Si validé, l'image est enregistrée dans la variable d'état <image>
     if (!result.cancelled) {
       setImage(result.uri);
-      console.log(result.uri);
     }
   }
 

@@ -8,6 +8,7 @@ import { LOGIN } from '../../constants/routesName'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteParams } from '../../navigations/AuthNavigator'
+import { Message } from '../common/Message'
 
 // définition des méthodes /propriétés de AddCommentaireComponent
 interface RegisterProps{
@@ -55,19 +56,16 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
 
                 <View style={styles.createSection}>
                     <View style={{ width: "50%" }}>
-                       {/*  {error?.error && (
-                            <Message retry danger retryFn={onSubmit} message={error?.error}/>
-                        )} */}
                         <Input
                             placeholder="Nom"
-                            error={errors.nom || error?.nom?.[0]}
+                            error={errors.nom}
                             onChangeText={(value: string) => {
                                 onChange({name: 'nom', value})
                             }}
                         />
                         <Input
                             placeholder="Prenom"
-                            error={errors.prenom || error?.prenom?.[0]}
+                            error={errors.prenom}
                             onChangeText={(value: string) => {
                                 onChange({ name: 'prenom', value })
                             }}
@@ -78,7 +76,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                 <View>
                     <Input
                         placeholder="Pseudo"
-                        error={errors.pseudo || error?.pseudo}
+                        error={errors.pseudo}
                         onChangeText={(value: string) => {
                             onChange({ name: 'pseudo', value })
                         }}
@@ -87,7 +85,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                     <View>
                     <Input
                         placeholder="Mail"
-                            error={errors.mail || error?.mail}
+                            error={errors.mail}
                         onChangeText={(value: string) => {
                             onChange({ name: 'mail', value })
                         }}
@@ -96,7 +94,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                     <View style={styles.form}>
                     <Input
                         placeholder="Mot de passe"
-                        error={errors.mot_de_passe || error?.mot_de_passe?.[0]}
+                        error={errors.mot_de_passe}
                         icon={
                             <TouchableOpacity
                                 onPress={() => {
@@ -113,7 +111,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                     />
                     <Input
                         placeholder="Confirmer le mot de passe"
-                        error={errors.confirmMdp || error?.confirmMdp?.[0]}
+                        error={errors.confirmMdp}
                         icon={
                             <TouchableOpacity
                                 onPress={() => {

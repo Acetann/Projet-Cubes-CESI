@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
 import { LoginComponent } from "../../components/Login/LoginComponent";
 import login from "../../context/actions/auth/login";
 import { GlobalContext } from "../../context/globalContext";

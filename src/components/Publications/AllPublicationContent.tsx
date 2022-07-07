@@ -23,49 +23,49 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
 
   //Déclare une variable d'état
   //typé selon le modèle de l'interface <IPulicationsData>
-  //définit comme Array vide par défault
+  //définie comme Array vide par défault
   const [publications, setPublications]: [IPublicationsData[], (publications: IPublicationsData[]) => void] = useState(defaultPublications);
 
+   //Déclare une variable d'état
+   //<boolean>
+   //définie sur true car les données sont récupérées lors de l'ouverture de l'app
   const [refreshing, setRefreshing] = useState(true);
 
+  //Déclare une variable d'état
+  //de type <string> et vide par défault
   const [myprofil, setMyProfil] = useState("")
 
-
+  //Fonction qui va récupéré les datas de l'utilisateur connecté
   const getMyProfil = async () => {
     axiosInstance.get('/utilisateur/monprofil')
       .then((res) => {
-        setMyProfil(res.data)
+        setMyProfil(res.data) /* enregistre les données récupérées */
       })
       .catch((err) => {
         console.log(err)
       });
   }
 
-
+  //Fonction qui va récupéré les datas de toutes les publications de tous les users
   const getAllPublications = () => {
-     axiosWithoutToken.get<IPublicationsData[]>('/ressource')
-                .then((res) => {
-                    setPublications(res.data)
-                })
-                .catch((err) => {
-                    console.log(err)
+    axiosWithoutToken.get<IPublicationsData[]>('/ressource')
+      .then((res) => {
+        setPublications(res.data)
+        setRefreshing(false);
+      })
+      .catch((err) => {
+        console.log(err)
 
-                });
+      });
+    getMyProfil()
   }
 
+    //Fonction qui va appelé la fonction getAllPublications au chargement de la page
     useEffect(() => {
-        axiosWithoutToken.get<IPublicationsData[]>('/ressource')
-                .then((res) => {
-                    setPublications(res.data)
-                    setRefreshing(false);
-                })
-                .catch((err) => {
-                    console.log(err)
-
-                });
-                getMyProfil()
+      getAllPublications()
         }, []);
     
+
     return (
       <>
         <ScrollView 
@@ -74,12 +74,13 @@ export const AllPublicationContent: React.FunctionComponent<AllPublicationProps>
           paddingBottom: responsiveWidth(10), 
           paddingTop: responsiveWidth(5)
           }}
+          //Rafraichit la page avec les nouvelles data au scrollDown
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getAllPublications} />
           }
           >
+          {/* Mapage du tableau publications pour récuperer chaque donnée contenue dedans individuellement */}
           {publications.filter((itm,index) => Boolean(isHome) ? publications.length : index < 2).map(((item, index) => {
-            console.log('tableau' , item)
             return (
               <Fragment key={index}>
                 <PublicationContent

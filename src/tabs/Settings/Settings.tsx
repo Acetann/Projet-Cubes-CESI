@@ -31,9 +31,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = () => {
     const getDeleted = () => {
         axiosInstance.delete('/utilisateur/delete')
             .then((res) => {
-                console.log(res.data)
                 AsyncStorage.removeItem('currentUser')
-                console.log(res.data)
                 logout()(authDispatch)
             })
             //gestion des erreur si fail

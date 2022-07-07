@@ -6,6 +6,7 @@ import { GlobalContext } from '../context/globalContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from '@ant-design/react-native';
 
+
 export const AppNavContainer = () => {
     const { authState: {isLoggedIn}} = useContext(GlobalContext);
     const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn)

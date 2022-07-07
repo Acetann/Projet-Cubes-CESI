@@ -31,6 +31,7 @@ export type RouteParams = {
         id: string
     }
     Tabs: undefined
+    Channel: undefined
 }
 
 const AuthStack = createStackNavigator<RouteParams>();

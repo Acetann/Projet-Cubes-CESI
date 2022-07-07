@@ -120,7 +120,7 @@ export const Register = () => {
             });
         }
 
-        //mot_de_pass
+        //mot_de_passe
         if (!form.mot_de_passe) {
             setErrors((prev) => {
                 return { ...prev, mot_de_passe: 'Veuillez renseigner un mot de passe' }

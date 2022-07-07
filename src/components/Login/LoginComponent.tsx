@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteParams } from '../../navigations/AuthNavigator'
 import { Message } from '../common/Message'
+import { Icon } from 'react-native-elements'
 
 // définition des méthodes /propriétés de AddCommentaireComponent
 interface LoginProps {
@@ -81,7 +82,7 @@ export const LoginComponent: React.FC<LoginProps> = ({
                                         onPress={() => {
                                             setIsSecureEntry((prev) => !prev); {/* change le boolean <true/false> pour afficher ou non le mdp */ }
                                         }}>
-                                        <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>  
+                                        <Icon name={isSecureEntry ? "visibility" : "visibility-off"} />
                                     </TouchableOpacity>
                                 }
                                 iconPosition='right'

@@ -57,7 +57,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
                             color: disabled ? 'black' : colors.white,
                             paddingLeft: loading ? 5 : 0,
                         }}>
-                        {loading ? 'Please wait...' : title}
+                        {loading ? 'Connexion en cours' : title}
                     </Text>
                 )}
             </View>

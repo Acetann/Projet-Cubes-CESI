@@ -6,11 +6,12 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RouteParams } from "../../navigations/AuthNavigator";
 
-import { Icon } from "react-native-elements";
 import { axiosInstance } from "../../helpers/axios.interceptor";
 import { CustomButton } from "../../components/common/Button";
 import { PROFILE } from "../../constants/routesName";
 import * as ImagePicker from 'expo-image-picker';
+import { responsiveWidth } from "react-native-responsive-dimensions";
+import { Colors } from "../../../config/colors/colors";
 
 export const Edit_profil = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
@@ -20,19 +21,6 @@ export const Edit_profil = () => {
     const [description, setDescription] = useState(route.params?.description)
     const [mail, setMail] = useState(route.params?.mail)
     const [image, setImage] = useState(route.params?.image)
-
-
-    const data = [
-        {
-            postImg: 'https://cdn.pixabay.com/photo/2022/05/18/17/09/hills-7205745_960_720.jpg'
-        },
-        {
-            postImg: 'https://media.istockphoto.com/photos/solar-panels-fields-on-the-green-hills-picture-id1170098138?b=1&k=20&m=1170098138&s=170667a&w=0&h=RTURvFjZovBtNqborDPqmSR0PxatbZuusKJeUsKS3TM='
-        },
-        {
-            postImg: 'https://media.istockphoto.com/photos/empty-quarter-desert-dunes-rub-al-khali-landscape-picture-id1221129797?b=1&k=20&m=1221129797&s=170667a&w=0&h=Ax8cvgGe9ynXDCtOywQuaR-Lg-4CEPSB_L_looJGt8E='
-        },
-    ]
 
     const updateCurrentUser = () => {
         axiosInstance.patch('utilisateur/update', { 
@@ -117,92 +105,64 @@ export const Edit_profil = () => {
 
 
     return(
-        <View
-            style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'white',
-                marginTop: 32
-            }}>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: 10
-                }}>
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.goBack()
-                    }}>
-                <Icon name="close" style={{fontSize: 35}} />            
-                </TouchableOpacity>
+        <View style={{flex:1,backgroundColor:Colors.white}}>
+            <View style={{marginTop: responsiveWidth(5), marginHorizontal: responsiveWidth(5),alignItems: 'center'}}>
+                {image && (
+                        <TouchableOpacity  onPress={selectChoose}>
+                            <Image
+                                source={{ uri: image }}
+                                style={{width: 150, height: 150, borderRadius: 150}}
+                            />
+                        </TouchableOpacity>
+                )}
             </View>
-            <View style={{padding: 20, alignItems: 'center'}}>
-                {image && <Image
-                    source={{ uri: image }}
-                    style={{width: 150, height: 150, borderRadius: 100}}
-                />}
-                <TouchableOpacity>
-                    <Text
+            <View style={{marginHorizontal: responsiveWidth(5)}}>
+                <View style={{marginVertical: responsiveWidth(2)}}>
+                    <Text>pseudo</Text>
+                    <TextInput
+                        placeholder="pseudo"
+                        onChangeText={(text: string) => setPseudo(text)}
+                        defaultValue={pseudo}
+                        style={{
+                            fontSize: 16,
+                            borderBottomWidth: 1,
+                            borderColor: '#CDCDCD',
+                        }}
+                    />
+                </View>
+                <View style={{marginVertical: responsiveWidth(2)}}>
+                    <Text>description</Text>
+                    <TextInput
+                        placeholder="description"
+                        onChangeText={(text: string) => setDescription(text)}
+                        defaultValue={description}
                     style={{
-                        color: 'blue',
-                        padding: 10,
-                        fontSize: 14
-                    }}
-                    
-                        onPress={selectChoose}>
-                    Modifier photo de profil
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            <View style={{ padding: 10 }}>
-                <Text>pseudo</Text>
-                <TextInput
-                    placeholder="pseudo"
-                    onChangeText={(text: string) => setPseudo(text)}
-                    defaultValue={pseudo}
-                    style={{
-                        fontSize: 16,
+                        fontSize : 16,
                         borderBottomWidth: 1,
                         borderColor: '#CDCDCD',
                     }}
                 />
-            </View>
-            <View style={{padding: 10}}>
-                <Text>description</Text>
-                <TextInput
-                    placeholder="description"
-                    onChangeText={(text: string) => setDescription(text)}
-                    defaultValue={description}
-                style={{
-                    fontSize : 16,
-                    borderBottomWidth: 1,
-                    borderColor: '#CDCDCD',
-                }}
-            />
-            </View>
-            <View style={{ padding: 10 }}>
-                <Text>mail</Text>
-                <TextInput
-                    placeholder="mail"
-                    onChangeText={(text: string) => setMail(text)}
-                    defaultValue={mail}
-                    style={{
-                        fontSize: 16,
-                        borderBottomWidth: 1,
-                        borderColor: '#CDCDCD',
-                    }}
-                />
-            </View>
-         
+                </View>
+                <View style={{marginVertical: responsiveWidth(2)}}>
+                    <Text>mail</Text>
+                    <TextInput
+                        placeholder="mail"
+                        onChangeText={(text: string) => setMail(text)}
+                        defaultValue={mail}
+                        style={{
+                            fontSize: 16,
+                            borderBottomWidth: 1,
+                            borderColor: '#CDCDCD',
+                        }}
+                    />
+                </View>
             <CustomButton
-                title={'submit'}
+                title={'Envoyer'}
                 onPress={updateCurrentUser}
                 secondary
-                style={{marginTop: 50}}
+                style={{marginTop: responsiveWidth(3)}}
             />
-
+            </View>
         </View>
     )
 }

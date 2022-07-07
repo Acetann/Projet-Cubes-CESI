@@ -37,7 +37,7 @@ export const HomeNavigator = () => {
             <HomeStack.Screen options={{ headerTitle: 'Ajouter un commentaire' }} name={ADD_COMMENTAIRE} component={AddCommentaire} ></HomeStack.Screen>
             <HomeStack.Screen name={REPONSE} component={Reponse} ></HomeStack.Screen>
             <HomeStack.Screen options={{ headerTitle: 'Ajouter une réponse' }} name={ADD_REPONSE} component={AddReponse} ></HomeStack.Screen>
-            <HomeStack.Screen name={EDIT_PROFILE} options={{ headerShown: false }} component={Edit_profil} ></HomeStack.Screen>
+            <HomeStack.Screen options={{ headerTitle: 'Modifier mon profil' }} name={EDIT_PROFILE} component={Edit_profil} ></HomeStack.Screen>
             <HomeStack.Screen name={MESSAGE} component={Message} ></HomeStack.Screen>
         </HomeStack.Navigator>
     )

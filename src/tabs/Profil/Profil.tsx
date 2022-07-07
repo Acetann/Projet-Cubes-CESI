@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ScrollView, Text, View, Image, StyleSheet, RefreshControl, ActivityIndicator } from "react-native";
 import color from "../../assets/theme/color";
 import { CustomButton } from "../../components/common/Button";
-import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteParams } from "../../navigations/AuthNavigator";
@@ -21,17 +20,6 @@ const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>();
 const [refreshing, setRefreshing] = useState(true);
 const [myprofil, setMyProfil] = useState("")
 
-const data = [
-    {
-        postImg: 'https://cdn.pixabay.com/photo/2022/05/18/17/09/hills-7205745_960_720.jpg'
-    },
-    {
-        postImg: 'https://media.istockphoto.com/photos/solar-panels-fields-on-the-green-hills-picture-id1170098138?b=1&k=20&m=1170098138&s=170667a&w=0&h=RTURvFjZovBtNqborDPqmSR0PxatbZuusKJeUsKS3TM='
-    },
-    {
-        postImg: 'https://media.istockphoto.com/photos/empty-quarter-desert-dunes-rub-al-khali-landscape-picture-id1221129797?b=1&k=20&m=1221129797&s=170667a&w=0&h=Ax8cvgGe9ynXDCtOywQuaR-Lg-4CEPSB_L_looJGt8E='
-    },
-]
     const getMyProfil = async () => {
         axiosInstance.get('/utilisateur/monprofil')
             .then((res) => {
@@ -100,23 +88,18 @@ const data = [
                     style={{color}}
                 />
                 <Text style={{fontSize:18, color: 'black',  marginTop: 10, fontWeight: 'bold', marginBottom: 20}}>{'Galerie'}</Text>
-                <View style={{borderWidth: StyleSheet.hairlineWidth, borderColor: 'black'}}></View>
-                <FlatList
-                    ListHeaderComponent={<></>}
-                    data={myprofil?.ressources}
-                    numColumns={3}
-                    horizontal={false}
-                    keyExtractor={(item, index) => {
-                        return index.toString()
-                    }}
-                    renderItem = {({item}) => {
-                        return(
-                            <View style={{flex:1,marginTop: responsiveWidth(5),justifyContent:'space-between', alignItems:'center'}}>
-                                <Image source={{uri: item.image}} style={styles.headerImage}/>
-                            </View>
+                <View style={{borderWidth: 1}}/>
+                <ScrollView style={{ marginTop: responsiveWidth(5)}}>
+                    {myprofil?.ressources?.map((item,index: number) => {
+                        return (
+                            <Fragment key={index}>
+                                <View style={{flexDirection:'row',flexWrap:'wrap', justifyContent:'space-around'}}>
+                                    <Image source={{uri: item.image}} style={styles.headerImage}/>
+                                </View>
+                            </Fragment>
                         )
-                    }}
-                />
+                    })}        
+                </ScrollView>
                 <View style={{marginBottom: responsiveWidth(5)}} />
             </ScrollView>
         </>
@@ -128,8 +111,4 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120
     },
-    container: {
-        flex: 1,
-        padding: 10
-    }
 })

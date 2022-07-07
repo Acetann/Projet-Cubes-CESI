@@ -60,8 +60,8 @@ export const MyPublicationContent: React.FunctionComponent<MyPublicationProps> =
                   nb_reaction={item.nb_reaction}
                   myPublication
                   id={item?._id}
-                  imageUser={item?.utilisateur.image}
-                  />
+                  imageUser={myprofil?.image}
+                />
               </Fragment>
             )
           })).slice(0, isHome ? 2 : myprofil?.ressources?.length)}

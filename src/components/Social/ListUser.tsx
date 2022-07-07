@@ -7,6 +7,7 @@ import { axiosInstance } from "../../helpers/axios.interceptor";
 import ModalUser from "../Modal/ModalUser";
 
 interface ListUserProps {
+    userId: string;
     nom: string;
     prenom: string;
     pseudo: string;
@@ -15,7 +16,7 @@ interface ListUserProps {
     utilisateur: string;
 }
 
-export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne,utilisateur}) => {
+export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, abonne,utilisateur,userId}) => {
     const [isAbonne, setIsAbonne] = useState(false);
     const [visible, setVisible] = useState(false);
 
@@ -73,7 +74,7 @@ export const ListUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, p
                     onPress={() => {}}
                 />
             </View>
-            <ModalUser nom={nom} prenom={prenom} image={image} pseudo={pseudo} visible={visible} closeModal={closeModal} />
+            <ModalUser nom={nom} prenom={prenom} image={image} pseudo={pseudo} visible={visible} closeModal={closeModal} utilisateur={userId} />
         </View>
     )
 }

@@ -1,8 +1,10 @@
-import React from "react";
-import { Modal, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { Button } from "@ant-design/react-native";
+import React, { useState } from "react";
+import { Modal, StyleSheet, Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import { Icon } from "react-native-elements";
 import { responsiveWidth } from "react-native-responsive-dimensions";
 import { Colors } from "../../../config/colors/colors";
+import { axiosInstance } from "../../helpers/axios.interceptor";
 
 // définition des méthodes /propriétés de modalUser
 interface ListUserProps {
@@ -10,12 +12,43 @@ interface ListUserProps {
     prenom: string;
     pseudo: string;
     image: string;
+    utilisateur: string;
     visible: boolean;
     closeModal: () => void;
 }
 
-export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, visible, closeModal}) => {
+export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, pseudo, image, visible, closeModal, utilisateur}) => {
 
+    const [isSignaled, setIsSignaled] = useState(false)
+    const signalUser = () => {
+        axiosInstance.post(`/utilisateur/signalement/${utilisateur}`)
+            .then((res) => {
+                console.log("Signalement réussi")
+                if (isSignaled) {
+                    setIsSignaled(false)
+                } else {
+                    setIsSignaled(true)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+
+            });
+    }
+    const getSignalement = () => {
+        Alert.alert('Signalement!', 'Es-tu sûr de vouloir signaler cet utilisateur ?', [
+            {
+                text: 'Annuler',
+                onPress: () => {}
+            },
+            {
+                text: 'Oui',
+                onPress: () => {
+                    signalUser()
+                }
+            },
+        ]);
+    }
   return (
     <Modal animationType="slide"  transparent={true} visible={visible} onDismiss={closeModal}>
         <View style={styles.centeredView}>
@@ -34,8 +67,9 @@ export const ModalUser: React.FunctionComponent<ListUserProps> = ({nom, prenom, 
                     <TouchableOpacity onPress={closeModal}>
                         <Icon name="close" color="black" size={40} />
                     </TouchableOpacity>
-                </View>
-            </View>   
+                </View> 
+            </View>
+            <Button children={ <Text style={{color: Colors.white}}>{'Signalement'}</Text>} onPress={getSignalement} style={{marginBottom:responsiveWidth(5),marginHorizontal:responsiveWidth(5), backgroundColor: Colors.orangeGold}}  />
         </View>
     </Modal>
   );

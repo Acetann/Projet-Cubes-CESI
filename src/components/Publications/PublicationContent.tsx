@@ -89,7 +89,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               backgroundColor: Colors.darkMainGrey,
             }]}>
               <View style={{flexDirection:'row', alignItems:'center'}}>
-                <Image source={{uri: imageUser}} style={{backgroundColor:'black', width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>
+                <Image source={{uri: imageUser}} style={{ width: 40,height: 40,borderRadius:40,marginRight: responsiveWidth(3)}}/>
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row', marginBottom: responsiveWidth(2)}}>
                         <Text style={{ color: 'black', marginRight: responsiveWidth(2)}}>{pseudo || "Anonyme"}</Text>

@@ -90,15 +90,13 @@ const [myprofil, setMyProfil] = useState("")
                 <Text style={{fontSize:18, color: 'black',  marginTop: 10, fontWeight: 'bold', marginBottom: 20}}>{'Galerie'}</Text>
                 <View style={{borderWidth: 1}}/>
                 <ScrollView style={{ marginTop: responsiveWidth(5)}}>
-                    {myprofil?.ressources?.map((item,index: number) => {
-                        return (
-                            <Fragment key={index}>
-                                <View style={{flexDirection:'row',flexWrap:'wrap', justifyContent:'space-around'}}>
+                    <View style={{flex:1,flexDirection:'row', flexWrap:'wrap', justifyContent:'space-around'}}>
+                        {myprofil?.ressources?.map((item,index: number) => {
+                                return (
                                     <Image source={{uri: item.image}} style={styles.headerImage}/>
-                                </View>
-                            </Fragment>
-                        )
-                    })}        
+                                )
+                        })} 
+                    </View>
                 </ScrollView>
                 <View style={{marginBottom: responsiveWidth(5)}} />
             </ScrollView>

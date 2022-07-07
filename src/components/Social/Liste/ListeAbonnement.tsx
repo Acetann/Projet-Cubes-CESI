@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
-import { Colors } from '../../../../config/colors/colors';
 import { axiosInstance } from '../../../helpers/axios.interceptor';
 import IUtilisateursData, { defaultUtilisateurs } from '../../../Types/User/Utilisateur.type';
 import { ListUser } from '../ListUser';
@@ -11,20 +10,9 @@ interface ListAbonnementProps {
 }
 
 export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ abonne }) => {
-    const [isVisible, setVisible] = useState(false);
     const [userAbonnement, setUserAbonnement]: [IUtilisateursData[], (publications: IUtilisateursData[]) => void] = useState(defaultUtilisateurs);
     const [refreshing, setRefreshing] = useState(true);
-    const [modalVisible, setModalVisible] = useState(false);
 
-    const openModal = () => {
-        setModalVisible(true);
-        setVisible(true);
-    };
-
-    const closeModal = () => {
-        setModalVisible(false);
-        setVisible(false);
-    };
 
     const getAbonnements = () => {
         axiosInstance.get<IUtilisateursData[]>('/utilisateur/abonnement')
@@ -60,6 +48,7 @@ export const ListAbonnement: React.FunctionComponent<ListAbonnementProps> = ({ a
                             pseudo={item?.utilisateur?.pseudo}
                             image={item?.utilisateur?.image}
                             utilisateur={item?.abonnement?._id}
+                            userId={item?.utilisateur?._id}
                         />
                     </Fragment>
                 )

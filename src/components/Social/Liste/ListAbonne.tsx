@@ -50,6 +50,7 @@ export const ListAbonne: React.FunctionComponent<ListAbonneProps> = ({abonne}) =
                     abonne={abonne}
                     image={item?.abonnement?.image}
                     utilisateur={item?.abonnement?._id}
+                    userId={item?._id}
                   />
                 </Fragment>
               )

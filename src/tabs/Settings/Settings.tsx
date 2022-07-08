@@ -70,7 +70,6 @@ export const Settings: React.FunctionComponent<SettingsProps> = () => {
                     onPress={deleteAccount} 
                     title={'Supprimer mon compte'}  
                     danger 
-                    disabled={true}
                 /> 
             </View>
     )

@@ -93,7 +93,9 @@ const [myprofil, setMyProfil] = useState("")
                     <View style={{flex:1,flexDirection:'row', flexWrap:'wrap', justifyContent:'space-around'}}>
                         {myprofil?.ressources?.map((item,index: number) => {
                                 return (
-                                    <Image source={{uri: item.image}} style={styles.headerImage}/>
+                                    <Fragment key={index}>
+                                        <Image source={{uri: item.image}} style={styles.headerImage}/>
+                                    </Fragment>
                                 )
                         })} 
                     </View>

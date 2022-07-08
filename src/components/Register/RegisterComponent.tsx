@@ -109,7 +109,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                             onChange({ name: 'mot_de_passe', value })
                         }}
                     />
-                    <Input
+                    {/* <Input
                         placeholder="Confirmer le mot de passe"
                         error={errors.confirmMdp}
                         icon={
@@ -125,7 +125,7 @@ export const RegisterComponent: React.FC<RegisterProps> = ({
                         onChangeText={(value: string) => {
                             onChange({ name: 'confirmMdp', value })
                         }}
-                    />
+                    /> */}
                     <CustomButton
                     onPress={onSubmit} 
                     disabled={loading}

@@ -80,6 +80,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
 
       });
   };
+  console.log(image)
       return (
             <View style={[mainStyle.shadow,{
               padding: responsiveWidth(3),
@@ -114,7 +115,7 @@ export const PublicationContent: React.FunctionComponent<PublicationContentProps
               <Text style={{color: lightColors.mainBlue, textAlign:'center',marginVertical: responsiveWidth(2)}}>{titre}</Text>
                 {texte !== undefined && <Text style={{color: lightColors.mainBlue}}>{texte}</Text>}
                 <View style={{alignItems:'center', justifyContent:'center', marginVertical: responsiveWidth(2)}}>
-                  {image !== undefined && (<Image source={{uri: image}} style={{backgroundColor:'black', width: '100%',height: 200}}/>)}
+                  {image !== null && (<Image source={{uri: image}} style={{ width: '100%',height: 200}}/>)}
                 </View>
               <View style={{flexDirection:'row',alignItems:'flex-end', justifyContent:'space-between', marginTop: responsiveWidth(5), marginHorizontal:responsiveWidth(10)}}>
                 <View style={{alignItems:'center', justifyContent:'center'}}>
